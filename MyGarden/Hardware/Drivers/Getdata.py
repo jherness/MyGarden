@@ -1,5 +1,3 @@
-import json
-
 def getdata():
     return {
         "key1": 1,
@@ -9,14 +7,5 @@ def getdata():
         "key5": 5,
         "key6": 6
     }
-
-
-def main():
-    return getdata()
-
-
-
-if __name__ == '__main__':
-    main()
 
 
