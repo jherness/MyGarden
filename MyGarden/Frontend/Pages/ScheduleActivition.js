@@ -3,21 +3,14 @@ import { Stack, Button ,Flex,Text} from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Wrap, Box, Divider ,HStack, VStack,TextInput} from "@react-native-material/core";
 import { View, Image, StyleSheet } from 'react-native';
-import Dropdown from'./DropDown';
+import Dropdown from'../Components/DropDown';
+import DropdownDay from'../Components/DropDownDays';
 
 
-
-
-
-const Remote = () => (
-
+const Schedule = () => (
   
-
-  
-  <VStack fill center spacing={-40} 
-  >
-  <HStack fill center spacing={0} > 
-
+  <VStack fill center spacing={-50}>
+  <HStack  > 
   <Flex direction="column">
     <Text variant="h4" style={{ margin: 16 }} color="aquamarine" >
     Greetings
@@ -35,35 +28,27 @@ const Remote = () => (
     </Text>
     <Icon size={30} name="temperature-celsius"/>
     <Icon size={30} name="weather-partly-cloudy"/>
-    
-
-    
-     
-    
-    
     </Flex>
-    
   </HStack>
   <HStack>
   <Text variant="h6" style={{ marginTop: 90}}
      >
-    Remote
+    Schedule
     </Text>
     <Text variant="h6" color="aquamarine"
-    style={{ marginTop: 90,marginBottom:50}}
+    style={{ marginTop: 90}}
     
      >
      Activtion    
-     
-     </Text> </HStack>
-   
-    
-  
-    
+     </Text> 
+     </HStack>
+    <VStack fill center spacing={2}>
 
+    <DropdownDay/>
 
-  
-   <VStack fill center spacing={1}>
+    </VStack>
+   <VStack fill center spacing={20}>
+     <Dropdown />
    <TextInput
       label="Starting Time"
       leading={props => <Icon name="clock-plus-outline" {...props} />}
@@ -74,24 +59,22 @@ const Remote = () => (
       leading={props => <Icon name="clock-plus-outline" {...props} />}
       
     />
-    <Dropdown/>
+
 
 
     
      <Button
       style={{
-         maxWidth: "100px",
-          maxHeight: "100px",
-          minWidth: "150px",
-          minHeight: "40px",
-          marginTop :"30px"
+         maxWidth: "50%",
+          maxHeight: "20%",
+          minWidth: "5%",
+          minHeight: "5%",
+          marginTop:"3%"
       }}
-      
-      
       color="aquamarine"
-      
-      title="Start Activition"
-      leading={props => <Icon name="remote" {...props} />}
+      witch
+      title="Schedule"
+      leading={props => <Icon name="calendar-month" {...props} />}
     />
      
     </VStack>
@@ -105,4 +88,4 @@ const Remote = () => (
   </VStack>
 );
 
-export default Remote;
+export default Schedule;

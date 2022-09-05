@@ -5,7 +5,6 @@ import { Wrap, Box, Divider ,HStack, VStack,TextInput} from "@react-native-mater
 import { View, Image, StyleSheet } from 'react-native';
 
 
-
 const styles = StyleSheet.create({
   container: {
     paddingTop: 50,
@@ -18,7 +17,6 @@ const styles = StyleSheet.create({
 });
 
 ;
-
 
 const Analythics = () => (
 
