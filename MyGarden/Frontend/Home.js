@@ -11,9 +11,9 @@ import {
 
 const Home = () => (
   <VStack fill center spacing={1}>
-    <HStack fill center spacing={20}>
-      <Flex direction="column" >
-        <Text variant="h3" style={{}} color="aquamarine">
+    <HStack fill center spacing={50} style={{ marginTop: 40 }}>
+      <Flex direction="Row">
+        <Text variant="h3" color="aquamarine">
           Greetings
         </Text>
         <Text variant="h4" style={{ margin: 7 }}>
@@ -22,22 +22,21 @@ const Home = () => (
       </Flex>
 
       <Flex direction="Row" center>
-        <Text variant="h6" >
-          Temp
-        </Text>
+        <Text variant="h6">Temp</Text>
         <Icon size={30} name="temperature-celsius" />
         <Icon size={30} name="weather-partly-cloudy" />
       </Flex>
     </HStack>
+    <HStack fill spacing={20}></HStack>
 
     <HStack fill center spacing={20}>
       <Button
         style={{
           justifyContent: "center",
           maxWidth: "40%",
-          maxHeight: "30%",
-          minWidth: "25%",
-          minHeight: "20%",
+          maxHeight: "100%",
+          minWidth: "40%",
+          minHeight: "80%",
         }}
         color="aquamarine"
         witch
@@ -49,9 +48,9 @@ const Home = () => (
         style={{
           justifyContent: "center",
           maxWidth: "40%",
-          maxHeight: "30%",
-          minWidth: "25%",
-          minHeight: "20%",
+          maxHeight: "100%",
+          minWidth: "40%",
+          minHeight: "80%",
         }}
         color="aquamarine"
         title="Activtion History"
@@ -63,28 +62,32 @@ const Home = () => (
         style={{
           justifyContent: "center",
           maxWidth: "40%",
-          maxHeight: "30%",
-          minWidth: "25%",
-          minHeight: "20%",
+          maxHeight: "100%",
+          minWidth: "40%",
+          minHeight: "80%",
         }}
         color="aquamarine"
         witch
-        title="Analythics"
-        leading={(props) => <Icon name="chart-bar" {...props} />}
+        title="Analytics"
+        leading={(props) => <Icon name="calendar-month" {...props} />}
+        onPressonPress={() => navigation.navigate}
       />
       <Button
         style={{
           justifyContent: "center",
           maxWidth: "40%",
-          maxHeight: "30%",
-          minWidth: "25%",
-          minHeight: "20%",
+          maxHeight: "100%",
+          minWidth: "40%",
+          minHeight: "80%",
         }}
         color="aquamarine"
         title="Remote Activtion"
-        leading={(props) => <Icon name="remote" {...props} />}
+        leading={(props) => <Icon name="history" {...props} />}
       />
     </HStack>
+
+    <HStack fill spacing={20}></HStack>
+    <HStack fill spacing={20}></HStack>
   </VStack>
 );
 
