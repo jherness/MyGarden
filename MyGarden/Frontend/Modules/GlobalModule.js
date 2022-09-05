@@ -14,7 +14,7 @@ export const getHeadlineText = (currentTime) => {
 
 
 export const getUser = () => {
-    /*TODO: Fetch data from server about the user*/
+    /*TODO: Fetch data from server about the user/check if in local storage first*/
     return new User();
 }
 

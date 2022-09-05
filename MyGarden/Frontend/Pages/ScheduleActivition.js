@@ -5,6 +5,7 @@ import { Wrap, Box, Divider ,HStack, VStack,TextInput} from "@react-native-mater
 import { View, Image, StyleSheet } from 'react-native';
 import Dropdown from'../Components/DropDown';
 import DropdownDay from'../Components/DropDownDays';
+import Greetings from "../Components/Greetings";
 
 
 const Schedule = () => (
@@ -12,22 +13,7 @@ const Schedule = () => (
   <VStack fill center spacing={-50}>
   <HStack  > 
   <Flex direction="column">
-    <Text variant="h4" style={{ margin: 16 }} color="aquamarine" >
-    Greetings
-    </Text>
-     <Text variant="h5" style={{ margin: 16 }}>
-      Nir
-    </Text>
-    
-    
-    </Flex>
-     <Flex direction="Row">
-    <Text variant="h6" style={{ marginBottom: 16 }}
-     >
-    Temp
-    </Text>
-    <Icon size={30} name="temperature-celsius"/>
-    <Icon size={30} name="weather-partly-cloudy"/>
+    <Greetings/>
     </Flex>
   </HStack>
   <HStack>
