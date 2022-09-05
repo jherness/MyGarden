@@ -15,7 +15,7 @@ const Home = () => (
   
 
   
-  <VStack fill center spacing={-40} 
+  <VStack fill center spacing={-25} 
   >
   <HStack fill center spacing={0} > 
 
@@ -36,11 +36,6 @@ const Home = () => (
     </Text>
     <Icon size={30} name="temperature-celsius"/>
     <Icon size={30} name="weather-partly-cloudy"/>
-    
-
-    
-     
-    
     
     </Flex>
   </HStack>

@@ -7,19 +7,10 @@ import Dropdown from'./DropDown';
 import DropdownDay from'./DropDownDays';
 
 
-
-;
-
-
 const Schedule = () => (
-
   
-
-  
-  <VStack fill center spacing={-40} 
-  >
+  <VStack fill center spacing={-50}>
   <HStack  > 
-
   <Flex direction="column">
     <Text variant="h4" style={{ margin: 16 }} color="aquamarine" >
     Greetings
@@ -37,14 +28,7 @@ const Schedule = () => (
     </Text>
     <Icon size={30} name="temperature-celsius"/>
     <Icon size={30} name="weather-partly-cloudy"/>
-    
-
-    
-     
-    
-    
     </Flex>
-    
   </HStack>
   <HStack>
   <Text variant="h6" style={{ marginTop: 90}}
@@ -58,25 +42,13 @@ const Schedule = () => (
      Activtion    
      </Text> 
      </HStack>
-   
-    
-  
-    
     <VStack fill center spacing={2}>
 
     <DropdownDay/>
 
     </VStack>
-    
-
-
-     
-
-  
    <VStack fill center spacing={20}>
      <Dropdown />
-   
-
    <TextInput
       label="Starting Time"
       leading={props => <Icon name="clock-plus-outline" {...props} />}
@@ -93,14 +65,12 @@ const Schedule = () => (
     
      <Button
       style={{
-         maxWidth: "100px",
-          maxHeight: "100px",
-          minWidth: "150px",
-          minHeight: "40px",
-          marginTop:"30px"
+         maxWidth: "50%",
+          maxHeight: "20%",
+          minWidth: "5%",
+          minHeight: "5%",
+          marginTop:"3%"
       }}
-      
-      
       color="aquamarine"
       witch
       title="Schedule"
