@@ -1,111 +1,90 @@
 import React from "react";
-import { Stack, Button ,Flex,Text} from "@react-native-material/core";
+import { Stack, Button, Flex, Text } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { Wrap, Box, Divider ,HStack, VStack} from "@react-native-material/core";
+import {
+  Wrap,
+  Box,
+  Divider,
+  HStack,
+  VStack,
+} from "@react-native-material/core";
 
-
-function RemoteScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <RemoreActivition/>
-    </View>
-  );}
 const Home = () => (
+  <VStack fill center spacing={1}>
+    <HStack fill center spacing={20}>
+      <Flex direction="column" >
+        <Text variant="h3" style={{}} color="aquamarine">
+          Greetings
+        </Text>
+        <Text variant="h4" style={{ margin: 7 }}>
+          Nir
+        </Text>
+      </Flex>
 
-  
-
-  
-  <VStack fill center spacing={-25} 
-  >
-  <HStack fill center spacing={0} > 
-
-  <Flex direction="column">
-    <Text variant="h4" style={{ margin: 16 }} color="aquamarine" >
-    Greetings
-    </Text>
-     <Text variant="h5" style={{ margin: 16 }}>
-      Nir
-    </Text>
-    
-    
-    </Flex>
-     <Flex direction="Row">
-    <Text variant="h6" style={{ marginBottom: 16 }}
-     >
-    Temp
-    </Text>
-    <Icon size={30} name="temperature-celsius"/>
-    <Icon size={30} name="weather-partly-cloudy"/>
-    
-    </Flex>
-  </HStack>
-  
-    
-
-
-  
-   <HStack fill center spacing={1}>
-     <Button
-      style={{
-         maxWidth: "100px",
-          maxHeight: "100px",
-          minWidth: "150px",
-          minHeight: "40px"
-      }}
-      
-      
-      color="aquamarine"
-      witch
-      title="Schedule Activtion"
-      leading={props => <Icon name="calendar-month" {...props} />}
-     onPressonPress={() => navigation.navigate}/>
-     <Button
-     style={{
-         maxWidth: "100px",
-          maxHeight: "100px",
-          minWidth: "150px",
-          minHeight: "40px"
-      }}
-      color="aquamarine"
-      title="Activtion History"
-      leading={props => <Icon name="history"  style={{marginTop:20}} {...props} />}
-    />
-
-
-     </HStack>
-      <HStack fill center spacing={1}>
-       <Button
-       style={{
-         maxWidth: "100px",
-          maxHeight: "100px",
-          minWidth: "150px",
-          minHeight: "40px"
-      }}
-      
-      color="aquamarine"
-      witch
-      title="Analythics"
-      leading={props => <Icon name="chart-bar"  style={{marginTop:20}} {...props} />}
-    />
-     <Button
-     style={{
-         maxWidth: "100px",
-          maxHeight: "100px",
-          minWidth: "150px",
-          minHeight: "40px"
-      }}
-      color="aquamarine"
-      title="Remote Activtion"
-      leading={props => <Icon name="remote"  style={{marginTop:20}} {...props} />}
-    />
+      <Flex direction="Row" center>
+        <Text variant="h6" >
+          Temp
+        </Text>
+        <Icon size={30} name="temperature-celsius" />
+        <Icon size={30} name="weather-partly-cloudy" />
+      </Flex>
     </HStack>
 
-
-
-
-     
-  
-    
+    <HStack fill center spacing={20}>
+      <Button
+        style={{
+          justifyContent: "center",
+          maxWidth: "40%",
+          maxHeight: "30%",
+          minWidth: "25%",
+          minHeight: "20%",
+        }}
+        color="aquamarine"
+        witch
+        title="Schedule Activtion"
+        leading={(props) => <Icon name="calendar-month" {...props} />}
+        onPressonPress={() => navigation.navigate}
+      />
+      <Button
+        style={{
+          justifyContent: "center",
+          maxWidth: "40%",
+          maxHeight: "30%",
+          minWidth: "25%",
+          minHeight: "20%",
+        }}
+        color="aquamarine"
+        title="Activtion History"
+        leading={(props) => <Icon name="history" {...props} />}
+      />
+    </HStack>
+    <HStack fill center spacing={20}>
+      <Button
+        style={{
+          justifyContent: "center",
+          maxWidth: "40%",
+          maxHeight: "30%",
+          minWidth: "25%",
+          minHeight: "20%",
+        }}
+        color="aquamarine"
+        witch
+        title="Analythics"
+        leading={(props) => <Icon name="chart-bar" {...props} />}
+      />
+      <Button
+        style={{
+          justifyContent: "center",
+          maxWidth: "40%",
+          maxHeight: "30%",
+          minWidth: "25%",
+          minHeight: "20%",
+        }}
+        color="aquamarine"
+        title="Remote Activtion"
+        leading={(props) => <Icon name="remote" {...props} />}
+      />
+    </HStack>
   </VStack>
 );
 

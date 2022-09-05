@@ -8,6 +8,7 @@ import Home from'./Home';
 import ScheduleActivition from'./ScheduleActivition';
 
 
+
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -18,8 +19,8 @@ function HomeScreen({ navigation }) {
 
 function RemoteScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <RemoreActivition/>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <RemoreActivition />
     </View>
   );
 }
