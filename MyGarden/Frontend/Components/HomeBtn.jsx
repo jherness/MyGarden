@@ -1,21 +1,33 @@
-import { View } from 'react-native'
+import { Text, View, StyleSheet, Pressable } from 'react-native';
 import React from 'react'
-import {
-    Stack,
-    Button,
-    Flex,
-    Text,
-    Switch,
-    Avatar,
-  } from "@react-native-material/core";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+
 
 export default function HomeBtn(props) {
     const title = props.title
-  return (
-    <View>
-        <Text>
-        {title}
-        </Text>
-    </View>
-  )
-}
+    const onPress = props.onPress
+    return (
+        <Pressable style={styles.button} onPress={onPress}>
+          <Text style={styles.text}>{title}</Text>
+        </Pressable>
+      );
+    }
+    
+    const styles = StyleSheet.create({
+      button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth:'43%',
+        height:"60%",
+        marginHorizontal:12,
+        backgroundColor: 'aquamarine',
+        borderRadius:8
+      },
+      text: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'black',
+      },
+    });

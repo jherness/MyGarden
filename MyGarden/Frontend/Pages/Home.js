@@ -16,9 +16,37 @@ export default function Home({ navigation }) {
       <HStack fill center spacing={1}>
         <Greetings />
       </HStack>
-      <HStack fill center spacing={40}>
-        <HomeBtn title="Remote Activation" navigation={navigation} />  
+      <HStack fill center spacing={1}>
+        <Box>
+          <HomeBtn
+            title="Remote Activation"
+            onPress={() => navigation.navigate("Remote Activation")}
+          />
+        </Box>
+        {/*Light ICON AND SWITCH STACK */}
+        <Box>
+          <HomeBtn
+            title="Analythics"
+            onPress={() => navigation.navigate("Analythics")}
+          />
+        </Box>
       </HStack>
+      <HStack fill center spacing={1} >
+        <Box>
+          <HomeBtn
+            title="Schedule Activation"
+            onPress={() => navigation.navigate("Schedule Activation")}
+          />
+        </Box>
+        {/* Light ICON AND SWITCH STACK */}
+        <Box>
+          <HomeBtn
+            title="Activation History"
+            onPress={() => navigation.navigate("Activation History")}
+          />
+        </Box>
+      </HStack>
+      <HStack fill />
     </VStack>
   );
 }
