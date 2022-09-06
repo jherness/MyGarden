@@ -8,13 +8,16 @@ import {
   VStack,
   TextInput,
 } from "@react-native-material/core";
+import HomeBtn from "../Components/HomeBtn.jsx";
 
-export default function Home({navigation}) {
-
+export default function Home({ navigation }) {
   return (
     <VStack fill center spacing={1}>
-      <HStack>
-      <Greetings/>
+      <HStack fill center spacing={1}>
+        <Greetings />
+      </HStack>
+      <HStack fill center spacing={40}>
+        <HomeBtn title="Remote Activation" navigation={navigation} />  
       </HStack>
     </VStack>
   );
