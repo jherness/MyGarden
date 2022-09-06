@@ -8,7 +8,7 @@ import DropdownDay from'../Components/DropDownDays';
 import Greetings from "../Components/Greetings";
 
 
-const Schedule = () => (
+const ScheduleActivation = () => (
   
   <VStack fill center spacing={-50}>
   <HStack  > 
@@ -74,4 +74,4 @@ const Schedule = () => (
   </VStack>
 );
 
-export default Schedule;
+export default ScheduleActivation;

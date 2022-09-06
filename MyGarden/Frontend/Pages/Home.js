@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { View } from 'react-native'
 import Greetings from "../Components/Greetings.jsx";
 
-export default function Home() {
-  
+
+export default function Home({navigation}) {
+
   return (
     <View>
       <Greetings/>

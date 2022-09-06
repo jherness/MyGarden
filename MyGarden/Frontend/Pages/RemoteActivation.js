@@ -21,7 +21,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PageHead from "../Components/PageHead";
 import { RemoteActive } from "../Classes/RemoteActive";
 
-const Remote = () => {
+
+export default function RemoteActivation({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
@@ -95,7 +96,8 @@ const Remote = () => {
         <Wrap m={2} items="center" spacing={10}>
           <Avatar
             size={55}
-            icon={(props) => <Icon name="watering-can" {...props} />}
+            icon={(props) => <Icon name="watering-can"
+            onPress={() => setCheckedW(!checkedWater)} {...props}/>}
           />
           <Switch
             value={checkedWater}
@@ -106,7 +108,8 @@ const Remote = () => {
         <Wrap m={2} items="center" spacing={10} shouldWrapChildren={true}>
           <Avatar
             size={55}
-            icon={(props) => <Icon name="lightbulb" {...props} />}
+            icon={(props) => <Icon name="lightbulb"
+            onPress={() => setCheckedL(!checkedLight)} {...props} />}
           />
           <Switch
             value={checkedLight}
@@ -117,7 +120,8 @@ const Remote = () => {
       /**AIR ICON AND SWITCH STACK */
       <HStack fill center spacing={40}>
         <Wrap m={2} items="center" spacing={10} shouldWrapChildren={true}>
-          <Avatar size={55} icon={(props) => <Icon name="fan" {...props} />} />
+          <Avatar size={55} icon={(props) => <Icon name="fan"
+          onPress={() => setCheckedA(!checkedAir)} {...props} />} />
           <Switch
             value={checkedAir}
             onValueChange={() => {
@@ -126,7 +130,8 @@ const Remote = () => {
           />
         </Wrap>
         <Wrap m={2} items="center" spacing={10} shouldWrapChildren={true}>
-          <Avatar size={55} icon={(props) => <Icon name="leaf" {...props} />} />
+          <Avatar size={55} icon={(props) => <Icon name="leaf"
+          onPress={() => setCheckedF(!checkedFert)} {...props} />} />
           <Switch
             value={checkedFert}
             onValueChange={() => {
@@ -154,7 +159,8 @@ const Remote = () => {
               checkedAir,
               checkedFert
             );
-            setTimeBtnTxt("Pick Finish time")
+            setTimeBtnTxt("Pick Finish time");
+            navigation.navigate("Analythics")
           }}
         />
       </HStack>
@@ -163,4 +169,4 @@ const Remote = () => {
   );
 };
 
-export default Remote;
+
