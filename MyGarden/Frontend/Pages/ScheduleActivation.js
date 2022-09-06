@@ -10,7 +10,7 @@ import Greetings from "../Components/Greetings";
 
 const ScheduleActivation = ({navigation}) => (
   
-  <VStack fill center spacing={-50}>
+  <VStack fill center spacing={-50} style={{ backgroundColor: "#E5E4D7" }}>
   <HStack  > 
   <Flex direction="column">
     <Greetings/>

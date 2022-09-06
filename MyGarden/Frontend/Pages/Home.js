@@ -12,7 +12,7 @@ import HomeBtn from "../Components/HomeBtn.jsx";
 
 export default function Home({ navigation }) {
   return (
-    <VStack fill center spacing={1} style={{backgroundColor:'#E5E4D7'}}>
+    <VStack fill center spacing={1} style={{ backgroundColor: "#E5E4D7" }}>
       <HStack fill center spacing={1}>
         <Greetings />
       </HStack>
@@ -31,7 +31,7 @@ export default function Home({ navigation }) {
           />
         </Box>
       </HStack>
-      <HStack fill center spacing={1} >
+      <HStack fill center spacing={1}>
         <Box>
           <HomeBtn
             title="Schedule Activation"

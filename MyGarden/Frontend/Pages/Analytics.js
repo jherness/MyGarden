@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 ;
 
 const Analythics = ({navigation}) => (
-  <VStack fill center spacing={-0}>
+  <VStack fill center spacing={0} style={{ backgroundColor: "#E5E4D7" }}>
     <HStack fill center spacing={0}>
       <Flex direction="column">
         <Greetings />

@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 import React from 'react'
+import * as Colors from "../Style/Colors"
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 
@@ -20,7 +21,7 @@ export default function HomeBtn(props) {
         minWidth:'43%',
         height:"60%",
         marginHorizontal:12,
-        backgroundColor: '#2C6700',
+        backgroundColor: Colors.mainColor,
         borderRadius:8
       },
       text: {
@@ -28,6 +29,6 @@ export default function HomeBtn(props) {
         lineHeight: 21,
         fontWeight: 'bold',
         letterSpacing: 0.25,
-        color: ' #E5E4D7',
+        color: Colors.backColor,
       },
     });

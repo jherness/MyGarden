@@ -20,9 +20,14 @@ import {
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PageHead from "../Components/PageHead";
 import { RemoteActive } from "../Classes/RemoteActive";
+import * as Colors from "../Style/Colors"
+
 
 
 export default function RemoteActivation({ navigation }) {
+  const mainColor = Colors.mainColor
+  const backColor = Colors.backColor
+  let flag = true;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
@@ -58,6 +63,7 @@ export default function RemoteActivation({ navigation }) {
     debugger;
     if (finishingData === "" || finishingData === undefined) {
       alert("Please enter finish time");
+      flag = false
     } else {
       remote.setFinishingData(startingData);
       remote.setFinishingData(finishingData);
@@ -73,14 +79,15 @@ export default function RemoteActivation({ navigation }) {
   };
 
   return (
-    <VStack fill center spacing={1}>
+    <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
       <HStack>
         <PageHead first="Remote" second="Activation" />
       </HStack>
       <HStack fill center spacing={2}>
         <Button
           title={timeBtnTxt}
-          color="aquamarine"
+          titleStyle={{color:backColor}}
+          color={mainColor}
           onPress={showDatePicker}
           style={{ width: "50%", height: "40%", justifyContent: "center" }}
         />
@@ -96,19 +103,22 @@ export default function RemoteActivation({ navigation }) {
         <Wrap m={2} items="center" spacing={10}>
           <Avatar
             size={55}
-            icon={(props) => <Icon name="watering-can"
+            style={{backgroundColor:mainColor}}
+            icon={(props) => <Icon name="watering-can" style={{color:backColor}}
             onPress={() => setCheckedW(!checkedWater)} {...props}/>}
           />
           <Switch
             value={checkedWater}
+            style={{color:mainColor}}
             onValueChange={() => setCheckedW(!checkedWater)}
           />
         </Wrap>
         /**Light ICON AND SWITCH STACK */
         <Wrap m={2} items="center" spacing={10} shouldWrapChildren={true}>
           <Avatar
+          style={{backgroundColor:mainColor}}
             size={55}
-            icon={(props) => <Icon name="lightbulb"
+            icon={(props) => <Icon name="lightbulb" style={{color:backColor}}
             onPress={() => setCheckedL(!checkedLight)} {...props} />}
           />
           <Switch
@@ -120,7 +130,7 @@ export default function RemoteActivation({ navigation }) {
       /**AIR ICON AND SWITCH STACK */
       <HStack fill center spacing={40}>
         <Wrap m={2} items="center" spacing={10} shouldWrapChildren={true}>
-          <Avatar size={55} icon={(props) => <Icon name="fan"
+          <Avatar size={55} style={{backgroundColor:mainColor}} icon={(props) => <Icon name="fan" style={{color:backColor}}
           onPress={() => setCheckedA(!checkedAir)} {...props} />} />
           <Switch
             value={checkedAir}
@@ -130,7 +140,7 @@ export default function RemoteActivation({ navigation }) {
           />
         </Wrap>
         <Wrap m={2} items="center" spacing={10} shouldWrapChildren={true}>
-          <Avatar size={55} icon={(props) => <Icon name="leaf"
+          <Avatar size={55} style={{backgroundColor:mainColor}} icon={(props) => <Icon name="leaf" style={{color:backColor}}
           onPress={() => setCheckedF(!checkedFert)} {...props} />} />
           <Switch
             value={checkedFert}
@@ -147,8 +157,9 @@ export default function RemoteActivation({ navigation }) {
             width: "40%",
             height: "30%",
           }}
-          color="aquamarine"
+          color={mainColor}
           title="Activate!"
+          titleStyle={{color:backColor}}
           leading={(props) => <Icon name="remote" {...props} />}
           onPress={() => {
             dataChecker(
@@ -159,8 +170,10 @@ export default function RemoteActivation({ navigation }) {
               checkedAir,
               checkedFert
             );
-            setTimeBtnTxt("Pick Finish time");
-            navigation.navigate("Analythics")
+            if(flag){
+              setTimeBtnTxt("Pick Finish time");
+              navigation.navigate("Home");
+            }
           }}
         />
       </HStack>
