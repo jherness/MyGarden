@@ -1,48 +1,59 @@
-// import React, { useState } from "react";
+import { RemoteActive } from "../Classes/RemoteActive";
+import { View, Text } from "react-native";
+import React from "react";
 
-// export const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+export function RemoteModule() {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-// export const showDatePicker = () => {
-//   setDatePickerVisibility(true);
-// };
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
 
-// export const hideDatePicker = () => {
-//   setDatePickerVisibility(false);
-// };
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
 
-// export const handleConfirm = (date) => {
-//   console.warn("A date has been picked: ", date);
-//   hideDatePicker();
-// };
+  const handleConfirm = (date) => {
+    setFinishing(date);
+    setTimeBtnTxt(date.toLocaleTimeString());
+    hideDatePicker();
+  };
 
-// export const [dataToSend, setdataToSend] = useState(data);
-// export const [startingData, setStarting] = useState("");
-// export const [finishingData, setFinishing] = useState("");
-// export const [checkedWater, setCheckedW] = useState(true);
-// export const [checkedLight, setCheckedL] = useState(true);
-// export const [checkedAir, setCheckedA] = useState(true);
+  const [remote, setRemote] = useState(new RemoteActive());
+  const [finishingData, setFinishing] = useState();
+  const [checkedWater, setCheckedW] = useState(false);
+  const [checkedLight, setCheckedL] = useState(false);
+  const [checkedAir, setCheckedA] = useState(false);
+  const [checkedFert, setCheckedF] = useState(false);
+  const [timeBtnTxt, setTimeBtnTxt] = useState("Pick Finish time");
 
-// export const data = {
-//   startingData: "",
-//   finishingData: "",
-//   systemToTurn: [true, true, true],
-// };
-
-// export const dataChecker = (
-//   startingData,
-//   finishingData,
-//   checkedWater,
-//   checkedLight,
-//   checkedAir
-// ) => {
-//   debugger;
-//   if (startingData === "" || finishingData === "") {
-//     alert("You Didnt Fill The Input Right ");
-//   } else {
-//     data.startingData = { startingData };
-//     data.finishingData = { finishingData };
-//     data.systemToTurn = [checkedWater, checkedLight, checkedAir];
-//     setdataToSend(data);
-//     console.log(data);
-//   }
-// };
+  const dataChecker = (
+    startingData,
+    finishingData,
+    checkedWater,
+    checkedLight,
+    checkedAir,
+    checkedFert
+  ) => {
+    debugger;
+    if (finishingData === "" || finishingData === undefined) {
+      alert("Please enter finish time");
+    } else {
+      remote.setFinishingData(startingData);
+      remote.setFinishingData(finishingData);
+      remote.setSystemToActivate({
+        Water: checkedWater,
+        Light: checkedLight,
+        Air: checkedAir,
+        Fertilize: checkedFert,
+      });
+      setRemote(remote);
+      console.log(remote);
+    }
+  };
+  return (
+    <View>
+      <Text>RemoteModule</Text>
+    </View>
+  );
+}

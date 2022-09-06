@@ -19,6 +19,7 @@ import {
 } from "@react-native-material/core";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PageHead from "../Components/PageHead";
+import { RemoteActive } from "../Classes/RemoteActive";
 
 const Remote = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -37,19 +38,13 @@ const Remote = () => {
     hideDatePicker();
   };
 
-  const [dataToSend, setdataToSend] = useState(data);
+  const [remote, setRemote] = useState(new RemoteActive());
   const [finishingData, setFinishing] = useState();
   const [checkedWater, setCheckedW] = useState(false);
   const [checkedLight, setCheckedL] = useState(false);
   const [checkedAir, setCheckedA] = useState(false);
   const [checkedFert, setCheckedF] = useState(false);
   const [timeBtnTxt, setTimeBtnTxt] = useState("Pick Finish time");
-
-  const data = {
-    startingData: "",
-    finishingData: "",
-    systemToTurn: [false, false, false, false],
-  };
 
   const dataChecker = (
     startingData,
@@ -63,16 +58,16 @@ const Remote = () => {
     if (finishingData === "" || finishingData === undefined) {
       alert("Please enter finish time");
     } else {
-      data.startingData = startingData.toLocaleString();
-      data.finishingData = finishingData.toLocaleString();
-      data.systemToTurn = {
+      remote.setFinishingData(startingData);
+      remote.setFinishingData(finishingData);
+      remote.setSystemToActivate({
         Water: checkedWater,
         Light: checkedLight,
         Air: checkedAir,
         Fertilize: checkedFert,
-      };
-      setdataToSend(data);
-      console.log(data);
+      });
+      setRemote(remote);
+      console.log(remote);
     }
   };
 
@@ -86,6 +81,7 @@ const Remote = () => {
           title={timeBtnTxt}
           color="aquamarine"
           onPress={showDatePicker}
+          style={{ width: "50%", height: "40%", justifyContent: "center" }}
         />
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
@@ -142,15 +138,14 @@ const Remote = () => {
       <HStack fill center spacing={2}>
         <Button
           style={{
-            maxWidth: "40%",
-            maxHeight: "20%",
-            minWidth: "30%",
-            minHeight: "5%",
+            justifyContent: "center",
+            width: "40%",
+            height: "30%",
           }}
           color="aquamarine"
           title="Activate!"
           leading={(props) => <Icon name="remote" {...props} />}
-          onPress={() =>
+          onPress={() => {
             dataChecker(
               new Date(),
               finishingData,
@@ -158,10 +153,12 @@ const Remote = () => {
               checkedLight,
               checkedAir,
               checkedFert
-            )
-          }
+            );
+            setTimeBtnTxt("Pick Finish time")
+          }}
         />
       </HStack>
+      <HStack fill />
     </VStack>
   );
 };

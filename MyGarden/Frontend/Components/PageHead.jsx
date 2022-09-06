@@ -5,7 +5,7 @@ import React from 'react'
 export default function PageHead(props) {
     let first = props.first, second = props.second || ""
   return (
-    <View>
+    <View style={{marginTop:50}}>
       <Text variant="h3">{first}</Text>
       <Text variant="h4" color="aquamarine" >
         {second}
