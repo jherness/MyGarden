@@ -20,7 +20,7 @@ export default function HomeBtn(props) {
         minWidth:'43%',
         height:"60%",
         marginHorizontal:12,
-        backgroundColor: 'aquamarine',
+        backgroundColor: '#2C6700',
         borderRadius:8
       },
       text: {
@@ -28,6 +28,6 @@ export default function HomeBtn(props) {
         lineHeight: 21,
         fontWeight: 'bold',
         letterSpacing: 0.25,
-        color: 'black',
+        color: ' #E5E4D7',
       },
     });

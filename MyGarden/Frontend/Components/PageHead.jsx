@@ -7,7 +7,7 @@ export default function PageHead(props) {
   return (
     <View style={{marginTop:50}}>
       <Text variant="h3">{first}</Text>
-      <Text variant="h4" color="aquamarine" >
+      <Text variant="h3" color="#13a86c" >
         {second}
       </Text>
     </View>
