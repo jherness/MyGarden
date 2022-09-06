@@ -156,7 +156,8 @@ const Remote = () => {
               finishingData,
               checkedWater,
               checkedLight,
-              checkedAir
+              checkedAir,
+              checkedFert
             )
           }
         />
