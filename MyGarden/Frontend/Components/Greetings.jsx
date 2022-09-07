@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getUser, getHeadlineText, getTableFromDB } from "../Modules/GlobalModule";
+import { getUser, getHeadlineText, getSamplesFromDB } from "../Modules/GlobalModule";
 import { Stack, Button, Flex, Text } from "@react-native-material/core";
 import Temprature from "../Modules/getWheather";
 export default function Greetings() {

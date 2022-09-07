@@ -9,8 +9,10 @@ import {
   TextInput,
 } from "@react-native-material/core";
 import HomeBtn from "../Components/HomeBtn.jsx";
+import { getSamplesFromDB } from "../Modules/GlobalModule.js";
 
 export default function Home({ navigation }) {
+  getSamplesFromDB()
   return (
     <VStack fill center spacing={1} style={{ backgroundColor: "#E5E4D7" }}>
       <HStack fill center spacing={1}>

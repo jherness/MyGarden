@@ -15,7 +15,7 @@ const app = express();
 
 app.get('/samples', function (req, res) {
     connection.getConnection(function (err, connection) {
-    connection.query('SELECT * FROM users', function (error, results, fields) {
+    connection.query('SELECT * FROM samples;', function (error, results, fields) {
       if (error) throw error;
       res.send(results)
     });
@@ -24,5 +24,5 @@ app.get('/samples', function (req, res) {
 
 // Starting our server.
 app.listen(3000, () => {
- console.log('Go to http://localhost:3000/users so you can see the data.');
+ console.log('Go to http://localhost:3000/samples so you can see the data.');
 });
