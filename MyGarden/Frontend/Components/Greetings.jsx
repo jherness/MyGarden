@@ -20,11 +20,11 @@ export default function Greetings() {
 
 
   return (
-    <View style={{ marginEnd: 30 }}>
-      <Text variant="h3" color="#2C6700">
+    <View>
+      <Text style={{marginEnd: "11%", marginTop:"10%"}} variant="h3" color="#2C6700">
         {getHeadlineText(currentTime)}
       </Text>
-      <Text variant="h4" style={{ margin: 7 }}>
+      <Text variant="h4">
         {user}
       </Text>
       <Temprature/>
