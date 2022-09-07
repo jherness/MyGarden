@@ -5,7 +5,7 @@ TABLE_NAME = "samples"
 HOST = 'localhost'
 DB_NAME = 'mygarden'
 USER = 'root'
-PASS = 'Q6kldxhtxiw'
+PASS = 'admin'
 
 
 def get_connection():
