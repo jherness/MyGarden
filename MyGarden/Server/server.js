@@ -1,11 +1,28 @@
 /* jshint esversion:6*/ 
+const express = require('express');
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
+
+const connection = mysql.createPool({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'admin',
+  database : 'mygarden'
+});
+
+const app = express();
 
 
-var http = require('http');
-const PORT = 8888;
+app.get('/samples', function (req, res) {
+    connection.getConnection(function (err, connection) {
+    connection.query('SELECT * FROM users', function (error, results, fields) {
+      if (error) throw error;
+      res.send(results)
+    });
+  });
+});
 
-http.createServer((req, res) => {
-    res.writeHead(200, {"Content-Type" : "text / html"});
-    res.write("Hello World!");
-    res.end();
-}).listen(PORT);
+// Starting our server.
+app.listen(3000, () => {
+ console.log('Go to http://localhost:3000/users so you can see the data.');
+});
