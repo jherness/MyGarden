@@ -90,7 +90,11 @@ export default function ScheduleActivation({ navigation }) {
           onCancel={hideDatePicker}
         />
       </HStack>
-      <HStack center style={{ alignItems: "center", justifyContent: "center" }}>
+      <HStack
+        center
+        fill
+        style={{ alignItems: "center", justifyContent: "center" }}
+      >
         <Text
           style={{
             fontSize: 24,
@@ -100,23 +104,29 @@ export default function ScheduleActivation({ navigation }) {
             justifyContent: "center",
           }}
         >
-          {Math.round(timeToLive) == 1? Math.round(timeToLive) + " Minute" : Math.round(timeToLive) + " Minutes"} 
+          {Math.round(timeToLive) == 1
+            ? Math.round(timeToLive) + " Minute"
+            : Math.round(timeToLive) + " Minutes"}
         </Text>
       </HStack>
       <HStack center fill spacing={10}>
         <Slider
           minimumValue={1}
           maximumValue={120}
-          style={{marginBottom:50, width:"85%"}}
+          style={{ marginBottom: 50, width: "85%" }}
           value={timeToLive}
           onValueChange={(value) => setTimeToLive(value)}
         />
       </HStack>
-      <Spacer />
-      <HStack>
-        
+      <HStack style={{ paddingBottom: 20 }} fill center>
+        <HomeBtn
+          style={{ paddingBottom: 20 }}
+          title="SAVE"
+          onPress={showDatePicker}
+          height="50%"
+          width="40%"
+        />
       </HStack>
-      <Spacer />
     </VStack>
   );
 }
