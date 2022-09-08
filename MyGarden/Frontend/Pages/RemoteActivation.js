@@ -1,5 +1,4 @@
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import * as RemoteModule from "../Modules/RemoteModule";
 import React, { useState } from "react";
 import {
   Stack,
@@ -21,6 +20,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PageHead from "../Components/PageHead";
 import { RemoteActive } from "../Classes/RemoteActive";
 import * as Colors from "../Style/Colors"
+import SysSwitches from "../Components/SysSwitches";
 
 
 
@@ -46,19 +46,18 @@ export default function RemoteActivation({ navigation }) {
 
   const [remote, setRemote] = useState(new RemoteActive());
   const [finishingData, setFinishing] = useState();
-  const [checkedWater, setCheckedW] = useState(false);
-  const [checkedLight, setCheckedL] = useState(false);
-  const [checkedAir, setCheckedA] = useState(false);
-  const [checkedFert, setCheckedF] = useState(false);
   const [timeBtnTxt, setTimeBtnTxt] = useState("Pick Finish time");
+  const [sysToActivate, setSysToActivate] = useState({
+    Water: false,
+    Light: false,
+    Air: false,
+    Fertilize: false
+  });
 
   const dataChecker = (
     startingData,
     finishingData,
-    checkedWater,
-    checkedLight,
-    checkedAir,
-    checkedFert
+    sysToActivate
   ) => {
     debugger;
     if (finishingData === "" || finishingData === undefined) {
@@ -67,12 +66,7 @@ export default function RemoteActivation({ navigation }) {
     } else {
       remote.setStartingData(startingData);
       remote.setFinishingData(finishingData);
-      remote.setSystemToActivate({
-        Water: checkedWater,
-        Light: checkedLight,
-        Air: checkedAir,
-        Fertilize: checkedFert,
-      });
+      remote.setSystemToActivate(sysToActivate);
       setRemote(remote);
       console.log(remote);
     }
@@ -98,57 +92,8 @@ export default function RemoteActivation({ navigation }) {
           onCancel={hideDatePicker}
         />
       </HStack>
-      /**WATER ICON AND SWITCH STACK */
-      <HStack fill center spacing={40}>
-        <Wrap m={2} items="center" spacing={10}>
-          <Avatar
-            size={55}
-            style={{backgroundColor:mainColor}}
-            icon={(props) => <Icon name="watering-can" style={{color:backColor}}
-            onPress={() => setCheckedW(!checkedWater)} {...props}/>}
-          />
-          <Switch
-            value={checkedWater}
-            style={{color:mainColor}}
-            onValueChange={() => setCheckedW(!checkedWater)}
-          />
-        </Wrap>
-        /**Light ICON AND SWITCH STACK */
-        <Wrap m={2} items="center" spacing={10} shouldWrapChildren={true}>
-          <Avatar
-          style={{backgroundColor:mainColor}}
-            size={55}
-            icon={(props) => <Icon name="lightbulb" style={{color:backColor}}
-            onPress={() => setCheckedL(!checkedLight)} {...props} />}
-          />
-          <Switch
-            value={checkedLight}
-            onValueChange={() => setCheckedL(!checkedLight)}
-          />
-        </Wrap>
-      </HStack>
-      /**AIR ICON AND SWITCH STACK */
-      <HStack fill center spacing={40}>
-        <Wrap m={2} items="center" spacing={10} shouldWrapChildren={true}>
-          <Avatar size={55} style={{backgroundColor:mainColor}} icon={(props) => <Icon name="fan" style={{color:backColor}}
-          onPress={() => setCheckedA(!checkedAir)} {...props} />} />
-          <Switch
-            value={checkedAir}
-            onValueChange={() => {
-              setCheckedA(!checkedAir);
-            }}
-          />
-        </Wrap>
-        <Wrap m={2} items="center" spacing={10} shouldWrapChildren={true}>
-          <Avatar size={55} style={{backgroundColor:mainColor}} icon={(props) => <Icon name="leaf" style={{color:backColor}}
-          onPress={() => setCheckedF(!checkedFert)} {...props} />} />
-          <Switch
-            value={checkedFert}
-            onValueChange={() => {
-              setCheckedF(!checkedFert);
-            }}
-          />
-        </Wrap>
+      <HStack fill center>
+        <SysSwitches state = {sysToActivate} onChange={(newState) => {setSysToActivate(newState)}}/>
       </HStack>
       <HStack fill center spacing={2}>
         <Button
@@ -165,10 +110,7 @@ export default function RemoteActivation({ navigation }) {
             dataChecker(
               new Date(),
               finishingData,
-              checkedWater,
-              checkedLight,
-              checkedAir,
-              checkedFert
+              sysToActivate
             );
             if(flag){
               setTimeBtnTxt("Pick Finish time");
@@ -181,5 +123,6 @@ export default function RemoteActivation({ navigation }) {
     </VStack>
   );
 };
+
 
 

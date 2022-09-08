@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
-import { Text } from "@react-native-material/core";
-
+import { HStack, Text } from "@react-native-material/core";
 import * as Location from "expo-location";
 
 export default function Temprature() {
@@ -9,6 +8,7 @@ export default function Temprature() {
   const [data, setData] = useState({});
   const [icon, setIcon] = useState();
   const [temp, seTtemp] = useState();
+  const celLogo = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9UgTzAH7U-owDcPTcgSRrgPHrOpHHForAcYuhYAdwbJM_20BWsyTMPlH0LmNEoDKvuE&usqp=CAU`;
 
   useEffect(() => {
     (async () => {
@@ -45,9 +45,12 @@ export default function Temprature() {
         source={{ uri: `http://openweathermap.org/img/wn/${icon}.png` }}
         style={styles.image}
       />
-      <Text style={styles.text} variant="h6">
-        {temp} C
-      </Text>
+      <HStack center spacing={0}>
+        <Text style={styles.text} variant="h6">
+          {temp}{" "}
+        </Text>
+        <Image source={{ uri: celLogo }} style={styles.celcius} />
+      </HStack>
     </View>
   );
 }
@@ -60,7 +63,6 @@ const styles = StyleSheet.create({
   text: {
     justifyContent: "center",
     alignItems: "center",
-    marginEnd:"2%"
   },
   image: {
     height: "38%",
@@ -68,5 +70,12 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  celcius: {
+    marginEnd: "2%",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "69%",
+    width: "4%",
   },
 });

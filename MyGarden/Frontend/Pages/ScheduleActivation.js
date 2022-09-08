@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Stack, Button, Flex, Text, Spacer } from "@react-native-material/core";
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import {
-  Wrap,
-  Box,
-  Divider,
-  HStack,
-  VStack,
-  TextInput,
-  Center,
-} from "@react-native-material/core";
-import { View, Image, StyleSheet } from "react-native";
+import { HStack, VStack } from "@react-native-material/core";
+import { StyleSheet } from "react-native";
 import PageHead from "../Components/PageHead";
 import * as Colors from "../Style/Colors";
 import DaysPicker from "../Components/DaysPicker";
+import SysSwitches from "../Components/SysSwitches";
 
 export default function ScheduleActivation({ navigation }) {
+  const [sysToActivate, setSysToActivate] = useState({
+    Water: false,
+    Light: false,
+    Air: false,
+    Fertilize: false,
+  });
   const [daysToActivate, setDaysToActivate] = useState({
     Sunday: false,
     Monday: false,
@@ -27,20 +25,34 @@ export default function ScheduleActivation({ navigation }) {
   });
 
   useEffect(() => {
-    console.log(JSON.stringify(daysToActivate));
-  }, [daysToActivate])
-  
+    console.log(daysToActivate);
+    console.log(sysToActivate);
+  }, [daysToActivate, sysToActivate]);
 
   return (
     <VStack fill spacing={1} style={{ backgroundColor: Colors.backColor }}>
       <HStack fill center>
         <PageHead first="Schedule" second="Activation" />
       </HStack>
-      <DaysPicker state = {daysToActivate} onChange = {(newState) => {setDaysToActivate(newState)}}/>
-      <Spacer fill />
-      <HStack fill>
+      <DaysPicker
+        state={daysToActivate}
+        onChange={(newState) => {
+          setDaysToActivate(newState);
+        }}
+      />
 
+      <HStack fill center>
+        <SysSwitches
+          state={sysToActivate}
+          onChange={(newState) => {
+            setSysToActivate(newState);
+          }}
+        />
       </HStack>
+      <Spacer />
+      <Spacer />
+      <Spacer />
+
     </VStack>
   );
 }
