@@ -1,19 +1,17 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DayPicker from "./DayPicker";
 import { Box, HStack } from "@react-native-material/core";
 
-export default function DaysPicker() {
-  const [daysToActivate, setDaysToActivate] = useState({
-    Sunday: false,
-    Monday: false,
-    Tuesday: false,
-    Wednesday: false,
-    Thursday: false,
-    Friday: false,
-    Saturday: false,
-  });
+export default function DaysPicker(props) {
+  const [daysToActivate, setDaysToActivate] = useState(props.state);
+  const setState = props.onChange
 
+  useEffect(() => {
+    setState(daysToActivate)
+  }, [daysToActivate])
+  
+  
   return (
     <HStack center fill>
       <DayPicker
@@ -24,11 +22,10 @@ export default function DaysPicker() {
             (prevState) => (
               {
                 ...prevState,
-                Monday: !prevState.Monday,
-              },
-              () => console.log(daysToActivate)
+                Sunday: !prevState.Sunday
+              }
             )
-          );
+          )
         }}
       />
       <DayPicker
@@ -39,11 +36,10 @@ export default function DaysPicker() {
             (prevState) => (
               {
                 ...prevState,
-                Monday: !prevState.Monday,
-              },
-              () => console.log(daysToActivate)
+                Monday: !prevState.Monday
+              }
             )
-          );
+          )
         }}
       />
       <DayPicker
@@ -54,11 +50,10 @@ export default function DaysPicker() {
             (prevState) => (
               {
                 ...prevState,
-                Tuesday: !prevState.Tuesday,
-              },
-              () => console.log(daysToActivate)
+                Tuesday: !prevState.Tuesday
+              }
             )
-          );
+          )
         }}
       />
       <DayPicker
@@ -69,11 +64,10 @@ export default function DaysPicker() {
             (prevState) => (
               {
                 ...prevState,
-                Wednesday: !prevState.Wednesday,
-              },
-              () => console.log(daysToActivate)
+                Wednesday: !prevState.Wednesday
+              }
             )
-          );
+          )
         }}
       />
       <DayPicker
@@ -84,11 +78,10 @@ export default function DaysPicker() {
             (prevState) => (
               {
                 ...prevState,
-                Thursday: !prevState.Thursday,
-              },
-              () => console.log(daysToActivate)
+                Thursday: !prevState.Thursday
+              }
             )
-          );
+          )
         }}
       />
       <DayPicker
@@ -99,11 +92,10 @@ export default function DaysPicker() {
             (prevState) => (
               {
                 ...prevState,
-                Friday: !prevState.Friday,
-              },
-              () => console.log(daysToActivate)
+                Friday: !prevState.Friday
+              }
             )
-          );
+          )
         }}
       />
       <DayPicker
@@ -114,17 +106,13 @@ export default function DaysPicker() {
             (prevState) => (
               {
                 ...prevState,
-                Saturday: !prevState.Saturday,
-              },
-              () => console.log(daysToActivate)
+                Saturday: !prevState.Saturday
+              }
             )
-          );
+          )
         }}
       />
     </HStack>
   );
 }
-{
-  /*
-   */
-}
+

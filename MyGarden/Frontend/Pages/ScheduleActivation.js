@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Stack, Button, Flex, Text } from "@react-native-material/core";
+import React, { useState, useEffect } from "react";
+import { Stack, Button, Flex, Text, Spacer } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import {
   Wrap,
@@ -16,19 +16,31 @@ import * as Colors from "../Style/Colors";
 import DaysPicker from "../Components/DaysPicker";
 
 export default function ScheduleActivation({ navigation }) {
-  const [btnsList, setBtnsList] = useState(false);
+  const [daysToActivate, setDaysToActivate] = useState({
+    Sunday: false,
+    Monday: false,
+    Tuesday: false,
+    Wednesday: false,
+    Thursday: false,
+    Friday: false,
+    Saturday: false,
+  });
+
+  useEffect(() => {
+    console.log(daysToActivate);
+  }, [daysToActivate])
+  
 
   return (
-    <VStack
-      fill
-      center
-      spacing={1}
-      style={{ backgroundColor: Colors.backColor }}
-    >
-      <HStack fill>
+    <VStack fill spacing={1} style={{ backgroundColor: Colors.backColor }}>
+      <HStack fill center>
         <PageHead first="Schedule" second="Activation" />
       </HStack>
-        <DaysPicker />
+      <DaysPicker state = {daysToActivate} onChange = {(newState) => {setDaysToActivate(newState)}}/>
+      <Spacer fill />
+      <HStack fill>
+
+      </HStack>
     </VStack>
   );
 }
