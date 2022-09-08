@@ -8,7 +8,7 @@ export default function Temprature() {
   const API_KEY = "2e8b8893b8266f8a7b799ad9827b3e4e";
   const [data, setData] = useState({});
   const [icon, setIcon] = useState();
-  const [temp, seTtemp] = useState()
+  const [temp, seTtemp] = useState();
 
   useEffect(() => {
     (async () => {
@@ -34,7 +34,7 @@ export default function Temprature() {
           setIcon(
             JSON.stringify(data["weather"][0]["icon"]).replace(/['"]+/g, "")
           );
-          seTtemp(JSON.stringify(data["main"]["temp"]).slice(0,2))
+          seTtemp(JSON.stringify(data["main"]["temp"]).slice(0, 2));
         });
     }
   };
@@ -43,9 +43,11 @@ export default function Temprature() {
     <View style={styles.container}>
       <Image
         source={{ uri: `http://openweathermap.org/img/wn/${icon}.png` }}
-        style={{ height: "20%", width: "15%", marginBottom:"3%", justifyContent:"center", alignItems:"center" }}
+        style={styles.image}
       />
-      <Text style={{justifyContent:"center", alignItems:"center"}} variant="h6">{temp} C</Text>
+      <Text style={styles.text} variant="h6">
+        {temp} C
+      </Text>
     </View>
   );
 }
@@ -53,6 +55,18 @@ export default function Temprature() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems:"flex-end"
-  }
+    alignItems: "flex-end",
+  },
+  text: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginEnd:"2%"
+  },
+  image: {
+    height: "38%",
+    width: "15%",
+    marginBottom: "2%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

@@ -27,7 +27,7 @@ export default function ScheduleActivation({ navigation }) {
   });
 
   useEffect(() => {
-    console.log(daysToActivate);
+    console.log(JSON.stringify(daysToActivate));
   }, [daysToActivate])
   
 

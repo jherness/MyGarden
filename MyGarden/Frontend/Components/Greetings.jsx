@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getUser, getHeadlineText, getSamplesFromDB } from "../Modules/GlobalModule";
 import { Stack, Button, Flex, Text } from "@react-native-material/core";
 import Temprature from "../Modules/getWheather";
+import { mainColor } from "../Style/Colors";
 export default function Greetings() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [user, setUser] = useState(getUser().getFullName());
@@ -18,10 +19,10 @@ export default function Greetings() {
 
   return (
     <View>
-      <View style={{ marginRight: "20%", marginTop: "10%" }}>
+      <View style={{ marginRight: "15%", marginTop: "10%" }}>
         <Text
           variant="h3"
-          color="#2C6700"
+          color = {mainColor}
         >
           {getHeadlineText(currentTime)}
         </Text>

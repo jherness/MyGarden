@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import Greetings from "../Components/Greetings.jsx";
 import {
   Wrap,
@@ -9,12 +8,13 @@ import {
   TextInput,
 } from "@react-native-material/core";
 import HomeBtn from "../Components/HomeBtn.jsx";
+import { backColor } from "../Style/Colors.js";
 // import { getSamplesFromDB } from "../Modules/GlobalModule.js";
 
 export default function Home({ navigation }) {
   // getSamplesFromDB()
   return (
-    <VStack fill center spacing={1} style={{ backgroundColor: "#E5E4D7" }}>
+    <VStack fill center spacing={1} style={{ backgroundColor: backColor}}>
       <HStack fill center spacing={1}>
         <Greetings />
       </HStack>
