@@ -65,7 +65,7 @@ export default function RemoteActivation({ navigation }) {
       alert("Please enter finish time");
       flag = false
     } else {
-      remote.setFinishingData(startingData);
+      remote.setStartingData(startingData);
       remote.setFinishingData(finishingData);
       remote.setSystemToActivate({
         Water: checkedWater,

@@ -19,11 +19,11 @@ export const getUser = () => {
 }
 
 
-export const getSamplesFromDB = () => {
-    fetch(`http://192.168.1.192:3000/samples`)
-      .then(response => response.json())
-      .then(samples => console.log(samples))
-}
+// export const getSamplesFromDB = () => {
+//     fetch(`http://192.168.1.192:3000/samples`)
+//       .then(response => response.json())
+//       .then(samples => console.log(samples))
+// }
 
 
 

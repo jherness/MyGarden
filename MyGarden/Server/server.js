@@ -2,16 +2,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const { ConnectionSettings } = require('./ServerSettings');
 
-const connection = mysql.createPool({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'admin',
-  database : 'mygarden'
-});
 
+
+
+const connection = mysql.createPool(ConnectionSettings);
 const app = express();
-
 
 app.get('/samples', function (req, res) {
     connection.getConnection(function (err, connection) {
@@ -23,6 +20,4 @@ app.get('/samples', function (req, res) {
 });
 
 // Starting our server.
-app.listen(3000, () => {
- console.log('Go to http://localhost:3000/samples so you can see the data.');
-});
+app.listen(3000);

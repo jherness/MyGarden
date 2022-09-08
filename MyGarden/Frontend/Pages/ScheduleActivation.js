@@ -1,17 +1,40 @@
-import React from "react";
-import { Stack, Button ,Flex,Text} from "@react-native-material/core";
+import React, { useState } from "react";
+import { Stack, Button, Flex, Text } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { Wrap, Box, Divider ,HStack, VStack,TextInput} from "@react-native-material/core";
-import { View, Image, StyleSheet } from 'react-native';
-import Dropdown from'../Components/DropDown';
-import DropdownDay from'../Components/DropDownDays';
-import Greetings from "../Components/Greetings";
+import {
+  Wrap,
+  Box,
+  Divider,
+  HStack,
+  VStack,
+  TextInput,
+  Center,
+} from "@react-native-material/core";
+import { View, Image, StyleSheet } from "react-native";
+import PageHead from "../Components/PageHead";
+import * as Colors from "../Style/Colors";
+import DaysPicker from "../Components/DaysPicker";
 
+export default function ScheduleActivation({ navigation }) {
+  const [btnsList, setBtnsList] = useState(false);
 
-const ScheduleActivation = ({navigation}) => (
-  
-  <VStack fill center spacing={-50} style={{ backgroundColor: "#E5E4D7" }}>
-  <HStack  > 
+  return (
+    <VStack
+      fill
+      center
+      spacing={1}
+      style={{ backgroundColor: Colors.backColor }}
+    >
+      <HStack fill>
+        <PageHead first="Schedule" second="Activation" />
+      </HStack>
+        <DaysPicker />
+    </VStack>
+  );
+}
+
+{
+  /* <HStack  > 
   <Flex direction="column">
     <Greetings/>
     </Flex>
@@ -64,14 +87,5 @@ const ScheduleActivation = ({navigation}) => (
     />
      
     </VStack>
-
-
-
-
-     
-  
-    
-  </VStack>
-);
-
-export default ScheduleActivation;
+ */
+}
