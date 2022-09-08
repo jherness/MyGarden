@@ -21,6 +21,8 @@ import PageHead from "../Components/PageHead";
 import { RemoteActive } from "../Classes/RemoteActive";
 import * as Colors from "../Style/Colors"
 import SysSwitches from "../Components/SysSwitches";
+import moment from "moment";
+import HomeBtn from "../Components/HomeBtn";
 
 
 
@@ -40,7 +42,7 @@ export default function RemoteActivation({ navigation }) {
 
   const handleConfirm = (date) => {
     setFinishing(date);
-    setTimeBtnTxt(date.toLocaleTimeString());
+    setTimeBtnTxt(moment(date.toLocaleTimeString() , "hhmm").format("HH:mm"));
     hideDatePicker();
   };
 
@@ -78,13 +80,7 @@ export default function RemoteActivation({ navigation }) {
         <PageHead first="Remote" second="Activation" />
       </HStack>
       <HStack fill center spacing={2}>
-        <Button
-          title={timeBtnTxt}
-          titleStyle={{color:backColor}}
-          color={mainColor}
-          onPress={showDatePicker}
-          style={{ width: "50%", height: "40%", justifyContent: "center" }}
-        />
+      <HomeBtn title={timeBtnTxt} onPress={showDatePicker} height="35%" width="50%"/>
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="time"
@@ -96,17 +92,7 @@ export default function RemoteActivation({ navigation }) {
         <SysSwitches state = {sysToActivate} onChange={(newState) => {setSysToActivate(newState)}}/>
       </HStack>
       <HStack fill center spacing={2}>
-        <Button
-          style={{
-            justifyContent: "center",
-            width: "40%",
-            height: "30%",
-          }}
-          color={mainColor}
-          title="Activate!"
-          titleStyle={{color:backColor}}
-          leading={(props) => <Icon name="remote" {...props} />}
-          onPress={() => {
+      <HomeBtn title={"Activate!"} onPress={() => {
             dataChecker(
               new Date(),
               finishingData,
@@ -116,8 +102,7 @@ export default function RemoteActivation({ navigation }) {
               setTimeBtnTxt("Pick Finish time");
               navigation.navigate("Home");
             }
-          }}
-        />
+          }} height="35%" width="50%"/>
       </HStack>
       <HStack fill />
     </VStack>

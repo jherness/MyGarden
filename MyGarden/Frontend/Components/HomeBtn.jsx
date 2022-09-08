@@ -7,19 +7,15 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 export default function HomeBtn(props) {
     const title = props.title
     const onPress = props.onPress
-    return (
-        <Pressable style={styles.button} onPress={onPress}>
-          <Text style={styles.text}>{title}</Text>
-        </Pressable>
-      );
-    }
-    
+    const width = props.width || "43%"
+    const height = props.height || "60%"
+
     const styles = StyleSheet.create({
       button: {
         alignItems: 'center',
         justifyContent: 'center',
-        minWidth:'43%',
-        height:"60%",
+        minWidth: width,
+        height: height,
         marginHorizontal:12,
         backgroundColor: Colors.mainColor,
         borderRadius:8
@@ -32,3 +28,10 @@ export default function HomeBtn(props) {
         color: Colors.backColor,
       },
     });
+
+    return (
+        <Pressable style={styles.button} onPress={onPress}>
+          <Text style={styles.text}>{title}</Text>
+        </Pressable>
+      );
+    }
