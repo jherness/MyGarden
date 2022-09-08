@@ -63,19 +63,20 @@ const styles = StyleSheet.create({
   text: {
     justifyContent: "center",
     alignItems: "center",
+    fontWeight:"bold"
   },
   image: {
-    height: "38%",
+    height: "46%",
     width: "15%",
-    marginBottom: "2%",
+    marginBottom: "1%",
     justifyContent: "center",
     alignItems: "center",
   },
   celcius: {
-    marginEnd: "2%",
+    marginEnd: "1%",
     justifyContent: "center",
     alignItems: "center",
-    height: "69%",
-    width: "4%",
+    height: "70%",
+    width: "5%",
   },
 });

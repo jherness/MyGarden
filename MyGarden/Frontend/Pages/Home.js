@@ -14,7 +14,7 @@ import { backColor } from "../Style/Colors.js";
 export default function Home({ navigation }) {
   // getSamplesFromDB()
   return (
-    <VStack fill center spacing={1} style={{ backgroundColor: backColor}}>
+    <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
       <HStack fill center spacing={1}>
         <Greetings />
       </HStack>
@@ -25,7 +25,6 @@ export default function Home({ navigation }) {
             onPress={() => navigation.navigate("Remote Activation")}
           />
         </Box>
-        {/*Light ICON AND SWITCH STACK */}
         <Box>
           <HomeBtn
             title="Analythics"
@@ -40,7 +39,6 @@ export default function Home({ navigation }) {
             onPress={() => navigation.navigate("Schedule Activation")}
           />
         </Box>
-        {/* Light ICON AND SWITCH STACK */}
         <Box>
           <HomeBtn
             title="Activation History"
@@ -51,65 +49,4 @@ export default function Home({ navigation }) {
       <HStack fill />
     </VStack>
   );
-}
-
-{
-  /* <HStack fill center spacing={20}>
-      <Button
-        style={{
-          justifyContent: "center",
-          maxWidth: "40%",
-          maxHeight: "100%",
-          minWidth: "40%",
-          minHeight: "80%",
-        }}
-        color="aquamarine"
-        witch
-        title="Schedule Activtion"
-        leading={(props) => <Icon name="calendar-month" {...props} />}
-      />
-      <Button
-        style={{
-          justifyContent: "center",
-          maxWidth: "40%",
-          maxHeight: "100%",
-          minWidth: "40%",
-          minHeight: "80%",
-        }}
-        color="aquamarine"
-        title="Activtion History"
-        leading={(props) => <Icon name="history" {...props} />}
-      />
-    </HStack>
-    <HStack fill center spacing={20}>
-      <Button
-        style={{
-          justifyContent: "center",
-          maxWidth: "40%",
-          maxHeight: "100%",
-          minWidth: "40%",
-          minHeight: "80%",
-        }}
-        color="aquamarine"
-        witch
-        title="Analytics"
-        leading={(props) => <Icon name="graph" {...props} />}
-      />
-      <Button
-      titleStyle={{height:'100%'}}
-        style={{
-          justifyContent: "center",
-          maxWidth: "40%",
-          maxHeight: "100%",
-          minWidth: "40%",
-          minHeight: "80%"
-        }}
-        color="aquamarine"
-        title="Remote Activtion"
-        leading={(props) => <Icon name="remote-tv" {...props} />}
-      />
-    </HStack>
-
-    <HStack fill spacing={20}></HStack>
-    <HStack fill spacing={20}></HStack> */
 }

@@ -4,8 +4,8 @@ export class ScheduleActive {
     setStartingData(sd){
         this.startingData = sd;
     }
-    setTimeToActivate(tta){
-        this.timeToActivate = tta;
+    setTimeToLive(ttl){
+        this.timeToLive = ttl;
     }
     setSystemToActivate(sa){
         this.systemsToActivate = sa;

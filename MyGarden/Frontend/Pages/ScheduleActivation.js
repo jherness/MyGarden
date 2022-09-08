@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Stack, Button, Flex, Text, Spacer } from "@react-native-material/core";
+import { Spacer } from "@react-native-material/core";
 import { HStack, VStack } from "@react-native-material/core";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import PageHead from "../Components/PageHead";
 import * as Colors from "../Style/Colors";
 import DaysPicker from "../Components/DaysPicker";
@@ -23,11 +23,19 @@ export default function ScheduleActivation({ navigation }) {
     Friday: false,
     Saturday: false,
   });
+  const [startTime, setStartTime] = useState();
+  const [timeToLive, setTimeToLive] = useState();
+  const [value, setValue] = useState(0);
+
+
 
   useEffect(() => {
     console.log(daysToActivate);
     console.log(sysToActivate);
   }, [daysToActivate, sysToActivate]);
+
+  
+
 
   return (
     <VStack fill spacing={1} style={{ backgroundColor: Colors.backColor }}>
@@ -50,66 +58,11 @@ export default function ScheduleActivation({ navigation }) {
         />
       </HStack>
       <Spacer />
-      <Spacer />
-      <Spacer />
+      <HStack fill center>
+      </HStack>
+      <HStack fill center>
 
+      </HStack>
     </VStack>
   );
-}
-
-{
-  /* <HStack  > 
-  <Flex direction="column">
-    <Greetings/>
-    </Flex>
-  </HStack>
-  <HStack>
-  <Text variant="h6" style={{ marginTop: 90}}
-     >
-    Schedule
-    </Text>
-    <Text variant="h6" color="aquamarine"
-    style={{ marginTop: 90}}
-    
-     >
-     Activtion    
-     </Text> 
-     </HStack>
-    <VStack fill center spacing={2}>
-
-    <DropdownDay/>
-
-    </VStack>
-   <VStack fill center spacing={20}>
-     <Dropdown />
-   <TextInput
-      label="Starting Time"
-      leading={props => <Icon name="clock-plus-outline" {...props} />}
-      
-    />
-     <TextInput
-      label="Finishing time"
-      leading={props => <Icon name="clock-plus-outline" {...props} />}
-      
-    />
-
-
-
-    
-     <Button
-      style={{
-         maxWidth: "50%",
-          maxHeight: "20%",
-          minWidth: "5%",
-          minHeight: "5%",
-          marginTop:"3%"
-      }}
-      color="aquamarine"
-      witch
-      title="Schedule"
-      leading={props => <Icon name="calendar-month" {...props} />}
-    />
-     
-    </VStack>
- */
 }
