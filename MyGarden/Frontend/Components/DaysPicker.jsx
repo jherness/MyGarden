@@ -4,80 +4,121 @@ import DayPicker from "./DayPicker";
 import { Box, HStack } from "@react-native-material/core";
 
 export default function DaysPicker() {
-  const [sundayBtn, setSundayBtn] = useState(false);
-  const [mondayBtn, setMondayBtn] = useState(false);
-  const [tuesdayBtn, setTuesdayBtn] = useState(false);
-  const [wednesdayBtn, setWednesdayBtn] = useState(false);
-  const [thursdayBtn, setThursdayBtn] = useState(false);
-  const [fridayBtn, setFridayBtn] = useState(false);
-  const [saturdayBtn, setSaturdayBtn] = useState(false);
   const [daysToActivate, setDaysToActivate] = useState({
-    "Sunday": false,
-    "Monday": false,
-    "Tuesday": false,
-    "Wednesday": false,
-    "Thursday": false,
-    "Friday": false,
-    "Saturday": false,
+    Sunday: false,
+    Monday: false,
+    Tuesday: false,
+    Wednesday: false,
+    Thursday: false,
+    Friday: false,
+    Saturday: false,
   });
 
   return (
     <HStack center fill>
       <DayPicker
         title="S"
-        state={daysToActivate["Sunday"]}
+        state={daysToActivate.Sunday}
         onPress={() => {
-          setDaysToActivate({
-            ...this.daysToActivate,
-            "Sunday": !daysToActivate["Sunday"],
-          });
-          console.log(daysToActivate);
+          setDaysToActivate(
+            (prevState) => (
+              {
+                ...prevState,
+                Monday: !prevState.Monday,
+              },
+              () => console.log(daysToActivate)
+            )
+          );
         }}
       />
       <DayPicker
         title="M"
-        state={mondayBtn}
+        state={daysToActivate.Monday}
         onPress={() => {
-          setDaysToActivate({
-            ...this.daysToActivate,
-            "Monday": !daysToActivate["Monday"],
-          });
-          console.log(daysToActivate);
+          setDaysToActivate(
+            (prevState) => (
+              {
+                ...prevState,
+                Monday: !prevState.Monday,
+              },
+              () => console.log(daysToActivate)
+            )
+          );
         }}
       />
       <DayPicker
         title="T"
-        state={tuesdayBtn}
+        state={daysToActivate.Tuesday}
         onPress={() => {
-          setTuesdayBtn(!tuesdayBtn);
+          setDaysToActivate(
+            (prevState) => (
+              {
+                ...prevState,
+                Tuesday: !prevState.Tuesday,
+              },
+              () => console.log(daysToActivate)
+            )
+          );
         }}
       />
       <DayPicker
         title="W"
-        state={wednesdayBtn}
+        state={daysToActivate.Wednesday}
         onPress={() => {
-          setWednesdayBtn(!wednesdayBtn);
+          setDaysToActivate(
+            (prevState) => (
+              {
+                ...prevState,
+                Wednesday: !prevState.Wednesday,
+              },
+              () => console.log(daysToActivate)
+            )
+          );
         }}
       />
       <DayPicker
         title="T"
-        state={thursdayBtn}
+        state={daysToActivate.Thursday}
         onPress={() => {
-          setThursdayBtn(!thursdayBtn);
+          setDaysToActivate(
+            (prevState) => (
+              {
+                ...prevState,
+                Thursday: !prevState.Thursday,
+              },
+              () => console.log(daysToActivate)
+            )
+          );
         }}
       />
       <DayPicker
         title="F"
-        state={fridayBtn}
+        state={daysToActivate.Friday}
         onPress={() => {
-          setFridayBtn(!fridayBtn);
+          setDaysToActivate(
+            (prevState) => (
+              {
+                ...prevState,
+                Friday: !prevState.Friday,
+              },
+              () => console.log(daysToActivate)
+            )
+          );
         }}
       />
       <DayPicker
         title="S"
-        state={saturdayBtn}
+        state={daysToActivate.Saturday}
         onPress={() => {
-          setSaturdayBtn(!saturdayBtn);
+          setDaysToActivate(
+            (prevState) => (
+              {
+                ...prevState,
+                Saturday: !prevState.Saturday,
+              },
+              () => console.log(daysToActivate)
+            )
+          );
         }}
       />
     </HStack>
