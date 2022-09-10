@@ -8,15 +8,14 @@ import {
   VStack,
   TextInput,
   ListItem,
+  Spacer,
 } from "@react-native-material/core";
 import PageHead from "../Components/PageHead.jsx";
-import { getActivations } from "../Modules/GlobalModule.js";
-import { List } from "react-native-paper";
-import Timeline from "react-native-timeline-flatlist";
+import Timeline from "react-native-beautiful-timeline";
 
 export default function ActivationHistory({ navigate }) {
   const [activations, setActivations] = useState([]);
-  const [timeline, setTimeline] = useState([]);
+  const [timelineData, setTimelineData] = useState([]);
 
   const getActivations = async () => {
     try {
@@ -30,25 +29,45 @@ export default function ActivationHistory({ navigate }) {
     }
   };
 
+  const formatTimeline = () => {
+    let newest = activations.map((act) => {
+      // let timestamp = new Date(act.dateTime_of_activation).valueOf()
+      return  {
+        "date": new Date(act.dateTime_of_activation).valueOf(),
+        "data": [
+          {
+            "title": "Activate",
+            "subtitle": act.activation_reason,
+            "date": new Date(act.dateTime_of_activation).valueOf()
+          },
+          {
+            "title": "Ended",
+            "subtitle": act.finish_hour,
+            "date": new Date(act.dateTime_of_activation).valueOf()
+          }
+        ]
+      }
+    })
+    return newest;
+  };
+
   useEffect(() => {
     getActivations();
+    setTimelineData(formatTimeline())
     //get data from DB every 60 seconds
-    const interval = (setInterval(() => {
+    const interval = setInterval(() => {
       getActivations();
-    }, 60000));
+    }, 5000);
 
     return () => {
       clearInterval(interval);
-    }
+    };
   }, []);
 
   return (
     <VStack fill center spacing={1} style={{ backgroundColor: "#E5E4D7" }}>
-      <HStack fill center spacing={1}>
-        <PageHead first="Activation" second="History" />
-      </HStack>
-      <HStack fill center>
-        <Timeline data={activations} />
+      <HStack fill style={{marginTop: "0%"}}>
+        <Timeline data={timelineData} />
       </HStack>
     </VStack>
   );
