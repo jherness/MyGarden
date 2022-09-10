@@ -28,12 +28,12 @@ async function create(sample) {
 }
 
 /*Update sample*/
-async function update(dt_of_sample, sample) {
+async function update(id, sample) {
   const result = await db.query(
     `UPDATE samples
-      SET key1 = ${sample.key1}, key2= ${sample.key1}, key3= ${sample.key1}, key4= ${sample.key1},
-       key5= ${sample.key1}, key6= ${sample.key1}
-      WHERE dt_of_sample=${dt_of_sample}`
+      SET key1 = ${sample.key1}, key2 = ${sample.key2}, key3 = ${sample.key3}, key4 =${sample.key4},
+       key5 = ${sample.key5}, key6= ${sample.key6}
+      WHERE id = ${id} `
   );
 
   let message = "Error in updating sample";
@@ -45,8 +45,21 @@ async function update(dt_of_sample, sample) {
   return { message };
 }
 
+/*Delete sample*/
+async function remove(id){
+    const result = await db.query(
+      `DELETE FROM samples WHERE id=${id}`
+    );
+    let message = 'Error in deleting sample';
+    if (result.affectedRows) {
+      message = 'sample deleted successfully';
+    }
+    return {message};
+  }
+
 module.exports = {
   getAllSamples,
   create,
   update,
+  remove
 };

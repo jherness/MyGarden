@@ -25,9 +25,19 @@ router.post("/", async function (req, res, next) {
 /* PUT samples */
 router.put("/:id", async function (req, res, next) {
   try {
-    res.json(await programmingLanguages.update(req.params.id, req.body));
+    res.json(await samples.update(req.params.id, req.body));
   } catch (err) {
-    console.error(`Error while updating programming language`, err.message);
+    console.error(`Error while updating sample`, err.message);
+    next(err);
+  }
+});
+
+/* DELETE programming language */
+router.delete("/:id", async function (req, res, next) {
+  try {
+    res.json(await samples.remove(req.params.id));
+  } catch (err) {
+    console.error(`Error while deleting sample`, err.message);
     next(err);
   }
 });

@@ -11,13 +11,14 @@ drop table Users;
 */
 
 create table samples(
-   dt_of_sample datetime default CURRENT_TIMESTAMP PRIMARY KEY,
-    key1 FLOAT NOT NULL,
-    key2 FLOAT NOT NULL,
-    key3 FLOAT NOT NULL,
-    key4 FLOAT NOT NULL,
-    key5 FLOAT NOT NULL,
-    key6 FLOAT NOT NULL
+      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		dt_of_sample datetime default CURRENT_TIMESTAMP,
+  		key1 FLOAT NOT NULL,
+   key2 FLOAT NOT NULL,
+   key3 FLOAT NOT NULL,
+   key4 FLOAT NOT NULL,
+   key5 FLOAT NOT NULL,
+   key6 FLOAT NOT NULL
 );
 
 INSERT INTO samples (KEY1, KEY2, KEY3, KEY4, KEY5, KEY6)
@@ -49,21 +50,26 @@ ENGINE=InnoDB
 
 /*future activition times Table*/
 
-CREATE TABLE `Schedule Activation` (
-	`Date_Of_Activition` DATETIME NOT NULL,
-	`Start_Hour` TIME NOT NULL,
-	`Finish_Hour` TIME NOT NULL,
-	`Is_Fan` BINARY(50) NOT NULL,
-	`Is_Water` BINARY(50) NOT NULL,
-	`Is_Moisture` BINARY(50) NOT NULL,
-	`Is_Light` BINARY(50) NOT NULL,
-	`Is_Fertelize` BINARY(50) NOT NULL,
-	PRIMARY KEY (`Date_Of_Activition`, `Start_Hour`) USING BTREE
+CREATE TABLE `schedule_activation` (
+	`start_hour` TIME NOT NULL,
+	`time_to_live` INT NOT NULL,
+	`sunday` TINYINT(1) NOT NULL,
+	`monday` TINYINT(1) NOT NULL,
+	`tuesday` TINYINT(1) NOT NULL,
+	`wednesday` TINYINT(1) NOT NULL,
+	`thursday` TINYINT(1) NOT NULL,
+	`friday` TINYINT(1) NOT NULL,
+	`saturday` TINYINT(1) NOT NULL,
+	`air_sys` TINYINT(1) NOT NULL,
+	`water_sys` TINYINT(1) NOT NULL,
+	`light_sys` TINYINT(1) NOT NULL,
+	`fertelize_sys` TINYINT(1) NOT NULL,
+	PRIMARY KEY (`start_hour`) USING BTREE
 )
-COLLATE='utf8mb4_general_ci'
-ENGINE=InnoDB
-;
 
+SELECT * FROM schedule_activation
+
+DROP TABLE schedule_activation
 
 
 /*exception Table*/
