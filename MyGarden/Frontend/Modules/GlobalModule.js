@@ -26,16 +26,10 @@ export const getUser = () => {
 // }
 
 
-export const putScheduleActivation = (obj) => {
-   const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(obj)
-    };
-    console.log(JSON.stringify(obj));
-    fetch('http://192.168.1.192:3000/schedule_activation', requestOptions)
-        .then(response => response.json())
-        .then(samples => console.log(samples));
+export const getActivations = () => {
+    fetch(`http://192.168.1.192:3000/activationHistory`)
+      .then(response => response.json())
+      .then(samples => console.log(samples))
 }
 
 

@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const samplesRouter = require("./routes/samples");
+const activationHistoryRouter = require("./routes/activationHistory")
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -13,6 +14,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/samples", samplesRouter);
+app.use("/activationHistory", activationHistoryRouter);
+
 
 /* Error handler*/
 app.use((err, req, res, next) => {

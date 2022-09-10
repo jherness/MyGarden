@@ -11,9 +11,9 @@ drop table Users;
 */
 
 create table samples(
-      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		dt_of_sample datetime default CURRENT_TIMESTAMP,
-  		key1 FLOAT NOT NULL,
+   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	dt_of_sample datetime default CURRENT_TIMESTAMP,
+  	key1 FLOAT NOT NULL,
    key2 FLOAT NOT NULL,
    key3 FLOAT NOT NULL,
    key4 FLOAT NOT NULL,
@@ -31,21 +31,27 @@ select * from samples;
 
 /*histroy_and_reasons Table*/
 
-CREATE TABLE `Activation History` (
-	`DateTime_Of_Activiton` DATETIME NOT NULL,
-	`Start_Hour` TIME NOT NULL,
-	`Finish_Hour` TIME NOT NULL,
-	`Activition_Code` INT(11) NOT NULL DEFAULT '0',
-	`Exception_Code` INT(11) NOT NULL DEFAULT '0',
-	PRIMARY KEY (`DateTime_Of_Activiton`) USING BTREE,
-	INDEX `Activition_key` (`Activition_Code`) USING BTREE,
-	INDEX `Exception_key` (`Exception_Code`) USING BTREE,
-	CONSTRAINT `Activition_key` FOREIGN KEY (`Activition_Code`) REFERENCES `mygarden`.`activition` (`Activition_Code`) ON UPDATE NO ACTION ON DELETE NO ACTION,
-	CONSTRAINT `Exception_key` FOREIGN KEY (`Exception_Code`) REFERENCES `mygarden`.`exception` (`Exception_Code`) ON UPDATE NO ACTION ON DELETE NO ACTION
+CREATE TABLE `activation_history` (
+	`dateTime_of_activation` DATETIME default CURRENT_TIMESTAMP NOT NULL,
+	`finish_hour` TIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+	`activation_code` INT(11) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`dateTime_of_activation`) USING BTREE,
+	INDEX `activations_key` (`activation_code`) USING BTREE,
+	CONSTRAINT `activation_key` FOREIGN KEY (`activation_code`) REFERENCES `mygarden`.`activation` (`activation_code`) ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
+
+/*
+INSERT INTO activation_history (activation_code)
+VALUES (6)
+*/
+
+select * from activation_history;
+/*
+drop TABLE activation_history
+*/
 
 
 /*future activition times Table*/
@@ -76,10 +82,10 @@ DROP TABLE schedule_activation
 
 
 
-CREATE TABLE `Exceptions` (
-	`Exception_Code` INT(11) NOT NULL,
-	`Handle_Description` VARCHAR(70) NOT NULL DEFAULT '0' COLLATE 'utf8mb4_general_ci',
-	PRIMARY KEY (`Exception_Code`) USING BTREE
+CREATE TABLE `exceptions` (
+	`exception_code` INT(11) NOT NULL,
+	`handle_description` VARCHAR(70) NOT NULL DEFAULT '0' COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`exception_code`) USING BTREE
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
@@ -89,15 +95,21 @@ ENGINE=InnoDB
 /*activition Table*/
 
 
-CREATE TABLE `Activation Reason` (
-	`Activition_Code` INT(11) NOT NULL,
-	`Activition_Reason` VARCHAR(30) NOT NULL COLLATE 'utf8mb4_general_ci',
-	PRIMARY KEY (`Activition_Code`) USING BTREE
+CREATE TABLE `activation` (
+	`activation_code` INT(11) NOT NULL,
+	`activation_reason` VARCHAR(30) NOT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`activation_code`) USING BTREE
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
+INSERT INTO activation (activation_code, activation_reason) VALUES
+(1, '1a'),(2, '2a'),(3, '3a'),(4, '4a'),
+(5, '5a'),(6, '6a'),(7, '7a'),(8, '8a'),
+(9, '9a'),(10, '10a'),(11, '11a'),(12, '12a'),
+(13, '13a'),(14, '14a'),(15, '15a'),(16, '16a');
 
+SELECT * FROM activation
 /*iNSERT fAKE vALUES FOR sAMPLE HISTORY*/
 
 INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:12:34');
@@ -118,73 +130,73 @@ INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-
 
 /*iNSERT  vALUES FOR exceptionexceptionORY*/
 
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('1');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=1;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('2');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=2;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('3');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=3;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('4');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=4;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('5');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=5;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('6');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=6;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('7');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=7;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('8');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=8;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('9');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=9;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('10');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=10;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('11');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=11;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('12');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=12;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('13');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=13;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('14');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=14;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('15');
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=15;
-INSERT INTO `mygarden`.`exception` (`Exception_Code`) VALUES ('16');
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('1');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=1;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('2');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=2;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('3');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=3;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('4');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=4;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('5');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=5;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('6');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=6;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('7');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=7;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('8');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=8;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('9');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=9;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('10');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=10;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('11');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=11;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('12');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=12;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('13');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=13;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('14');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=14;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('15');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=15;
+INSERT INTO `mygarden`.`exceptions` (`exception_code`) VALUES ('16');
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=16;
 
 
 
+SELECT * FROM exceptions
 
 
-
-
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[False, False, False, False]' WHERE  `Exception_Code`=1;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=1;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[True, False, False, False]' WHERE  `Exception_Code`=2;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=2;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[False, True, False, False]' WHERE  `Exception_Code`=3;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=3;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[False, False, True, False]' WHERE  `Exception_Code`=4;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=4;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[False, False, False, True]' WHERE  `Exception_Code`=5;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=5;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[False, True, True, False]' WHERE  `Exception_Code`=6;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=6;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[False, True, True, True]' WHERE  `Exception_Code`=7;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=7;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[False, True, False, True]' WHERE  `Exception_Code`=8;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=8;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[False, False, True, True]' WHERE  `Exception_Code`=9;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=9;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[True, True, False, False]' WHERE  `Exception_Code`=10;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=10;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[True, False, True, False]' WHERE  `Exception_Code`=11;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=11;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[True, False, False, True]' WHERE  `Exception_Code`=12;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=12;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[True, True, True, False]' WHERE  `Exception_Code`=13;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=13;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[True, True, False, True]' WHERE  `Exception_Code`=14;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=14;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[True, True, True, True]' WHERE  `Exception_Code`=15;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=15;
-UPDATE `mygarden`.`exception` SET `Handle_Description`='[True, False, True, True]' WHERE  `Exception_Code`=16;
-SELECT `Exception_Code`, `Handle_Description` FROM `mygarden`.`exception` WHERE  `Exception_Code`=16;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[False, False, False, False]' WHERE  `exception_code`=1;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=1;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[True, False, False, False]' WHERE  `exception_code`=2;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=2;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[False, True, False, False]' WHERE  `exception_code`=3;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=3;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[False, False, True, False]' WHERE  `exception_code`=4;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=4;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[False, False, False, True]' WHERE`exception_code`=5;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=5;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[False, True, True, False]' WHERE  `exception_code`=6;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=6;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[False, True, True, True]' WHERE  `exception_code`=7;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=7;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[False, True, False, True]' WHERE  `exception_code`=8;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=8;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[False, False, True, True]' WHERE  `exception_code`=9;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=9;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[True, True, False, False]' WHERE  `exception_code`=10;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=10;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[True, False, True, False]' WHERE  `exception_code`=11;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=11;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[True, False, False, True]' WHERE  `exception_code`=12;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=12;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[True, True, True, False]' WHERE  `exception_code`=13;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=13;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[True, True, False, True]' WHERE  `exception_code`=14;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=14;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[True, True, True, True]' WHERE  `exception_code`=15;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=15;
+UPDATE `mygarden`.`exceptions` SET `handle_description`='[True, False, True, True]' WHERE  `exception_code`=16;
+SELECT `exception_code`, `handle_description` FROM `mygarden`.`exceptions` WHERE  `exception_code`=16;

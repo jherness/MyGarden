@@ -65,7 +65,7 @@ export default function ScheduleActivation({ navigation }) {
   };
 
   const handleNewSchedule = () => {
-    putScheduleActivation(newSchedule)
+    // putScheduleActivation(newSchedule)
     navigation.navigate("Home");
   };
   return (
