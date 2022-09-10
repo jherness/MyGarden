@@ -17,6 +17,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import HomeBtn from "../Components/HomeBtn";
 import moment from "moment/moment";
 import Slider from "react-native-slider";
+import { ScheduleActive } from "../Classes/ScheduleActive";
+import { putScheduleActivation } from "../Modules/GlobalModule";
 
 export default function ScheduleActivation({ navigation }) {
   const [sysToActivate, setSysToActivate] = useState({
@@ -34,14 +36,19 @@ export default function ScheduleActivation({ navigation }) {
     Friday: false,
     Saturday: false,
   });
-  const [startTime, setStartTime] = useState();
+  const [startTime, setStartTime] = useState(new Date());
   const [timeToLive, setTimeToLive] = useState(0.2);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [timeBtnTxt, setTimeBtnTxt] = useState("Enter Start Time");
+  const [newSchedule, setNewSchedule] = useState(new ScheduleActive());
+
 
   useEffect(() => {
-    console.log(timeToLive);
-  }, [timeToLive]);
+    newSchedule.setStartingTime(startTime.toLocaleTimeString());
+    newSchedule.setSystemToActivate(sysToActivate);
+    newSchedule.setTimeToLive(Math.round(timeToLive));
+    newSchedule.setWeekSchedule(daysToActivate);
+  }, [timeToLive, sysToActivate, daysToActivate, startTime]);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -57,6 +64,10 @@ export default function ScheduleActivation({ navigation }) {
     hideDatePicker();
   };
 
+  const handleNewSchedule = () => {
+    putScheduleActivation(newSchedule)
+    navigation.navigate("Home");
+  };
   return (
     <VStack fill spacing={0} style={{ backgroundColor: Colors.backColor }}>
       <HStack fill center>
@@ -122,7 +133,7 @@ export default function ScheduleActivation({ navigation }) {
         <HomeBtn
           style={{ paddingBottom: 20 }}
           title="SAVE"
-          onPress={showDatePicker}
+          onPress={handleNewSchedule}
           height="50%"
           width="40%"
         />

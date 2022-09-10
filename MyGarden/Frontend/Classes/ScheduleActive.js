@@ -1,8 +1,8 @@
 export class ScheduleActive {
     constructor() {
     }
-    setStartingData(sd){
-        this.startingData = sd;
+    setStartingTime(sd){
+        this.startTime = sd;
     }
     setTimeToLive(ttl){
         this.timeToLive = ttl;
