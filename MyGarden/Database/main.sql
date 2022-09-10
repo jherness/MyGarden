@@ -26,8 +26,9 @@ VALUES (1, 2, 3, 4, 5, 6)
 
 select * from samples;
 
-
-
+/*
+SELECT * FROM samples ORDER BY dt_of_sample DESC  LIMIT 10
+*/
 
 /*histroy_and_reasons Table*/
 
@@ -52,6 +53,7 @@ select * from activation_history;
 /*
 drop TABLE activation_history
 */
+
 
 
 /*future activition times Table*/
