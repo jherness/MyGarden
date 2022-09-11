@@ -108,7 +108,7 @@ SELECT *
 FROM currently_active  
 ORDER BY id DESC
 LIMIT 1
-INSERT INTO currently_active(air_sys) VALUES(1)
+INSERT INTO currently_active(fertelize_sys) VALUES(1)
 
 
 /*Insert into samples*/
