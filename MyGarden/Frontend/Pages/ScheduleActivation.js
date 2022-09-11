@@ -18,7 +18,6 @@ import HomeBtn from "../Components/HomeBtn";
 import moment from "moment/moment";
 import Slider from "react-native-slider";
 import { ScheduleActive } from "../Classes/ScheduleActive";
-import { putScheduleActivation } from "../Modules/GlobalModule";
 
 export default function ScheduleActivation({ navigation }) {
   const [sysToActivate, setSysToActivate] = useState({
