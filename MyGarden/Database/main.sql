@@ -46,8 +46,9 @@ ENGINE=InnoDB
 
 /*
 INSERT INTO activation_history (activation_code)
-VALUES (6)
+VALUES (7)
 */
+
 
 select * from activation_history;
 /*

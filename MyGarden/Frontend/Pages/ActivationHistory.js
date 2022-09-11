@@ -55,7 +55,7 @@ export default function ActivationHistory({ navigate }) {
     //get data from DB every 60 seconds
     const interval = setInterval(() => {
       getActivations();
-    }, 5000);
+    }, 60000);
 
     return () => {
       clearInterval(interval);
