@@ -91,24 +91,23 @@ FROM activation
 
 /*currently_active*/
 CREATE TABLE `currently_active` (
+	`id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY ,
 	`air_sys` TINYINT(1) ZEROFILL DEFAULT(0) NOT NULL,
 	`water_sys` TINYINT(1) ZEROFILL DEFAULT(0) NOT NULL,
 	`light_sys` TINYINT(1) ZEROFILL DEFAULT(0) NOT NULL,
 	`fertelize_sys` TINYINT(1) ZEROFILL DEFAULT(0) NOT NULL
 ) COLLATE='utf8mb4_general_ci'
 ;
-CREATE TRIGGER `one_row_enforce` BEFORE
-UPDATE ON `currently_active` FOR EACH ROW BEGIN
-DELETE
-FROM currently_active; END;
 
 
 DELETE
 FROM currently_active;
 
 
-SELECT *
-FROM currently_active
+SELECT * 
+FROM currently_active  
+ORDER BY id DESC
+LIMIT 1
 INSERT INTO currently_active(air_sys) VALUES(1)
 
 

@@ -1,5 +1,5 @@
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Stack,
   Button,
@@ -55,6 +55,35 @@ export default function RemoteActivation({ navigation }) {
     Air: false,
     Fertilize: false
   });
+
+  const getCurrentlyActiveRelays = async () => {
+    try {
+      const response = await fetch(
+        `http://192.168.1.192:3000/currentlyActive`
+      );
+      const data = await response.json();
+      setSysToActivate(formatCurrentlyActive(data))
+    } catch (err) {
+      console.log(error);
+    }
+  }
+
+  const formatCurrentlyActive = (data) => {
+    data.map(relay => {
+      return  {
+        Water: relay.water_sys == 0? false : true,
+        Light: relay.light_sys == 0? false : true,
+        Air: relay.air_sys == 0? false : true,
+        Fertilize: relay.fertelize_sys == 0? false : true,
+      }
+    })
+  }
+
+  useEffect(() => {
+    getCurrentlyActiveRelays()
+    console.log(sysToActivate);
+  }, [])
+  
 
   const dataChecker = (
     startingData,

@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const samplesRouter = require("./routes/samples");
 const activationHistoryRouter = require("./routes/activationHistory")
+const currentlyActiveRouter = require("./routes/currentlyActive")
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
 
 app.use("/samples", samplesRouter);
 app.use("/activationHistory", activationHistoryRouter);
+app.use("/currentlyActive", currentlyActiveRouter)
 
 
 /* Error handler*/
