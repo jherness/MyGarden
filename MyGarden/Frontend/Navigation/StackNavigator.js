@@ -70,7 +70,7 @@ const MainStackNavigator = () => {
 };
 
 const styles = StyleSheet.create({
-  icon: { color: Colors.backColor, fontSize: "28" },
+  icon: { color: Colors.backColor, fontSize: 28 },
   avatar: { backgroundColor: Colors.mainColor },
   headerStyles: {
     headerStyle: {

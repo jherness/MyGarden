@@ -7,9 +7,7 @@ export default function SysSwitches(props) {
   const [sysToActivate, setSysToActivate] = useState(props.state);
   const setState = props.onChange;
 
-  useEffect(() => {
-    setState(sysToActivate);
-  }, [sysToActivate]);
+
 
   return (
     <View>
@@ -17,11 +15,11 @@ export default function SysSwitches(props) {
         <Wrap m={2} items="center" spacing={10}>
           <SysSwitch
             iconName="watering-can"
-            state={sysToActivate.Water}
+            state={sysToActivate.water_sys}
             onPress={() => {
               setSysToActivate((prevState) => ({
                 ...prevState,
-                Water: !prevState.Water,
+                water_sys: !prevState.water_sys,
               }));
             }}
           />
@@ -29,11 +27,11 @@ export default function SysSwitches(props) {
         <Wrap m={2} items="center" spacing={10}>
           <SysSwitch
             iconName="lightbulb"
-            state={sysToActivate.Light}
+            state={sysToActivate.light_sys}
             onPress={() => {
               setSysToActivate((prevState) => ({
                 ...prevState,
-                Light: !prevState.Light,
+                light_sys: !prevState.light_sys,
               }));
             }}
           />
@@ -43,11 +41,11 @@ export default function SysSwitches(props) {
         <Wrap  items="center"  spacing={10}>
           <SysSwitch
             iconName="fan"
-            state={sysToActivate.Air}
+            state={sysToActivate.air_sys}
             onPress={() => {
               setSysToActivate((prevState) => ({
                 ...prevState,
-                Air: !prevState.Air,
+                air_sys: !prevState.air_sys,
               }));
             }}
           />
@@ -55,11 +53,11 @@ export default function SysSwitches(props) {
         <Wrap m={2} items="center" spacing={10}>
           <SysSwitch
             iconName="leaf"
-            state={sysToActivate.Fertilize}
+            state={sysToActivate.fertelize_sys}
             onPress={() => {
               setSysToActivate((prevState) => ({
                 ...prevState,
-                Fertilize: !prevState.Fertilize,
+                fertelize_sys: !prevState.fertelize_sys,
               }));
             }}
           />
