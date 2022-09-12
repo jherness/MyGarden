@@ -66,22 +66,27 @@ FROM schedule_activation
 DROP TABLE schedule_activation
 
 
-
-CREATE TABLE `schedule_activation` (
-	`start_hour` TIME NOT NULL,
-	`time_to_live` INT NOT NULL,
-	`sunday` TINYINT(1) NOT NULL,
-	`monday` TINYINT(1) NOT NULL,
-	`tuesday` TINYINT(1) NOT NULL,
-	`wednesday` TINYINT(1) NOT NULL,
-	`thursday` TINYINT(1) NOT NULL,
-	`friday` TINYINT(1) NOT NULL,
-	`saturday` TINYINT(1) NOT NULL,
+CREATE TABLE `remote_activation` (
+	`start_data` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL PRIMARY KEY,
+	`finish_data` INT NOT NULL,
 	`air_sys` TINYINT(1) NOT NULL,
 	`water_sys` TINYINT(1) NOT NULL,
 	`light_sys` TINYINT(1) NOT NULL,
-	`fertelize_sys` TINYINT(1) NOT NULL, PRIMARY KEY (`start_hour`) USING BTREE
+	`fertelize_sys` TINYINT(1) NOT NULL
 )
+INSERT INTO remote_activation(finish_data, air_sys,water_sys,light_sys,fertelize_sys) VALUES (20, 0, 1, 0, 1)
+SELECT *
+FROM remote_activation
+DROP TABLE remote_activation
+CREATE TRIGGER `remote_activation_after_insert` AFTER
+INSERT ON `remote_activation` FOR EACH ROW BEGIN
+DELETE
+FROM currently_active;
+INSERT INTO currently_active(water_sys, air_sys, light_sys, fertelize_sys) VALUES (NEW.water_sys, NEW.air_sys, NEW.light_sys, NEW.fertelize_sys); END;
+SELECT *
+FROM currently_active
+
+
 
 
 /*exception Table*/
@@ -109,21 +114,17 @@ FROM activation
 
 /*currently_active*/
 CREATE TABLE `currently_active` (
-	`id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY ,
+	`id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`air_sys` TINYINT(1) ZEROFILL DEFAULT(0) NOT NULL,
 	`water_sys` TINYINT(1) ZEROFILL DEFAULT(0) NOT NULL,
 	`light_sys` TINYINT(1) ZEROFILL DEFAULT(0) NOT NULL,
 	`fertelize_sys` TINYINT(1) ZEROFILL DEFAULT(0) NOT NULL
 ) COLLATE='utf8mb4_general_ci'
 ;
-
-
 DELETE
 FROM currently_active;
-
-
-SELECT * 
-FROM currently_active  
+SELECT *
+FROM currently_active
 ORDER BY id DESC
 LIMIT 1
 INSERT INTO currently_active(fertelize_sys) VALUES(1)

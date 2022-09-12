@@ -4,6 +4,7 @@ const port = 3000;
 const samplesRouter = require("./routes/samples");
 const activationHistoryRouter = require("./routes/activationHistory")
 const currentlyActiveRouter = require("./routes/currentlyActive")
+const remoteActivationRouter = require("./routes/remoteActivation")
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -17,6 +18,8 @@ app.get("/", (req, res) => {
 app.use("/samples", samplesRouter);
 app.use("/activationHistory", activationHistoryRouter);
 app.use("/currentlyActive", currentlyActiveRouter)
+app.use("/remoteActivation", remoteActivationRouter)
+
 
 
 /* Error handler*/
