@@ -66,6 +66,24 @@ FROM schedule_activation
 DROP TABLE schedule_activation
 
 
+
+CREATE TABLE `schedule_activation` (
+	`start_hour` TIME NOT NULL,
+	`time_to_live` INT NOT NULL,
+	`sunday` TINYINT(1) NOT NULL,
+	`monday` TINYINT(1) NOT NULL,
+	`tuesday` TINYINT(1) NOT NULL,
+	`wednesday` TINYINT(1) NOT NULL,
+	`thursday` TINYINT(1) NOT NULL,
+	`friday` TINYINT(1) NOT NULL,
+	`saturday` TINYINT(1) NOT NULL,
+	`air_sys` TINYINT(1) NOT NULL,
+	`water_sys` TINYINT(1) NOT NULL,
+	`light_sys` TINYINT(1) NOT NULL,
+	`fertelize_sys` TINYINT(1) NOT NULL, PRIMARY KEY (`start_hour`) USING BTREE
+)
+
+
 /*exception Table*/
 CREATE TABLE `exceptions` (
 	`exception_code` INT(11) NOT NULL,

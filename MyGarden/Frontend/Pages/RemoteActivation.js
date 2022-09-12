@@ -23,6 +23,7 @@ import * as Colors from "../Style/Colors";
 import SysSwitches from "../Components/SysSwitches";
 import moment from "moment";
 import HomeBtn from "../Components/HomeBtn";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default function RemoteActivation({ navigation }) {
   const mainColor = Colors.mainColor;
@@ -64,33 +65,23 @@ export default function RemoteActivation({ navigation }) {
       air_sys: data[0].air_sys === 1,
       water_sys: data[0].water_sys === 1,
       light_sys: data[0].light_sys === 1,
-      fertelize_sys: data[0].fertelize_sys === 1
-    }
-  }
+      fertelize_sys: data[0].fertelize_sys === 1,
+    };
+  };
 
 
   const [counter, setCounter] = useState(0);
-  let s
-
   // Emmulate componentDidMount lifecycle
   React.useEffect(() => {
-    getCurrentlyActiveRelays()
+    getCurrentlyActiveRelays();
 
-    s = setInterval(() => {
-      setCounter(state => (state +1));
-    }, 2000);
+    const interval = setInterval(() => {
+      setCounter(prev => prev + 1)
+    }, 1500);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
-
-  // This is for counter state variable
-  React.useEffect(() => {
-    if (counter > 2) {
-      clearInterval(s);
-    }
-  }, [counter]);
-
-
-
-
 
   const dataChecker = (startingData, finishingData, sysToActivate) => {
     debugger;
@@ -106,48 +97,54 @@ export default function RemoteActivation({ navigation }) {
     }
   };
 
-  return (
-    counter <= 2 ? <Text>Loading</Text> : <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
-    <HStack>
-      <PageHead first="Remote" second="Activation" />
-    </HStack>
-    <HStack fill center spacing={2}>
-      <HomeBtn
-        title={timeBtnTxt}
-        onPress={showDatePicker}
-        height="35%"
-        width="50%"
-      />
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="time"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
-    </HStack>
-    <HStack fill center>
-      <SysSwitches
-        state={sysToActivate}
-        onChange={(newState) => {
-          setSysToActivate(newState);
-        }}
-      />
-    </HStack>
-    <HStack fill center spacing={2}>
-      <HomeBtn
-        title={"Activate!"}
-        onPress={() => {
-          dataChecker(new Date(), finishingData, sysToActivate);
-          if (flag) {
-            setTimeBtnTxt("Pick Finish time");
-            navigation.navigate("Home");
-          }
-        }}
-        height="35%"
-        width="50%"
-      />
-    </HStack>
-    <HStack fill />
-  </VStack>
+  return counter < 1 ? (
+    <Spinner
+      visible={true}
+      textContent={"Loading..."}
+      textStyle={{ color: "#FFF" }}
+    />
+  ) : (
+    <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
+      <HStack>
+        <PageHead first="Remote" second="Activation" />
+      </HStack>
+      <HStack fill center spacing={2}>
+        <HomeBtn
+          title={timeBtnTxt}
+          onPress={showDatePicker}
+          height="35%"
+          width="50%"
+        />
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="time"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+        />
+      </HStack>
+      <HStack fill center>
+        <SysSwitches
+          state={sysToActivate}
+          onChange={(newState) => {
+            setSysToActivate(newState);
+          }}
+        />
+      </HStack>
+      <HStack fill center spacing={2}>
+        <HomeBtn
+          title={"Activate!"}
+          onPress={() => {
+            dataChecker(new Date(), finishingData, sysToActivate);
+            if (flag) {
+              setTimeBtnTxt("Pick Finish time");
+              navigation.navigate("Home");
+            }
+          }}
+          height="35%"
+          width="50%"
+        />
+      </HStack>
+      <HStack fill />
+    </VStack>
   );
 }
