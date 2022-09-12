@@ -53,9 +53,8 @@ export default function ScheduleActivation({ navigation }) {
   };
 
   const handleConfirm = (date) => {
-    const formatMinutes = moment(date.toLocaleTimeString(), "hhmm").format("HH:mm")
-    setStartTime(formatMinutes);
-    setTimeBtnTxt(formatMinutes);
+    setStartTime(date);
+    setTimeBtnTxt(moment(date.toLocaleTimeString(), "hhmm").format("HH:mm"));
     hideDatePicker();
   };
 
@@ -64,7 +63,7 @@ export default function ScheduleActivation({ navigation }) {
   };
 
   const handleNewSchedule = () => {
-    scheduleChecker(setNewSchedule, setNewSchedule, startTime, timeToLive, daysToActivate, sysToActivate)
+    scheduleChecker(setNewSchedule, startTime, timeToLive, daysToActivate, sysToActivate)
     navigation.navigate("Home");
   };
   return (

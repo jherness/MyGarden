@@ -47,7 +47,7 @@ drop TABLE activation_history
 mygarden
 /*future activition times Table*/
 CREATE TABLE `schedule_activation` (
-	`start_hour` TIME NOT NULL PRIMARY KEY,
+	`start_hour` DATETIME NOT NULL PRIMARY KEY,
 	`time_to_live` INT NOT NULL,
 	`sunday` TINYINT(1) NOT NULL,
 	`monday` TINYINT(1) NOT NULL,
@@ -63,7 +63,8 @@ CREATE TABLE `schedule_activation` (
 )
 
 
-INSERT INTO schedule_activation VALUES("13:25:32", 3, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
+INSERT INTO schedule_activation VALUES("2022-09-12 05:12.04":,
+ 3, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
 SELECT * 
   FROM schedule_activation order by start_hour Desc LIMIT 1;
 DELETE from schedule_activation;

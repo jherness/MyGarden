@@ -1,6 +1,8 @@
 import { postToDb } from "./posts";
+import { ScheduleActive } from "../Classes/ScheduleActive";
 
-export const scheduleChecker= (setNewSchedule, newSchedule, startTime, timeToLive, daysToActivate, sysToActivate) => {
+export const scheduleChecker= (setNewSchedule, startTime, timeToLive, daysToActivate, sysToActivate) => {
+  let newSchedule = new ScheduleActive()
   debugger;
   if (
     daysToActivate.sunday === false &&
@@ -27,30 +29,14 @@ export const scheduleChecker= (setNewSchedule, newSchedule, startTime, timeToLiv
       }
    else {
     newSchedule.setStartingTime(startTime);
-    newSchedule.setFinishingData(timeToLive);
+    newSchedule.setTimeToLive(timeToLive);
     newSchedule.setSystemToActivate(sysToActivate);
     newSchedule.setWeekSchedule(daysToActivate);
     setNewSchedule(newSchedule)
-    postToDb(newSchedule, `ScheduleActivation`);
-    navigation.navigate("Home");
+    console.log(newSchedule)
+    // postToDb(newSchedule, `scheduleActivation`);
   }
 };
 
 
-export class ScheduleActive {
-  constructor() {
-  }
-  setStartingTime(sd){
-      this.startTime = sd;
-  }
-  setTimeToLive(ttl){
-      this.timeToLive = ttl;
-  }
-  setSystemToActivate(sa){
-      this.systemsToActivate = sa;
-  }
-  setWeekSchedule(ws){
-      this.weekSchedule = ws;
-  }
-}
 
