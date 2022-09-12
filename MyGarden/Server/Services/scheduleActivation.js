@@ -5,7 +5,7 @@ const config = require("../config");
 /*Get latest schedule */
 async function getScheduleActivation() {
   const rows = await db.query(`SELECT * 
-  FROM schedule_activation order by start_data Desc Limit 1`);
+  FROM schedule_activation order by start_hour Desc Limit 1`);
   const data = helper.emptyOrRows(rows);
   return data;
 }
