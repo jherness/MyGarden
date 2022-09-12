@@ -1,30 +1,15 @@
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import React, { useState, useEffect } from "react";
-import {
-  Stack,
-  Button,
-  Flex,
-  Text,
-  Switch,
-  Avatar,
-  Spacer,
-} from "@react-native-material/core";
-import {
-  Wrap,
-  Box,
-  Divider,
-  HStack,
-  VStack,
-  TextInput,
-} from "@react-native-material/core";
+import { Text, Spacer } from "@react-native-material/core";
+import { HStack, VStack } from "@react-native-material/core";
 import PageHead from "../Components/PageHead";
 import { RemoteActive } from "../Classes/RemoteActive";
 import * as Colors from "../Style/Colors";
 import SysSwitches from "../Components/SysSwitches";
-import moment from "moment";
+import { getCurrentlyActiveRelays } from "../Modules/getFromDb";
 import HomeBtn from "../Components/HomeBtn";
 import Spinner from "react-native-loading-spinner-overlay";
 import Slider from "react-native-slider";
+import { postToDb } from "../Modules/postToDb";
 
 export default function RemoteActivation({ navigation }) {
   const mainColor = Colors.mainColor;
@@ -34,29 +19,10 @@ export default function RemoteActivation({ navigation }) {
   const [finishingData, setFinishing] = useState(1);
   const [sysToActivate, setSysToActivate] = useState([]);
 
-  const getCurrentlyActiveRelays = async () => {
-    try {
-      const response = await fetch(`http://192.168.1.192:3000/currentlyActive`);
-      const data = await response.json();
-      setSysToActivate(dataFormatter(data));
-    } catch (err) {
-      console.log(error);
-    }
-  };
-
-  const dataFormatter = (data) => {
-    return {
-      air_sys: data[0].air_sys === 1,
-      water_sys: data[0].water_sys === 1,
-      light_sys: data[0].light_sys === 1,
-      fertelize_sys: data[0].fertelize_sys === 1,
-    };
-  };
-
   const [counter, setCounter] = useState(0);
   // Emmulate componentDidMount lifecycle
-  React.useEffect(() => {
-    getCurrentlyActiveRelays();
+  useEffect(() => {
+    getCurrentlyActiveRelays(setSysToActivate);
 
     const interval = setInterval(() => {
       setCounter((prev) => prev + 1);
@@ -75,18 +41,17 @@ export default function RemoteActivation({ navigation }) {
       remote.setFinishingData(Math.round(finishingData));
       remote.setSystemToActivate(sysToActivate);
       setRemote(remote);
-      console.log(remote);
+      postToDb(remote, `remoteActivation`);
     }
   };
   const childToParent = (data) => {
     setSysToActivate(data);
   };
 
-
   const handleSubmit = () => {
     dataChecker(new Date(), finishingData, sysToActivate);
     navigation.navigate("Home");
-  }
+  };
 
   return counter < 1 ? (
     <Spinner

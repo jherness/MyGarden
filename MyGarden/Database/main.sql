@@ -78,6 +78,8 @@ INSERT INTO remote_activation(finish_data, air_sys,water_sys,light_sys,fertelize
 SELECT *
 FROM remote_activation
 DROP TABLE remote_activation
+
+
 CREATE TRIGGER `remote_activation_after_insert` AFTER
 INSERT ON `remote_activation` FOR EACH ROW BEGIN
 DELETE
