@@ -7,6 +7,7 @@ import {
   Text,
   Switch,
   Avatar,
+  Spacer,
 } from "@react-native-material/core";
 import {
   Wrap,
@@ -16,7 +17,6 @@ import {
   VStack,
   TextInput,
 } from "@react-native-material/core";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PageHead from "../Components/PageHead";
 import { RemoteActive } from "../Classes/RemoteActive";
 import * as Colors from "../Style/Colors";
@@ -24,30 +24,14 @@ import SysSwitches from "../Components/SysSwitches";
 import moment from "moment";
 import HomeBtn from "../Components/HomeBtn";
 import Spinner from "react-native-loading-spinner-overlay";
+import Slider from "react-native-slider";
 
 export default function RemoteActivation({ navigation }) {
   const mainColor = Colors.mainColor;
   const backColor = Colors.backColor;
-  let flag = true;
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    setFinishing(date);
-    setTimeBtnTxt(moment(date.toLocaleTimeString(), "hhmm").format("HH:mm"));
-    hideDatePicker();
-  };
 
   const [remote, setRemote] = useState(new RemoteActive());
-  const [finishingData, setFinishing] = useState();
-  const [timeBtnTxt, setTimeBtnTxt] = useState("Pick Finish time");
+  const [finishingData, setFinishing] = useState(1);
   const [sysToActivate, setSysToActivate] = useState([]);
 
   const getCurrentlyActiveRelays = async () => {
@@ -69,14 +53,13 @@ export default function RemoteActivation({ navigation }) {
     };
   };
 
-
   const [counter, setCounter] = useState(0);
   // Emmulate componentDidMount lifecycle
   React.useEffect(() => {
     getCurrentlyActiveRelays();
 
     const interval = setInterval(() => {
-      setCounter(prev => prev + 1)
+      setCounter((prev) => prev + 1);
     }, 1500);
     return () => {
       clearInterval(interval);
@@ -87,14 +70,16 @@ export default function RemoteActivation({ navigation }) {
     debugger;
     if (finishingData === "" || finishingData === undefined) {
       alert("Please enter finish time");
-      flag = false;
     } else {
       remote.setStartingData(startingData);
-      remote.setFinishingData(finishingData);
+      remote.setFinishingData(Math.round(finishingData));
       remote.setSystemToActivate(sysToActivate);
       setRemote(remote);
       console.log(remote);
     }
+  };
+  const childToParent = (data) => {
+    setSysToActivate(data);
   };
 
   return counter < 1 ? (
@@ -105,29 +90,35 @@ export default function RemoteActivation({ navigation }) {
     />
   ) : (
     <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
-      <HStack>
+      <HStack fill center>
         <PageHead first="Remote" second="Activation" />
       </HStack>
-      <HStack fill center spacing={2}>
-        <HomeBtn
-          title={timeBtnTxt}
-          onPress={showDatePicker}
-          height="35%"
-          width="50%"
-        />
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="time"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-        />
+      <Spacer fill />
+      <HStack fill center>
+        <SysSwitches state={sysToActivate} childToParent={childToParent} />
       </HStack>
       <HStack fill center>
-        <SysSwitches
-          state={sysToActivate}
-          onChange={(newState) => {
-            setSysToActivate(newState);
+        <Text
+          style={{
+            fontSize: 24,
+            fontWeight: "bold",
+            color: Colors.mainColor,
+            alignItems: "center",
+            justifyContent: "center",
           }}
+        >
+          {Math.round(finishingData) == 1
+            ? Math.round(finishingData) + " Minute"
+            : Math.round(finishingData) + " Minutes"}
+        </Text>
+      </HStack>
+      <HStack fill center>
+        <Slider
+          minimumValue={1}
+          maximumValue={120}
+          style={{ marginBottom: 50, width: "85%" }}
+          value={finishingData}
+          onValueChange={(value) => setFinishing(value)}
         />
       </HStack>
       <HStack fill center spacing={2}>
@@ -135,10 +126,7 @@ export default function RemoteActivation({ navigation }) {
           title={"Activate!"}
           onPress={() => {
             dataChecker(new Date(), finishingData, sysToActivate);
-            if (flag) {
-              setTimeBtnTxt("Pick Finish time");
-              navigation.navigate("Home");
-            }
+            navigation.navigate("Home");
           }}
           height="35%"
           width="50%"

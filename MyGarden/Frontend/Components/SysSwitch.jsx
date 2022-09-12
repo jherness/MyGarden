@@ -4,13 +4,14 @@ import { Switch, Avatar, HStack } from "@react-native-material/core";
 import * as Colors from "../Style/Colors";
 
 export default function SysSwitch(props) {
-  const [isActive, setIsActive] = useState(props.state);
+  const [isActive, setIsActive] = useState(props.isActive);
   const iconName = props.iconName;
-  const onPress = props.onPress;
+  const grandchildToChild = props.grandchildToChild
+  const handleClick = () => {
+    setIsActive(prev => !prev)
+    grandchildToChild(isActive, iconName)
+  }
 
-  useEffect(() => {
-    setIsActive(props.state);
-  }, [props.state]);
 
   return (
     <HStack center spacing={7}>
@@ -21,7 +22,7 @@ export default function SysSwitch(props) {
           <Icon
             name={iconName}
             style={Colors.backColor}
-            onPress={onPress}
+            onPress={handleClick}
             {...props}
           />
         )}
@@ -29,7 +30,7 @@ export default function SysSwitch(props) {
       <Switch
         value={isActive}
         style={Colors.mainColor}
-        onValueChange={onPress}
+        onValueChange={handleClick}
       />
     </HStack>
   );
