@@ -82,6 +82,12 @@ export default function RemoteActivation({ navigation }) {
     setSysToActivate(data);
   };
 
+
+  const handleSubmit = () => {
+    dataChecker(new Date(), finishingData, sysToActivate);
+    navigation.navigate("Home");
+  }
+
   return counter < 1 ? (
     <Spinner
       visible={true}
@@ -124,10 +130,7 @@ export default function RemoteActivation({ navigation }) {
       <HStack fill center spacing={2}>
         <HomeBtn
           title={"Activate!"}
-          onPress={() => {
-            dataChecker(new Date(), finishingData, sysToActivate);
-            navigation.navigate("Home");
-          }}
+          onPress={handleSubmit}
           height="35%"
           width="50%"
         />
