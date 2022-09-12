@@ -15,12 +15,14 @@ router.get("/", async function (req, res, next) {
 /*Post new activation*/
 router.post("/", async function (req, res, next) {
   try {
-    res.json(await remote_activation.create(req.body));
+    res.json(await schedule_activation.create(req.body));
   } catch (err) {
-    console.error(`Error while creating schedule_activation new data`, err.message);
+    console.error(
+      `Error while creating schedule_activation new data`,
+      err.message
+    );
     next(err);
   }
 });
-
 
 module.exports = router;
