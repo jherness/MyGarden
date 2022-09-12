@@ -18,6 +18,7 @@ import HomeBtn from "../Components/HomeBtn";
 import moment from "moment/moment";
 import Slider from "react-native-slider";
 import { ScheduleActive } from "../Classes/ScheduleActive";
+import { scheduleChecker } from "../Modules/DataCheckers";
 
 export default function ScheduleActivation({ navigation }) {
   const [sysToActivate, setSysToActivate] = useState({
@@ -35,17 +36,13 @@ export default function ScheduleActivation({ navigation }) {
     friday: false,
     saturday: false,
   });
-  const [startTime, setStartTime] = useState(new Date());
+  const [startTime, setStartTime] = useState();
   const [timeToLive, setTimeToLive] = useState(1);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [timeBtnTxt, setTimeBtnTxt] = useState("Enter Start Time");
   const [newSchedule, setNewSchedule] = useState(new ScheduleActive());
 
 
-  useEffect(() => {
-    setTimeToLive(Math.round(timeToLive));
-    newSchedule.setWeekSchedule(daysToActivate);
-  }, [timeToLive, sysToActivate, daysToActivate, startTime]);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -57,7 +54,7 @@ export default function ScheduleActivation({ navigation }) {
 
   const handleConfirm = (date) => {
     const formatMinutes = moment(date.toLocaleTimeString(), "hhmm").format("HH:mm")
-    newSchedule.setStartingTime(formatMinutes);
+    setStartTime(formatMinutes);
     setTimeBtnTxt(formatMinutes);
     hideDatePicker();
   };
@@ -67,7 +64,7 @@ export default function ScheduleActivation({ navigation }) {
   };
 
   const handleNewSchedule = () => {
-    console.log(daysToActivate)
+    scheduleChecker(setNewSchedule, setNewSchedule, startTime, timeToLive, daysToActivate, sysToActivate)
     navigation.navigate("Home");
   };
   return (

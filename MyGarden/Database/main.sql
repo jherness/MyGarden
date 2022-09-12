@@ -61,6 +61,9 @@ CREATE TABLE `schedule_activation` (
 	`light_sys` TINYINT(1) NOT NULL,
 	`fertelize_sys` TINYINT(1) NOT NULL, PRIMARY KEY (`start_hour`) USING BTREE
 )
+
+
+INSERT INTO schedule_activation VALUES("13:25:32", 3, 1,0,0,0,0,0,0,1,1,1,1)
 SELECT *
 FROM schedule_activation
 DROP TABLE schedule_activation
@@ -80,11 +83,13 @@ FROM remote_activation
 DROP TABLE remote_activation
 
 
-CREATE TRIGGER `remote_activation_after_insert` AFTER
-INSERT ON `remote_activation` FOR EACH ROW BEGIN
-DELETE
-FROM currently_active;
-INSERT INTO currently_active(water_sys, air_sys, light_sys, fertelize_sys) VALUES (NEW.water_sys, NEW.air_sys, NEW.light_sys, NEW.fertelize_sys); END;
+CREATE TRIGGER `remote_activation_before_insert` BEFORE INSERT ON `remote_activation` FOR EACH ROW BEGIN
+DELETE FROM currently_active;
+INSERT INTO currently_active(water_sys, air_sys, light_sys, fertelize_sys)
+ VALUES (NEW.water_sys, NEW.air_sys, NEW.light_sys, NEW.fertelize_sys);
+END;
+
+
 SELECT *
 FROM currently_active
 
