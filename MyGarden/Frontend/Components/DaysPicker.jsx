@@ -16,13 +16,13 @@ export default function DaysPicker(props) {
     <HStack center fill>
       <DayPicker
         title="S"
-        state={daysToActivate.Sunday}
+        state={daysToActivate.sunday}
         onPress={() => {
           setDaysToActivate(
             (prevState) => (
               {
                 ...prevState,
-                Sunday: !prevState.Sunday
+                sunday: !prevState.sunday
               }
             )
           )
@@ -30,13 +30,13 @@ export default function DaysPicker(props) {
       />
       <DayPicker
         title="M"
-        state={daysToActivate.Monday}
+        state={daysToActivate.monday}
         onPress={() => {
           setDaysToActivate(
             (prevState) => (
               {
                 ...prevState,
-                Monday: !prevState.Monday
+                monday: !prevState.monday
               }
             )
           )
@@ -44,13 +44,13 @@ export default function DaysPicker(props) {
       />
       <DayPicker
         title="T"
-        state={daysToActivate.Tuesday}
+        state={daysToActivate.tuesday}
         onPress={() => {
           setDaysToActivate(
             (prevState) => (
               {
                 ...prevState,
-                Tuesday: !prevState.Tuesday
+                tuesday: !prevState.tuesday
               }
             )
           )
@@ -58,13 +58,13 @@ export default function DaysPicker(props) {
       />
       <DayPicker
         title="W"
-        state={daysToActivate.Wednesday}
+        state={daysToActivate.wednesday}
         onPress={() => {
           setDaysToActivate(
             (prevState) => (
               {
                 ...prevState,
-                Wednesday: !prevState.Wednesday
+                wednesday: !prevState.wednesday
               }
             )
           )
@@ -72,13 +72,13 @@ export default function DaysPicker(props) {
       />
       <DayPicker
         title="T"
-        state={daysToActivate.Thursday}
+        state={daysToActivate.thursday}
         onPress={() => {
           setDaysToActivate(
             (prevState) => (
               {
                 ...prevState,
-                Thursday: !prevState.Thursday
+                thursday: !prevState.thursday
               }
             )
           )
@@ -86,13 +86,13 @@ export default function DaysPicker(props) {
       />
       <DayPicker
         title="F"
-        state={daysToActivate.Friday}
+        state={daysToActivate.friday}
         onPress={() => {
           setDaysToActivate(
             (prevState) => (
               {
                 ...prevState,
-                Friday: !prevState.Friday
+                friday: !prevState.friday
               }
             )
           )
@@ -100,13 +100,13 @@ export default function DaysPicker(props) {
       />
       <DayPicker
         title="S"
-        state={daysToActivate.Saturday}
+        state={daysToActivate.saturday}
         onPress={() => {
           setDaysToActivate(
             (prevState) => (
               {
                 ...prevState,
-                Saturday: !prevState.Saturday
+                saturday: !prevState.saturday
               }
             )
           )

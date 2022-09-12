@@ -1,4 +1,4 @@
-export const getCurrentlyActiveRelays = async (setState, route) => {
+export const getCurrentlyActiveRelays = async (setState) => {
     try {
       const response = await fetch(`http://192.168.1.192:3000/currentlyActive`);
       const data = await response.json();

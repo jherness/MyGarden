@@ -5,21 +5,20 @@ import PageHead from "../Components/PageHead";
 import { RemoteActive } from "../Classes/RemoteActive";
 import * as Colors from "../Style/Colors";
 import SysSwitches from "../Components/SysSwitches";
-import { getCurrentlyActiveRelays } from "../Modules/getFromDb";
+import { getCurrentlyActiveRelays } from "../Modules/gets";
 import HomeBtn from "../Components/HomeBtn";
 import Spinner from "react-native-loading-spinner-overlay";
 import Slider from "react-native-slider";
-import { postToDb } from "../Modules/postToDb";
+import { postToDb } from "../Modules/posts";
 
 export default function RemoteActivation({ navigation }) {
-  const mainColor = Colors.mainColor;
   const backColor = Colors.backColor;
 
   const [remote, setRemote] = useState(new RemoteActive());
   const [finishingData, setFinishing] = useState(1);
   const [sysToActivate, setSysToActivate] = useState([]);
-
   const [counter, setCounter] = useState(0);
+
   // Emmulate componentDidMount lifecycle
   useEffect(() => {
     getCurrentlyActiveRelays(setSysToActivate);
@@ -34,14 +33,20 @@ export default function RemoteActivation({ navigation }) {
 
   const dataChecker = (startingData, finishingData, sysToActivate) => {
     debugger;
-    if (finishingData === "" || finishingData === undefined) {
-      alert("Please enter finish time");
+    if (
+      sysToActivate.air_sys === false &&
+      sysToActivate.water_sys === false &&
+      sysToActivate.light_sys === false &&
+      sysToActivate.fertelize_sys === false
+    ) {
+      alert("Please pick systems to activate");
     } else {
       remote.setStartingData(startingData);
       remote.setFinishingData(Math.round(finishingData));
       remote.setSystemToActivate(sysToActivate);
       setRemote(remote);
       postToDb(remote, `remoteActivation`);
+      navigation.navigate("Home");
     }
   };
   const childToParent = (data) => {
@@ -50,7 +55,6 @@ export default function RemoteActivation({ navigation }) {
 
   const handleSubmit = () => {
     dataChecker(new Date(), finishingData, sysToActivate);
-    navigation.navigate("Home");
   };
 
   return counter < 1 ? (

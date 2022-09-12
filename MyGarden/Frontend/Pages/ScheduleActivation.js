@@ -21,31 +21,29 @@ import { ScheduleActive } from "../Classes/ScheduleActive";
 
 export default function ScheduleActivation({ navigation }) {
   const [sysToActivate, setSysToActivate] = useState({
-    Water: false,
-    Light: false,
-    Air: false,
-    Fertilize: false,
+    water_sys: false,
+    light_sys: false,
+    air_sys: false,
+    fertelize_sys: false,
   });
   const [daysToActivate, setDaysToActivate] = useState({
-    Sunday: false,
-    Monday: false,
-    Tuesday: false,
-    Wednesday: false,
-    Thursday: false,
-    Friday: false,
-    Saturday: false,
+    sunday: false,
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
   });
   const [startTime, setStartTime] = useState(new Date());
-  const [timeToLive, setTimeToLive] = useState(0.2);
+  const [timeToLive, setTimeToLive] = useState(1);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [timeBtnTxt, setTimeBtnTxt] = useState("Enter Start Time");
   const [newSchedule, setNewSchedule] = useState(new ScheduleActive());
 
 
   useEffect(() => {
-    newSchedule.setStartingTime(startTime.toLocaleTimeString());
-    newSchedule.setSystemToActivate(sysToActivate);
-    newSchedule.setTimeToLive(Math.round(timeToLive));
+    setTimeToLive(Math.round(timeToLive));
     newSchedule.setWeekSchedule(daysToActivate);
   }, [timeToLive, sysToActivate, daysToActivate, startTime]);
 
@@ -58,13 +56,18 @@ export default function ScheduleActivation({ navigation }) {
   };
 
   const handleConfirm = (date) => {
-    setStartTime(date);
-    setTimeBtnTxt(moment(date.toLocaleTimeString(), "hhmm").format("HH:mm"));
+    const formatMinutes = moment(date.toLocaleTimeString(), "hhmm").format("HH:mm")
+    newSchedule.setStartingTime(formatMinutes);
+    setTimeBtnTxt(formatMinutes);
     hideDatePicker();
   };
 
+  const childToParent = (data) => {
+    setSysToActivate(data);
+  };
+
   const handleNewSchedule = () => {
-    // putScheduleActivation(newSchedule)
+    console.log(daysToActivate)
     navigation.navigate("Home");
   };
   return (
@@ -81,9 +84,7 @@ export default function ScheduleActivation({ navigation }) {
       <HStack fill center>
         <SysSwitches
           state={sysToActivate}
-          onChange={(newState) => {
-            setSysToActivate(newState);
-          }}
+          childToParent = {childToParent}
         />
       </HStack>
       <HStack fill center>
@@ -125,7 +126,7 @@ export default function ScheduleActivation({ navigation }) {
           maximumValue={120}
           style={{ marginBottom: 50, width: "85%" }}
           value={timeToLive}
-          onValueChange={(value) => setTimeToLive(value)}
+          onValueChange={(value) => setTimeToLive(Math.round(value))}
         />
       </HStack>
       <HStack style={{ paddingBottom: 20 }} fill center>
