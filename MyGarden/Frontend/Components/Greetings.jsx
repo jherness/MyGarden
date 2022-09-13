@@ -1,12 +1,11 @@
 import { View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getUser, getHeadlineText, getSamplesFromDB } from "../Modules/GlobalModule";
+import {getHeadlineText } from "../Modules/GlobalModule";
 import { Stack, Button, Flex, Text } from "@react-native-material/core";
 import Temprature from "../Modules/getWheather";
 import { mainColor } from "../Style/Colors";
 export default function Greetings() {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [user, setUser] = useState(getUser().getFullName());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,7 +25,6 @@ export default function Greetings() {
         >
           {getHeadlineText(currentTime)}
         </Text>
-        <Text variant="h4">{user}</Text>
       </View>
       <Temprature />
     </View>

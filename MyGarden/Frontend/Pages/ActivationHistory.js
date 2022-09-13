@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
-import {
-  Wrap,
-  Box,
-  Divider,
-  HStack,
-  VStack,
-  TextInput,
-  ListItem,
-  Spacer,
-} from "@react-native-material/core";
-import PageHead from "../Components/PageHead.jsx";
+import { HStack, VStack } from "@react-native-material/core";
 import Timeline from "react-native-beautiful-timeline";
 
 export default function ActivationHistory({ navigate }) {
@@ -30,23 +19,23 @@ export default function ActivationHistory({ navigate }) {
 
   const formatTimeline = (data) => {
     let newest = data.map((act) => {
-       let timestamp = new Date(act.dateTime_of_activation).valueOf()
-      return  {
-        "date": timestamp,
-        "data": [
+      let timestamp = new Date(act.dateTime_of_activation).valueOf();
+      return {
+        date: timestamp,
+        data: [
           {
-            "title": "Activate",
-            "subtitle": act.activation_reason,
-            "date": timestamp
+            title: "Activate",
+            subtitle: act.activation_reason,
+            date: timestamp,
           },
           {
-            "title": "Ended",
-            "subtitle": act.finish_hour,
-            "date": timestamp
-          }
-        ]
-      }
-    })
+            title: "Ended",
+            subtitle: act.finish_hour,
+            date: timestamp,
+          },
+        ],
+      };
+    });
     return newest;
   };
 
@@ -64,7 +53,7 @@ export default function ActivationHistory({ navigate }) {
 
   return (
     <VStack fill center spacing={1} style={{ backgroundColor: "#E5E4D7" }}>
-      <HStack fill style={{marginTop: "0%"}}>
+      <HStack fill style={{ marginTop: "0%" }}>
         <Timeline data={activations} />
       </HStack>
     </VStack>

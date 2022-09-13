@@ -10,8 +10,7 @@ import HomeBtn from "../Components/HomeBtn";
 import Spinner from "react-native-loading-spinner-overlay";
 import Slider from "react-native-slider";
 import { postToDb } from "../Modules/posts";
-import { remoteChecker } from "../Modules/DataCheckers";
-import axios from "axios";
+import { remoteChecker } from "../Modules/RemoteActivationModules";
 
 export default function RemoteActivation({ navigation }) {
   const backColor = Colors.backColor;
@@ -44,7 +43,7 @@ export default function RemoteActivation({ navigation }) {
       <HStack fill center>
         <PageHead first="Remote" second="Activation" />
       </HStack>
-      <Spacer fill />
+      <HStack fill center></HStack>
       <HStack fill center>
         <SysSwitches state={sysToActivate} childToParent={childToParent} />
       </HStack>
@@ -80,7 +79,7 @@ export default function RemoteActivation({ navigation }) {
           width="50%"
         />
       </HStack>
-      <HStack fill />
+      <HStack fill center></HStack>
     </VStack>
   );
 }

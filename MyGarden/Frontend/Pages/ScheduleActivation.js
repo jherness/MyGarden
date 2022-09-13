@@ -10,7 +10,7 @@ import HomeBtn from "../Components/HomeBtn";
 import moment from "moment/moment";
 import Slider from "react-native-slider";
 import { ScheduleActive } from "../Classes/ScheduleActive";
-import { scheduleChecker } from "../Modules/DataCheckers";
+import { scheduleChecker } from "../Modules/ScheduleActivationModules";
 import { postToDb } from "../Modules/posts";
 import { getScheduleActivation } from "../Modules/gets";
 
@@ -96,7 +96,7 @@ export default function ScheduleActivation({ navigation }) {
   return (
     <VStack fill spacing={0} style={{ backgroundColor: Colors.backColor }}>
       <HStack fill center>
-        <PageHead first="Schedule" />
+        <PageHead first = "Weekly" second="Schedule" />
       </HStack>
       <DaysPicker state={daysToActivate} daysToPapa={daysToPapa} />
       <HStack fill center>
@@ -118,7 +118,6 @@ export default function ScheduleActivation({ navigation }) {
       </HStack>
       <HStack
         center
-        fill
         style={{ alignItems: "center", justifyContent: "center" }}
       >
         <Text
