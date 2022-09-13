@@ -10,6 +10,7 @@ import HomeBtn from "../Components/HomeBtn";
 import Spinner from "react-native-loading-spinner-overlay";
 import Slider from "react-native-slider";
 import { postToDb } from "../Modules/posts";
+import { remoteChecker } from "../Modules/DataCheckers";
 
 export default function RemoteActivation({ navigation }) {
   const backColor = Colors.backColor;
@@ -31,30 +32,17 @@ export default function RemoteActivation({ navigation }) {
     };
   }, []);
 
-  const dataChecker = (startingData, finishingData, sysToActivate) => {
-    debugger;
-    if (
-      sysToActivate.air_sys === false &&
-      sysToActivate.water_sys === false &&
-      sysToActivate.light_sys === false &&
-      sysToActivate.fertelize_sys === false
-    ) {
-      alert("Please pick systems to activate");
-    } else {
-      remote.setStartingData(startingData);
-      remote.setFinishingData(Math.round(finishingData));
-      remote.setSystemToActivate(sysToActivate);
-      setRemote(remote);
-      postToDb(remote, `remoteActivation`);
-      navigation.navigate("Home");
-    }
-  };
+
   const childToParent = (data) => {
     setSysToActivate(data);
   };
 
   const handleSubmit = () => {
-    dataChecker(new Date(), finishingData, sysToActivate);
+    remoteChecker(setRemote ,new Date(), finishingData, sysToActivate);
+    if(JSON.stringify(remote) !== "{}"){
+      postToDb(remote, `remoteActivation`);
+      navigation.navigate("Home");
+    }
   };
 
   return counter < 1 ? (

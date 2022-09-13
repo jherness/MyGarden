@@ -43,8 +43,6 @@ export default function ScheduleActivation({ navigation }) {
   const [timeBtnTxt, setTimeBtnTxt] = useState("Enter Start Time");
   const [newSchedule, setNewSchedule] = useState(new ScheduleActive());
 
-
-
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -54,7 +52,7 @@ export default function ScheduleActivation({ navigation }) {
   };
 
   const handleConfirm = (date) => {
-    const formatDatetime = moment(date).format('HH:mm:ss');
+    const formatDatetime = moment(date).format("HH:mm:ss");
     setStartTime(formatDatetime);
     setTimeBtnTxt(moment(date.toLocaleTimeString(), "hhmm").format("HH:mm"));
     hideDatePicker();
@@ -65,8 +63,17 @@ export default function ScheduleActivation({ navigation }) {
   };
 
   const handleNewSchedule = () => {
-    scheduleChecker(setNewSchedule, startTime, timeToLive, daysToActivate, sysToActivate)
-    console.log(JSON.stringify(newSchedule));
+    scheduleChecker(
+      setNewSchedule,
+      startTime,
+      timeToLive,
+      daysToActivate,
+      sysToActivate
+    );
+    if(JSON.stringify(newSchedule) !== "{}"){
+      postToDb(newSchedule, "scheduleActivation")
+      navigation.navigate("Home")
+    }
   };
   return (
     <VStack fill spacing={0} style={{ backgroundColor: Colors.backColor }}>
@@ -80,10 +87,7 @@ export default function ScheduleActivation({ navigation }) {
         }}
       />
       <HStack fill center>
-        <SysSwitches
-          state={sysToActivate}
-          childToParent = {childToParent}
-        />
+        <SysSwitches state={sysToActivate} childToParent={childToParent} />
       </HStack>
       <HStack fill center>
         <HomeBtn
