@@ -66,6 +66,7 @@ export default function ScheduleActivation({ navigation }) {
 
   const handleNewSchedule = () => {
     scheduleChecker(setNewSchedule, startTime, timeToLive, daysToActivate, sysToActivate)
+    console.log(JSON.stringify(newSchedule));
   };
   return (
     <VStack fill spacing={0} style={{ backgroundColor: Colors.backColor }}>
