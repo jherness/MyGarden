@@ -17,10 +17,10 @@ import { getScheduleActivation } from "../Modules/gets";
 export default function ScheduleActivation({ navigation }) {
   const [sysToActivate, setSysToActivate] = useState([])
   const [daysToActivate, setDaysToActivate] = useState([])
-  const [startTime, setStartTime] = useState("");
+  const [startTime, setStartTime] = useState(new Date());
   const [timeToLive, setTimeToLive] = useState(1);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [timeBtnTxt, setTimeBtnTxt] = useState("Enter Start Time");
+  const [timeBtnTxt, setTimeBtnTxt] = useState("");
   const [newSchedule, setNewSchedule] = useState(new ScheduleActive());
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function ScheduleActivation({ navigation }) {
       setSysToActivate,
       setTimeBtnTxt
     );
-    console.log(daysToActivate);
+    console.log(startTime);
 
   }, []);
 

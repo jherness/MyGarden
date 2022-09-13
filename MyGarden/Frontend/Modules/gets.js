@@ -30,9 +30,9 @@ export const getScheduleActivation = async (
     const response = await axios(
       `http://192.168.1.192:3000/scheduleActivation`
     );
-    setStartTime(response.data[0].startTime);
-    setTimeToLive(response.data[0].timeToLive || 1);
-    setTimeBtnTxt(response.data[0].startTime || "Enter Start Time")
+    setStartTime(response.data[0].start_hour);
+    setTimeToLive(response.data[0].time_to_live || 1);
+    setTimeBtnTxt(response.data[0].start_hour || "Enter Start Time")
     setDaysToActivate({
       sunday: response.data[0].sunday === 1 || false,
       monday: response.data[0].monday === 1 || false,
