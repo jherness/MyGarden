@@ -15,8 +15,8 @@ import { postToDb } from "../Modules/posts";
 import { getScheduleActivation } from "../Modules/gets";
 
 export default function ScheduleActivation({ navigation }) {
-  const [sysToActivate, setSysToActivate] = useState([])
-  const [daysToActivate, setDaysToActivate] = useState([])
+  const [sysToActivate, setSysToActivate] = useState([]);
+  const [daysToActivate, setDaysToActivate] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
   const [timeToLive, setTimeToLive] = useState(1);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -32,7 +32,6 @@ export default function ScheduleActivation({ navigation }) {
       setTimeBtnTxt
     );
     console.log(startTime);
-
   }, []);
 
   const showDatePicker = () => {
@@ -50,7 +49,6 @@ export default function ScheduleActivation({ navigation }) {
     hideDatePicker();
   };
 
-
   const handleNewSchedule = () => {
     scheduleChecker(
       setNewSchedule,
@@ -65,25 +63,42 @@ export default function ScheduleActivation({ navigation }) {
     }
   };
 
+  const handleReset = () => {
+    newSchedule.setStartingTime("00:00:01");
+    newSchedule.setTimeToLive(1);
+    newSchedule.setWeekSchedule({
+      sunday: false,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+    });
+    newSchedule.setSystemToActivate({
+      air_sys: false,
+      water_sys: false,
+      light_sys: false,
+      fertelize_sys: false,
+    });
+    postToDb(newSchedule, "scheduleActivation")
+    navigation.navigate("Home");
+  };
+
   const daysToPapa = (data) => {
     setDaysToActivate(data);
   };
 
-
   const systemsToPapa = (data) => {
     setSysToActivate(data);
   };
-
 
   return (
     <VStack fill spacing={0} style={{ backgroundColor: Colors.backColor }}>
       <HStack fill center>
         <PageHead first="Schedule" />
       </HStack>
-      <DaysPicker
-        state={daysToActivate}
-        daysToPapa={daysToPapa}
-      />
+      <DaysPicker state={daysToActivate} daysToPapa={daysToPapa} />
       <HStack fill center>
         <SysSwitches state={sysToActivate} childToParent={systemsToPapa} />
       </HStack>
@@ -134,6 +149,13 @@ export default function ScheduleActivation({ navigation }) {
           style={{ paddingBottom: 20 }}
           title="SAVE"
           onPress={handleNewSchedule}
+          height="50%"
+          width="40%"
+        />
+        <HomeBtn
+          style={{ paddingBottom: 20 }}
+          title="RESET"
+          onPress={handleReset}
           height="50%"
           width="40%"
         />
