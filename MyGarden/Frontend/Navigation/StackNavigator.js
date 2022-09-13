@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 
 const MainStackNavigator = () => {
   const homeOptions = ({ navigation, route }) => ({
-    back:styles.backBtn,
+    back: styles.backBtn,
     headerStyle: styles.headerStyles.headerStyle,
     headerTitleStyle: styles.headerStyles.headerTitleStyle,
     headerRight: () => (
@@ -35,11 +35,7 @@ const MainStackNavigator = () => {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={homeOptions}
-      />
+      <Stack.Screen name="Home" component={Home} options={homeOptions} />
       <Stack.Screen
         name="Analythics"
         component={Analythics}
@@ -80,7 +76,7 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       color: Colors.backColor,
     },
-    headerTintColor: Colors.backColor
+    headerTintColor: Colors.backColor,
   },
 });
 

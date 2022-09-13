@@ -81,7 +81,7 @@ export default function ScheduleActivation({ navigation }) {
       light_sys: false,
       fertelize_sys: false,
     });
-    postToDb(newSchedule, "scheduleActivation")
+    postToDb(newSchedule, "scheduleActivation");
     navigation.navigate("Home");
   };
 
