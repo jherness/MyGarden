@@ -62,11 +62,11 @@ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`light_sys` TINYINT(1) NOT NULL,
 	`fertelize_sys` TINYINT(1) NOT NULL
 )
-DELETE FROM schedule_activation WHERE id != 0;
+DELETE FROM schedule_activation 
 INSERT INTO schedule_activation (start_hour, time_to_live,sunday,monday,
 tuesday,wednesday,thursday,friday,saturday,air_sys,water_sys,light_sys,fertelize_sys)
- VALUES("05:12:04",
- 3, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
+ VALUES("00:00:01",
+ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
  
 SELECT *
 FROM schedule_activation
@@ -138,7 +138,7 @@ CREATE TABLE `currently_active` (
 	`fertelize_sys` TINYINT(1) ZEROFILL DEFAULT(0) NOT NULL
 ) COLLATE='utf8mb4_general_ci'
 ;
-INSERT INTO currently_active VALUES ()
+INSERT INTO currently_active VALUES ()/*MUST HAVE!!!*/
 
 DELETE
 FROM currently_active;
