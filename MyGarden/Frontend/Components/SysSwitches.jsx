@@ -4,9 +4,7 @@ import { Wrap, HStack } from "@react-native-material/core";
 import SysSwitch from "./SysSwitch";
 
 export default function SysSwitches(props) {
-  const [currentlyActive, setCurrentlyActive] = useState(props.state);
   const childToParent = props.childToParent;
-
 
 
   const grandchildToChild = (data, iconName) => {
@@ -33,14 +31,14 @@ export default function SysSwitches(props) {
           <SysSwitch
             iconName="watering-can"
             grandchildToChild={grandchildToChild}
-            isActive = {currentlyActive.water_sys}
+            isActive = {props.state.water_sys}
           />
         </Wrap>
         <Wrap m={2} items="center" spacing={10}>
           <SysSwitch
             iconName="lightbulb"
             grandchildToChild={grandchildToChild}
-            isActive = {currentlyActive.light_sys}
+            isActive = {props.state.light_sys}
           />
         </Wrap>
       </HStack>
@@ -49,14 +47,14 @@ export default function SysSwitches(props) {
           <SysSwitch
             iconName="fan"
             grandchildToChild={grandchildToChild}
-            isActive = {currentlyActive.air_sys}
+            isActive = {props.state.air_sys}
           />
         </Wrap>
         <Wrap m={2} items="center" spacing={10}>
           <SysSwitch
             iconName="leaf"
             grandchildToChild={grandchildToChild}
-            isActive = {currentlyActive.fertelize_sys}
+            isActive = {props.state.fertelize_sys}
           />
         </Wrap>
       </HStack>

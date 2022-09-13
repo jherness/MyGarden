@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Spacer } from "@react-native-material/core";
 import { HStack, VStack, Button } from "@react-native-material/core";
-import {
-  StyleSheet,
-  Text,
-  Dimensions,
-  View,
-  TouchableOpacity,
-} from "react-native";
-import { Box, Wrap } from "@react-native-material/core";
+import { Text } from "react-native";
 import PageHead from "../Components/PageHead";
 import * as Colors from "../Style/Colors";
 import DaysPicker from "../Components/DaysPicker";
@@ -22,12 +14,7 @@ import { scheduleChecker } from "../Modules/DataCheckers";
 import { postToDb } from "../Modules/posts";
 
 export default function ScheduleActivation({ navigation }) {
-  const [sysToActivate, setSysToActivate] = useState({
-    water_sys: false,
-    light_sys: false,
-    air_sys: false,
-    fertelize_sys: false,
-  });
+  const [sysToActivate, setSysToActivate] = useState([])
   const [daysToActivate, setDaysToActivate] = useState({
     sunday: false,
     monday: false,
@@ -70,9 +57,9 @@ export default function ScheduleActivation({ navigation }) {
       daysToActivate,
       sysToActivate
     );
-    if(JSON.stringify(newSchedule) !== "{}"){
-      postToDb(newSchedule, "scheduleActivation")
-      navigation.navigate("Home")
+    if (JSON.stringify(newSchedule) !== "{}") {
+      postToDb(newSchedule, "scheduleActivation");
+      navigation.navigate("Home");
     }
   };
   return (

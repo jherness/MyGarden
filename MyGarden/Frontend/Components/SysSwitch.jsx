@@ -28,7 +28,7 @@ export default function SysSwitch(props) {
         )}
       />
       <Switch
-        value={isActive}
+        value={props.isActive}
         style={Colors.mainColor}
         onValueChange={handleClick}
       />

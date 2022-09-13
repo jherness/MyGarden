@@ -62,6 +62,7 @@ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`light_sys` TINYINT(1) NOT NULL,
 	`fertelize_sys` TINYINT(1) NOT NULL
 )
+DELETE FROM schedule_activation WHERE id != 0;
 INSERT INTO schedule_activation (start_hour, time_to_live,sunday,monday,
 tuesday,wednesday,thursday,friday,saturday,air_sys,water_sys,light_sys,fertelize_sys)
  VALUES("05:12:04",
@@ -69,6 +70,9 @@ tuesday,wednesday,thursday,friday,saturday,air_sys,water_sys,light_sys,fertelize
  
 SELECT *
 FROM schedule_activation
+
+DELETE FROM schedule_activation WHERE id != 0
+
 ORDER BY start_hour DESC
 LIMIT 1;
 
