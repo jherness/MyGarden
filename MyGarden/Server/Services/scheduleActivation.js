@@ -5,7 +5,7 @@ const config = require("../config");
 /*Get latest schedule */
 async function getScheduleActivation() {
   const rows = await db.query(`SELECT * 
-  FROM schedule_activation order by start_hour Desc Limit 1`);
+  FROM schedule_activation order by id Desc Limit 1`);
   const data = helper.emptyOrRows(rows);
   return data;
 }
@@ -13,7 +13,8 @@ async function getScheduleActivation() {
 /*Create a new schedule*/
 async function create(data) {
   const result = await db.query(
-    `INSERT INTO schedule_activation VALUES ('${data.startTime}', ${data["timeToLive"]},
+    `INSERT INTO schedule_activation (start_hour, time_to_live,sunday,monday,
+        tuesday,wednesday,thursday,friday,saturday,air_sys,water_sys,light_sys,fertelize_sys) VALUES ('${data.startTime}', ${data["timeToLive"]},
     ${data["weekSchedule"]["sunday"]}, ${data["weekSchedule"]["monday"]}, ${data["weekSchedule"]["tuesday"]},
      ${data["weekSchedule"]["wednesday"]}, ${data["weekSchedule"]["thursday"]}, ${data["weekSchedule"]["friday"]},
       ${data["weekSchedule"]["saturday"]}, ${data["systemsToActivate"]["air_sys"]},

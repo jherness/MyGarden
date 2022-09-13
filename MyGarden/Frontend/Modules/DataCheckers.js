@@ -1,5 +1,6 @@
 import { postToDb } from "./posts";
 import { ScheduleActive } from "../Classes/ScheduleActive";
+import { json } from "body-parser";
 
 export const scheduleChecker= (setNewSchedule, startTime, timeToLive, daysToActivate, sysToActivate) => {
   let newSchedule = new ScheduleActive()
@@ -33,8 +34,6 @@ export const scheduleChecker= (setNewSchedule, startTime, timeToLive, daysToActi
     newSchedule.setSystemToActivate(sysToActivate);
     newSchedule.setWeekSchedule(daysToActivate);
     setNewSchedule(newSchedule)
-    console.log(newSchedule)
-    // postToDb(newSchedule, `scheduleActivation`);
   }
 };
 

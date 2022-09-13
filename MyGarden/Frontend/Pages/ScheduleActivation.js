@@ -19,6 +19,7 @@ import moment from "moment/moment";
 import Slider from "react-native-slider";
 import { ScheduleActive } from "../Classes/ScheduleActive";
 import { scheduleChecker } from "../Modules/DataCheckers";
+import { postToDb } from "../Modules/posts";
 
 export default function ScheduleActivation({ navigation }) {
   const [sysToActivate, setSysToActivate] = useState({
@@ -53,7 +54,8 @@ export default function ScheduleActivation({ navigation }) {
   };
 
   const handleConfirm = (date) => {
-    setStartTime(date);
+    const formatDatetime = moment(date).format('HH:mm:ss');
+    setStartTime(formatDatetime);
     setTimeBtnTxt(moment(date.toLocaleTimeString(), "hhmm").format("HH:mm"));
     hideDatePicker();
   };
@@ -64,7 +66,6 @@ export default function ScheduleActivation({ navigation }) {
 
   const handleNewSchedule = () => {
     scheduleChecker(setNewSchedule, startTime, timeToLive, daysToActivate, sysToActivate)
-    navigation.navigate("Home");
   };
   return (
     <VStack fill spacing={0} style={{ backgroundColor: Colors.backColor }}>

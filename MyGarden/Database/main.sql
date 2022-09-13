@@ -63,7 +63,8 @@ CREATE TABLE `schedule_activation` (
 )
 
 
-INSERT INTO schedule_activation VALUES("13:25:32", 3, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
+INSERT INTO schedule_activation VALUES("2022-09-12 05:12.04":,
+ 3, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
 SELECT * 
   FROM schedule_activation order by start_hour Desc LIMIT 1;
 DELETE from schedule_activation;
