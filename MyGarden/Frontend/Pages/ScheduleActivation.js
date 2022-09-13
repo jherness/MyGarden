@@ -12,23 +12,28 @@ import Slider from "react-native-slider";
 import { ScheduleActive } from "../Classes/ScheduleActive";
 import { scheduleChecker } from "../Modules/DataCheckers";
 import { postToDb } from "../Modules/posts";
+import { getScheduleActivation } from "../Modules/gets";
 
 export default function ScheduleActivation({ navigation }) {
   const [sysToActivate, setSysToActivate] = useState([])
-  const [daysToActivate, setDaysToActivate] = useState({
-    sunday: false,
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false,
-  });
-  const [startTime, setStartTime] = useState();
+  const [daysToActivate, setDaysToActivate] = useState([])
+  const [startTime, setStartTime] = useState("");
   const [timeToLive, setTimeToLive] = useState(1);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [timeBtnTxt, setTimeBtnTxt] = useState("Enter Start Time");
   const [newSchedule, setNewSchedule] = useState(new ScheduleActive());
+
+  useEffect(() => {
+    getScheduleActivation(
+      setStartTime,
+      setTimeToLive,
+      setDaysToActivate,
+      setSysToActivate,
+      setTimeBtnTxt
+    );
+    console.log(daysToActivate);
+
+  }, []);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -45,9 +50,6 @@ export default function ScheduleActivation({ navigation }) {
     hideDatePicker();
   };
 
-  const childToParent = (data) => {
-    setSysToActivate(data);
-  };
 
   const handleNewSchedule = () => {
     scheduleChecker(
@@ -62,6 +64,17 @@ export default function ScheduleActivation({ navigation }) {
       navigation.navigate("Home");
     }
   };
+
+  const daysToPapa = (data) => {
+    setDaysToActivate(data);
+  };
+
+
+  const systemsToPapa = (data) => {
+    setSysToActivate(data);
+  };
+
+
   return (
     <VStack fill spacing={0} style={{ backgroundColor: Colors.backColor }}>
       <HStack fill center>
@@ -69,12 +82,10 @@ export default function ScheduleActivation({ navigation }) {
       </HStack>
       <DaysPicker
         state={daysToActivate}
-        onChange={(newState) => {
-          setDaysToActivate(newState);
-        }}
+        daysToPapa={daysToPapa}
       />
       <HStack fill center>
-        <SysSwitches state={sysToActivate} childToParent={childToParent} />
+        <SysSwitches state={sysToActivate} childToParent={systemsToPapa} />
       </HStack>
       <HStack fill center>
         <HomeBtn

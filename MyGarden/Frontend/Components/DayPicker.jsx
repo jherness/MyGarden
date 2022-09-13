@@ -6,18 +6,25 @@ import { round } from "react-native-reanimated";
 export default function DayPicker(props) {
   const [isActive, setIsActive] = useState(props.state)
   const title = props.title;
-  const onPress = props.onPress;
-  useEffect(() => {
-    setIsActive(props.state)
-    return () => {}
-  }, [props.state])
+  const name = props.name
+  const daysToGrandDad = props.daysToGrandpa
+
+  const handleClick = () => {
+    setIsActive(prev => !prev)
+    daysToGrandDad(isActive, name)
+  }
+
+
+  
+
+
   
 
   return (
     <View>
       <Pressable
-        style={isActive? styles.btnSelected : styles.btnNotSelected}
-        onPress={onPress}
+        style={props.state? styles.btnSelected : styles.btnNotSelected}
+        onPress={handleClick}
       >
         <Text style={styles.text}>{title}</Text>
       </Pressable>
