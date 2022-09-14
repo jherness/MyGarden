@@ -31,7 +31,6 @@ export default function ScheduleActivation({ navigation }) {
       setSysToActivate,
       setTimeBtnTxt
     );
-    console.log(startTime);
   }, []);
 
   const showDatePicker = () => {
@@ -96,7 +95,7 @@ export default function ScheduleActivation({ navigation }) {
   return (
     <VStack fill spacing={0} style={{ backgroundColor: Colors.backColor }}>
       <HStack fill center>
-        <PageHead first = "Weekly" second="Schedule" />
+        <PageHead first="Weekly" second="Schedule" />
       </HStack>
       <DaysPicker state={daysToActivate} daysToPapa={daysToPapa} />
       <HStack fill center>
@@ -116,10 +115,7 @@ export default function ScheduleActivation({ navigation }) {
           onCancel={hideDatePicker}
         />
       </HStack>
-      <HStack
-        center
-        style={{ alignItems: "center", justifyContent: "center" }}
-      >
+      <HStack center style={{ alignItems: "center", justifyContent: "center" }}>
         <Text
           style={{
             fontSize: 24,

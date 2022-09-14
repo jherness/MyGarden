@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import React, { useEffect, useState } from "react";
-import {getHeadlineText } from "../Modules/GlobalModule";
-import { Stack, Button, Flex, Text } from "@react-native-material/core";
+import { getHeadlineText } from "../Modules/HomeModules";
+import { Text } from "@react-native-material/core";
 import Temprature from "../Modules/getWheather";
 import { mainColor } from "../Style/Colors";
 export default function Greetings() {
@@ -19,10 +19,7 @@ export default function Greetings() {
   return (
     <View>
       <View style={{ marginRight: "15%", marginTop: "10%" }}>
-        <Text
-          variant="h3"
-          color = {mainColor}
-        >
+        <Text variant="h3" color={mainColor}>
           {getHeadlineText(currentTime)}
         </Text>
       </View>

@@ -4,7 +4,6 @@ export const getCurrentlyActiveRelays = async (setState) => {
   try {
     const response = await axios(`http://192.168.1.192:3000/currentlyActive`);
     setState(switchDataFormatter(response.data));
-    console.log(response.data);
   } catch (err) {
     console.log(error);
   }
