@@ -13,24 +13,18 @@ import PageHead from "../Components/PageHead";
 import SysSwitch from "../Components/SysSwitch";
 import { StyleSheet } from "react-native";
 import NumericInput from "react-native-numeric-input";
+import { SysMod } from "../Classes/SysMod";
 
 export default function Preferences({ navigation }) {
-  const [isActive, setIsActive] = useState(false);
-  const [maxTemp, setMaxTemp] = useState(0);
-  const [minMoist, setMinMoist] = useState(0);
-
-
+  const [sysMod, setSysMod] = useState(new SysMod());
 
   const grandchildToChild = () => {
-    setIsActive((prev) => !prev);
+    setSysMod((sysMod) => ({ ...sysMod, isActive: !sysMod.isActive }));
   };
 
   useEffect(() => {
-    return () =>{
-      console.log(counter);
-    }
+    
   }, []);
-
 
   return (
     <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
@@ -53,7 +47,7 @@ export default function Preferences({ navigation }) {
             <SysSwitch
               iconName="sync"
               grandchildToChild={grandchildToChild}
-              isActive={isActive}
+              isActive={sysMod.isActive}
             />
           </HStack>
         </VStack>
@@ -67,8 +61,10 @@ export default function Preferences({ navigation }) {
             maxValue={50}
             textColor={mainColor}
             onLimitReached={(isMax, msg) => alert(msg)}
-            value={maxTemp}
-            onChange={(value) => setMaxTemp(value)}
+            value={sysMod.maxTemp}
+            onChange={(value) =>
+              setSysMod((sysMod) => ({ ...sysMod, maxTemp: value }))
+            }
             type="up-down"
           />
         </HStack>
@@ -81,8 +77,10 @@ export default function Preferences({ navigation }) {
             maxValue={100}
             textColor={mainColor}
             onLimitReached={(isMax, msg) => alert(msg)}
-            value={minMoist}
-            onChange={(value) => setMinMoist(value)}
+            value={sysMod.minMoist}
+            onChange={(value) =>
+              setSysMod((sysMod) => ({ ...sysMod, minMoist: value }))
+            }
           />
         </HStack>
         <Spacer />

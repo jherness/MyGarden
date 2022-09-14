@@ -1,4 +1,6 @@
 import axios from "axios";
+import { SysMod } from "../Classes/SysMod";
+
 
 export const getCurrentlyActiveRelays = async (setState) => {
   try {
@@ -54,8 +56,16 @@ export const getScheduleActivation = async (
   } catch (err) {
     console.log(error);
   }
+}
+
+export const getSysMod = async (sysModObj) => {
+  try {
+    const response = await axios(`http://192.168.1.192:3000/currentlyActive`);
+    sysModObj.setIsActive(response.data[0].is_auto)
+    sysModObj.setMaxTemp(response.data[0].max_temp)
+    sysModObj.setMinMoist(response.data[0].min_moist)
+  } catch (err) {
+    console.log(error);
+  }
 };
 
-export const getSysMod = (setIsActive, setMaxTemp, setMinMoist) => {
-  
-};
