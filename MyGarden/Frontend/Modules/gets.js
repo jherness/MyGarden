@@ -55,3 +55,7 @@ export const getScheduleActivation = async (
     console.log(error);
   }
 };
+
+export const getSysMod = (setIsActive, setMaxTemp, setMinMoist) => {
+  
+};

@@ -5,6 +5,7 @@ import {
   Flex,
   Text,
   TextInput,
+  Spacer,
 } from "@react-native-material/core";
 import { VStack, HStack } from "@react-native-material/core";
 import { backColor, mainColor } from "../Style/Colors";
@@ -15,9 +16,9 @@ import NumericInput from "react-native-numeric-input";
 
 export default function Preferences({ navigation }) {
   const [isActive, setIsActive] = useState(false);
-  const [maxTemp, setMaxTemp] = useState(35);
+  const [maxTemp, setMaxTemp] = useState(0);
+  const [minMoist, setMinMoist] = useState(0);
 
-  const isMax = 50;
 
 
   const grandchildToChild = () => {
@@ -25,25 +26,30 @@ export default function Preferences({ navigation }) {
   };
 
   useEffect(() => {
-    console.log(isActive);
-  }, [isActive]);
+    return () =>{
+      console.log(counter);
+    }
+  }, []);
+
 
   return (
     <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
       <HStack fill center spacing={1}>
-        <VStack fill center spacing={12}>
-          <HStack>
-            <Text variant="h4">System Mode</Text>
-          </HStack>
-          <HStack>
-            <Text style={styles.modeTxt}>
-              By turning the system to auto mode, you agree that we will take
-              full control over the irrigation system. You will not be able to
-              activate remotly or set a schedule. You can change the mode at any
-              time.
+        <VStack center spacing={12}>
+          <HStack center>
+            <Text style={{ marginTop: 15 }} variant="h4">
+              System Mode
             </Text>
           </HStack>
-          <HStack>
+          <HStack center>
+            <Text style={styles.modeTxt} variant="h6">
+              By turning the system to auto mode, you agree that we will take
+              full control over the irrigation system, if we detect an
+              exception. You will not be able to activate remotly or set a
+              schedule. You can change the mode and the limitis at any time.
+            </Text>
+          </HStack>
+          <HStack fill center>
             <SysSwitch
               iconName="sync"
               grandchildToChild={grandchildToChild}
@@ -52,10 +58,36 @@ export default function Preferences({ navigation }) {
           </HStack>
         </VStack>
       </HStack>
-      <HStack fill centre spacing={15}>
-        <Text>Max temp before activision</Text>
-        <NumericInput/>
-      </HStack>
+      <VStack fill center spacing={10}>
+        <HStack fill spacing={30}>
+          <Text style={styles.modeTxt}>Max temp (C):</Text>
+          <NumericInput
+            rounded
+            minValue={0}
+            maxValue={50}
+            textColor={mainColor}
+            onLimitReached={(isMax, msg) => alert(msg)}
+            value={maxTemp}
+            onChange={(value) => setMaxTemp(value)}
+            type="up-down"
+          />
+        </HStack>
+        <HStack fill centre spacing={30}>
+          <Text style={styles.modeTxt}>Min Moisture (%):</Text>
+          <NumericInput
+            rounded
+            type="up-down"
+            minValue={0}
+            maxValue={100}
+            textColor={mainColor}
+            onLimitReached={(isMax, msg) => alert(msg)}
+            value={minMoist}
+            onChange={(value) => setMinMoist(value)}
+          />
+        </HStack>
+        <Spacer />
+        <Spacer />
+      </VStack>
     </VStack>
   );
 }
@@ -63,7 +95,7 @@ export default function Preferences({ navigation }) {
 const styles = StyleSheet.create({
   modeTxt: {
     color: "grey",
-    margin: 11,
+    margin: 13,
     fontStyle: "italic",
   },
   txtInput: {

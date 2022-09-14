@@ -70,11 +70,12 @@ tuesday,wednesday,thursday,friday,saturday,air_sys,water_sys,light_sys,fertelize
  
 SELECT *
 FROM schedule_activation
+ORDER BY start_hour DESC
+LIMIT 1;
 
 DELETE FROM schedule_activation WHERE id != 0
 
-ORDER BY start_hour DESC
-LIMIT 1;
+
 
 
 DELETE
@@ -103,7 +104,17 @@ INSERT INTO currently_active(water_sys, air_sys, light_sys, fertelize_sys) VALUE
 SELECT *
 FROM currently_active
 
+CREATE TABLE `sys_mod` (
+   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+	`is_auto` TINYINT(1) DEFAULT(0) NOT NULL,
+	`max_temp` INT DEFAULT(35) NOT NULL,
+	`min_moist` INT DEFAULT(0) NOT NULL
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB
+;
 
+INSERT INTO sys_mod VALUES ();
+
+SELECT * FROM sys_mod
 
 
 /*exception Table*/
