@@ -12,7 +12,7 @@ async function getSysMod() {
 /*Create a new schedule*/
 async function create(data) {
   const result = await db.query(
-     `INSERT INTO sys_mod values (${data.isActive}, ${data.max_temp}, ${data.min_moist} )`
+     `INSERT INTO sys_mod (is_auto, max_temp, min_moist) values (${data.isActive}, ${data.maxTemp}, ${data.minMoist} )`
   );
 
   let message = "Error in creating a new remote_activation";

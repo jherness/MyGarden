@@ -116,7 +116,7 @@ INSERT INTO sys_mod VALUES ();
 
 SELECT * FROM sys_mod
 
-
+DELETE FROM sys_mod
 /*exception Table*/
 CREATE TABLE `exceptions` (
 	`exception_code` INT(11) NOT NULL,
