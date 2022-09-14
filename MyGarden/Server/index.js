@@ -6,6 +6,7 @@ const activationHistoryRouter = require("./routes/activationHistory");
 const currentlyActiveRouter = require("./routes/currentlyActive");
 const remoteActivationRouter = require("./routes/remoteActivation");
 const scheduleActivationRouter = require("./routes/scheduleActivation");
+const SysModRouter = require("./routes/SysMod");
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -22,6 +23,7 @@ app.use("/activationHistory", activationHistoryRouter);
 app.use("/currentlyActive", currentlyActiveRouter);
 app.use("/remoteActivation", remoteActivationRouter);
 app.use("/scheduleActivation", scheduleActivationRouter);
+app.use("/sysMod", SysModRouter);
 
 /* Error handler*/
 app.use((err, req, res, next) => {
