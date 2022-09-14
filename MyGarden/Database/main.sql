@@ -114,7 +114,7 @@ CREATE TABLE `sys_mod` (
 
 INSERT INTO sys_mod VALUES ();
 
-SELECT * FROM sys_mod
+SELECT * FROM sys_mod order by id Desc Limit 1
 
 DELETE FROM sys_mod
 /*exception Table*/

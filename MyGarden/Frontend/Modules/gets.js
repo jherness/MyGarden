@@ -58,12 +58,12 @@ export const getScheduleActivation = async (
   }
 }
 
-export const getSysMod = async (setSysMod) => {
+export const getSysMod = async (setIsActive, setMaxTemp, setMinMoist) => {
   try {
     const response = await axios(`http://192.168.1.192:3000/SysMod`);
-    setSysMod((sysMod) => ({ ...sysMod, isActive: response.data[0].is_auto}));
-    setSysMod((sysMod) => ({ ...sysMod, maxTemp: response.data[0].max_temp}))
-    setSysMod((sysMod) => ({ ...sysMod, minMoist: response.data[0].min_moist }))
+    setIsActive(response.data[0].is_auto === 1)
+    setMaxTemp(response.data[0].max_temp)
+    setMinMoist(response.data[0].min_moist)
   } catch (err) {
     console.log(error);
   }

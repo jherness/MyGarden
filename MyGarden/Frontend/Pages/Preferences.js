@@ -1,35 +1,41 @@
 import React, { useState, useEffect } from "react";
-import {
-  Stack,
-  Button,
-  Flex,
-  Text,
-  TextInput,
-  Spacer,
-} from "@react-native-material/core";
+import { Text, Spacer } from "@react-native-material/core";
 import { VStack, HStack } from "@react-native-material/core";
 import { backColor, mainColor } from "../Style/Colors";
-import PageHead from "../Components/PageHead";
 import SysSwitch from "../Components/SysSwitch";
 import { StyleSheet } from "react-native";
 import NumericInput from "react-native-numeric-input";
-import { SysMod } from "../Classes/SysMod";
 import { getSysMod } from "../Modules/gets";
+import { SysMod } from "../Classes/SysMod";
+import { postToDb } from "../Modules/posts";
 
 export default function Preferences({ navigation }) {
-  const [isActive, setIsActive] = useState(false)
-  const [maxTemp, setMaxTemp] = useState(35)
-  const [minMoist, setMinMoist] = useState(0)
-  const [sysMod, setSysMod] = useState([]);
+  const [isActive, setIsActive] = useState();
+  const [maxTemp, setMaxTemp] = useState();
+  const [minMoist, setMinMoist] = useState();
+  const [sysMod, setSysMod] = useState(new SysMod());
 
   const grandchildToChild = () => {
-    setSysMod((sysMod) => ({ ...sysMod, isActive: !sysMod.isActive }));
+    setIsActive((prev) => !prev);
   };
 
   useEffect(() => {
-    getSysMod(setSysMod)
-    console.log(sysMod);
+    getSysMod(setIsActive, setMaxTemp, setMinMoist);
   }, []);
+
+  useEffect(() => {
+    sysMod.setIsActive(isActive)
+    sysMod.setMaxTemp(maxTemp)
+    sysMod.setMinMoist(minMoist)
+  }, [isActive, maxTemp, minMoist]);
+
+  useEffect(() => {
+    const unmount = navigation.addListener('blur', () => {
+      postToDb(sysMod, "SysMod")
+    });
+    return unmount;
+  }, [navigation])
+  
 
   return (
     <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
@@ -52,7 +58,7 @@ export default function Preferences({ navigation }) {
             <SysSwitch
               iconName="sync"
               grandchildToChild={grandchildToChild}
-              isActive={sysMod.isActive}
+              isActive={isActive}
             />
           </HStack>
         </VStack>
@@ -66,10 +72,9 @@ export default function Preferences({ navigation }) {
             maxValue={50}
             textColor={mainColor}
             onLimitReached={(isMax, msg) => alert(msg)}
-            value={sysMod.maxTemp}
-            onChange={(value) =>
-              setSysMod((sysMod) => ({ ...sysMod, maxTemp: value }))
-            }
+            initValue={maxTemp}
+            value={maxTemp}
+            onChange={(value) => setMaxTemp(value)}
             type="up-down"
           />
         </HStack>
@@ -82,10 +87,9 @@ export default function Preferences({ navigation }) {
             maxValue={100}
             textColor={mainColor}
             onLimitReached={(isMax, msg) => alert(msg)}
-            value={sysMod.minMoist}
-            onChange={(value) =>
-              setSysMod((sysMod) => ({ ...sysMod, minMoist: value }))
-            }
+            value={minMoist}
+            onChange={(value) => setMinMoist(value)}
+            initValue={minMoist}
           />
         </HStack>
         <Spacer />
