@@ -14,16 +14,21 @@ import SysSwitch from "../Components/SysSwitch";
 import { StyleSheet } from "react-native";
 import NumericInput from "react-native-numeric-input";
 import { SysMod } from "../Classes/SysMod";
+import { getSysMod } from "../Modules/gets";
 
 export default function Preferences({ navigation }) {
-  const [sysMod, setSysMod] = useState(new SysMod());
+  const [isActive, setIsActive] = useState(false)
+  const [maxTemp, setMaxTemp] = useState(35)
+  const [minMoist, setMinMoist] = useState(0)
+  const [sysMod, setSysMod] = useState([]);
 
   const grandchildToChild = () => {
     setSysMod((sysMod) => ({ ...sysMod, isActive: !sysMod.isActive }));
   };
 
   useEffect(() => {
-    
+    getSysMod(setSysMod)
+    console.log(sysMod);
   }, []);
 
   return (
