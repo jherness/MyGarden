@@ -10,7 +10,10 @@ import HomeBtn from "../Components/HomeBtn";
 import moment from "moment/moment";
 import Slider from "react-native-slider";
 import { ScheduleActive } from "../Classes/ScheduleActive";
-import { scheduleChecker } from "../Modules/ScheduleActivationModules";
+import {
+  handleReset,
+  scheduleChecker,
+} from "../Modules/ScheduleActivationModules";
 import { postToDb } from "../Modules/posts";
 import { getScheduleActivation } from "../Modules/gets";
 
@@ -62,25 +65,8 @@ export default function ScheduleActivation({ navigation }) {
     }
   };
 
-  const handleReset = () => {
-    newSchedule.setStartingTime("00:00:01");
-    newSchedule.setTimeToLive(1);
-    newSchedule.setWeekSchedule({
-      sunday: false,
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
-    });
-    newSchedule.setSystemToActivate({
-      air_sys: false,
-      water_sys: false,
-      light_sys: false,
-      fertelize_sys: false,
-    });
-    postToDb(newSchedule, "scheduleActivation");
+  const resetButtonClick = () => {
+    handleReset(newSchedule);
     navigation.navigate("Home");
   };
 
@@ -150,7 +136,7 @@ export default function ScheduleActivation({ navigation }) {
         <HomeBtn
           style={{ paddingBottom: 20 }}
           title="RESET"
-          onPress={handleReset}
+          onPress={resetButtonClick}
           height="50%"
           width="40%"
         />

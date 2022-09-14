@@ -1,4 +1,5 @@
 import { ScheduleActive } from "../Classes/ScheduleActive";
+import { postToDb } from "./posts";
 export const scheduleChecker = (
     setNewSchedule,
     startTime,
@@ -34,4 +35,27 @@ export const scheduleChecker = (
       newSchedule.setWeekSchedule(daysToActivate);
       setNewSchedule(newSchedule);
     }
+  };
+
+
+
+ export const handleReset = (newSchedule) => {
+    newSchedule.setStartingTime("00:00:01");
+    newSchedule.setTimeToLive(1);
+    newSchedule.setWeekSchedule({
+      sunday: false,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+    });
+    newSchedule.setSystemToActivate({
+      air_sys: false,
+      water_sys: false,
+      light_sys: false,
+      fertelize_sys: false,
+    });
+    postToDb(newSchedule, "scheduleActivation");
   };

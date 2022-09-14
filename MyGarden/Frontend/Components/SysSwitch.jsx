@@ -11,8 +11,6 @@ export default function SysSwitch(props) {
     setIsActive(prev => !prev)
     grandchildToChild(isActive, iconName)
   }
-
-
   return (
     <HStack center spacing={7}>
       <Avatar
@@ -20,6 +18,7 @@ export default function SysSwitch(props) {
         style={Colors.mainColor}
         icon={(props) => (
           <Icon
+          
             name={iconName}
             style={Colors.backColor}
             onPress={handleClick}
@@ -29,7 +28,6 @@ export default function SysSwitch(props) {
       />
       <Switch
         value={props.isActive}
-        style={Colors.mainColor}
         onValueChange={handleClick}
       />
     </HStack>
