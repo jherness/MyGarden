@@ -9,6 +9,7 @@ export default function HomeBtn(props) {
   const width = props.width || "43%";
   const height = props.height || "60%";
   const isDisabled = props.disabled || false;
+  const backgroundColor = props.resetBtn || Colors.mainColor
 
   const styles = StyleSheet.create({
     button: {
@@ -17,7 +18,7 @@ export default function HomeBtn(props) {
       minWidth: width,
       height: height,
       marginHorizontal: 12,
-      backgroundColor: Colors.mainColor,
+      backgroundColor: backgroundColor,
       borderRadius: 8,
     },
     text: {

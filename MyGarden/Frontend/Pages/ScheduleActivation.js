@@ -134,11 +134,11 @@ export default function ScheduleActivation({ navigation }) {
           width="40%"
         />
         <HomeBtn
-          style={{ paddingBottom: 20 }}
           title="RESET"
           onPress={resetButtonClick}
           height="50%"
           width="40%"
+          resetBtn={Colors.resetBtn}
         />
       </HStack>
     </VStack>

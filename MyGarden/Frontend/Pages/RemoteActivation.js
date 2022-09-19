@@ -17,13 +17,11 @@ export default function RemoteActivation({ navigation }) {
   const [remote, setRemote] = useState(new RemoteActive());
   const [finishingData, setFinishing] = useState(1);
   const [sysToActivate, setSysToActivate] = useState([]);
-  const [counter, setCounter] = useState(0);
 
   // Emmulate componentDidMount lifecycle
   useEffect(() => {
     getCurrentlyActiveRelays(setSysToActivate);
   }, []);
-
 
   const childToParent = (data) => {
     setSysToActivate(data);
@@ -35,6 +33,11 @@ export default function RemoteActivation({ navigation }) {
       postToDb(remote, `remoteActivation`);
       navigation.navigate("Home");
     }
+  };
+
+  const resetButtonClick = () => {
+    postToDb(new RemoteActive(), `remoteActivation`);
+    navigation.navigate("Home");
   };
 
   return (
@@ -72,10 +75,17 @@ export default function RemoteActivation({ navigation }) {
       </HStack>
       <HStack fill center spacing={2}>
         <HomeBtn
-          title={"Activate!"}
+          title={"ACTIVATE!"}
           onPress={handleSubmit}
-          height="35%"
-          width="50%"
+          height="50%"
+          width="40%"
+        />
+        <HomeBtn
+          title="RESET"
+          onPress={resetButtonClick}
+          height="50%"
+          width="40%"
+          resetBtn={Colors.resetBtn}
         />
       </HStack>
       <HStack fill center></HStack>
