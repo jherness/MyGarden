@@ -8,7 +8,7 @@ export default function Temprature() {
   const API_KEY = "2e8b8893b8266f8a7b799ad9827b3e4e";
   const [data, setData] = useState({});
   const [icon, setIcon] = useState();
-  const [temp, seTtemp] = useState();
+  const [temp, setTemp] = useState();
   const celLogo = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9UgTzAH7U-owDcPTcgSRrgPHrOpHHForAcYuhYAdwbJM_20BWsyTMPlH0LmNEoDKvuE&usqp=CAU`;
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,7 +36,7 @@ export default function Temprature() {
           setIcon(
             JSON.stringify(data["weather"][0]["icon"]).replace(/['"]+/g, "")
           );
-          seTtemp(JSON.stringify(data["main"]["temp"]).slice(0, 2));
+          setTemp(JSON.stringify(data["main"]["temp"]).slice(0, 2));
           setIsLoading(false);
         });
     }
