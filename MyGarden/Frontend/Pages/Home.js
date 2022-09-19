@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Greetings from "../Components/Greetings.jsx";
 import { Box, HStack, VStack } from "@react-native-material/core";
 import HomeBtn from "../Components/HomeBtn.jsx";
 import { backColor } from "../Style/Colors.js";
+import { getSysModIsAuto } from "../Modules/gets.js";
 
 export default function Home({ navigation }) {
   console.disableYellowBox = true;
+  const [isAuto, setIsAuto] = useState();
+
+  useEffect(() => {
+    const unmount = navigation.addListener("focus", () => {
+      getSysModIsAuto(setIsAuto);
+    });
+    return unmount;
+  }, [navigation]);
+
   return (
     <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
       <HStack fill center spacing={1}>
@@ -16,6 +26,7 @@ export default function Home({ navigation }) {
           <HomeBtn
             title="Remote Activation"
             onPress={() => navigation.navigate("Remote Activation")}
+            disabled={isAuto}
           />
         </Box>
         <Box>
@@ -30,6 +41,7 @@ export default function Home({ navigation }) {
           <HomeBtn
             title="Schedule Activation"
             onPress={() => navigation.navigate("Schedule Activation")}
+            disabled={isAuto}
           />
         </Box>
         <Box>
