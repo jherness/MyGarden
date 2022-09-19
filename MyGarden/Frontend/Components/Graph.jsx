@@ -1,31 +1,44 @@
+import { View, Text } from "react-native";
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart,
+} from "react-native-chart-kit";
+import { Dimensions } from "react-native";
 
-const data = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 }
-];
-
-export default class Graph extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <VictoryChart width={350} theme={VictoryTheme.material}>
-          <VictoryBar data={data} x="quarter" y="earnings" />
-        </VictoryChart>
-      </View>
-    );
-  }
+export default function Graph() {
+  const chartConfig = {
+    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 2,
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+  };
+  const screenWidth = Dimensions.get("window").width;
+  const data = {
+    labels: ["January", "February", "March", "April", "May", "June"],
+    datasets: [
+      {
+        data: [90, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2, // optional
+      },
+    ],
+    legend: ["Rainy Days"], // optional
+  };
+  return (
+    <View>
+      <LineChart
+        data={data}
+        width={screenWidth}
+        height={256}
+        verticalLabelRotation={30}
+        chartConfig={chartConfig}
+        bezier
+      />
+    </View>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f5fcff"
-  }
-});

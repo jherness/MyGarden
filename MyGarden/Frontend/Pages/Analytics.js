@@ -19,22 +19,14 @@ export default function Analythics() {
 
   return (
     <VStack fill center spacing={1} style={styles.container}>
-      <HStack fill center spacing={1}>
-        <Flex direction="column">
-          <PageHead first="Analytics" />
-        </Flex>
-      </HStack>
-      <HStack fill cente>
-        <VStack fill center>
+      <Spacer />
           <HStack fill center>
-            <Graph/>
+            <Graph />
           </HStack>
-          <HStack fill center>
-            <DropDown state={timeTypeText} timeTypeToPapa={timeTypeToPapa} />
-          </HStack>
-        </VStack>
-      </HStack>
-      <Spacer/>
+        <HStack fill center>
+          <DropDown state={timeTypeText} timeTypeToPapa={timeTypeToPapa} />
+        </HStack>
+      <Spacer />
     </VStack>
   );
 }
