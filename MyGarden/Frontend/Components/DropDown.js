@@ -1,55 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import { mainColor } from "../Style/Colors";
 
-import { View } from 'react-native';
+export default function DropdownComponent(props) {
+  const data = [
+    { label: "Hour", value: "Hour" },
+    { label: "Day", value: "Day" },
+    { label: "Week", value: "Week" },
+    { label: "Month", value: "Month" },
+    { label: "Year", value: "Year" },
+  ];
+  const [value, setValue] = useState("Hour");
 
-import DropDownPicker from 'react-native-dropdown-picker';
-
-export default function App() {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(['Water System', 'Light System', 'Air System']);
-  const [items, setItems] = useState([
-    {label: 'Water System', value: 'Water system'},
-    {label: 'Light System', value: 'Light System'},
-    {label: 'Air System', value: 'Air System'},
-   
-  ]);
+  const timeTypeToPapa = props.timeTypeToPapa;
 
   return (
-    <View style={{
-      maxWidth: "400px",
-          maxHeight: "60px",
-          minWidth: "350px",
-          minHeight: "60px",
-      backgroundColor: 'aquamarine',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingHorizontal: 15
-    }}>
-      <DropDownPicker
-   
-      dropDownContainerStyle={{
-        backgroundColor: "#7fffd4"
+    <Dropdown
+      style={styles.dropdown}
+      selectedTextStyle={styles.selectedTextStyle}
+      inputSearchStyle={styles.inputSearchStyle}
+      data={data}
+      search={false}
+      maxHeight={300}
+      labelField="label"
+      valueField="value"
+      placeholder="Select Time "
+      searchPlaceholder="Search..."
+      value={value}
+      onChange={(item) => {
+        setValue(item.value);
+        timeTypeToPapa(item.value);
       }}
-      listItemLabelStyle={{
-        color: "000000"
-      }}
-      closeIconStyle={{
-        width: 30,
-        height: 30,
-        color:"000000"
-      }}
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-
-        theme="DARK"
-        multiple={true}
-        mode="BADGE"
-       
-      />
-    </View>
+      renderLeftIcon={() => (
+        <AntDesign
+          style={styles.leftIcon}
+          color={mainColor}
+          name="calendar"
+          size={30}
+        />
+      )}
+      renderRightIcon={() => (
+        <AntDesign
+          style={styles.rightIcon}
+          color={mainColor}
+          name="caretdown"
+          size={20}
+        />
+      )}
+    />
   );
 }
+
+const styles = StyleSheet.create({
+  dropdown: {
+    minHeight: 60,
+    minWidth: 200,
+    borderBottomColor: mainColor,
+    borderBottomWidth: 2,
+  },
+  leftIcon: {
+    marginRight: 10,
+    color: mainColor,
+  },
+  rightIcon: {
+    color: mainColor,
+  },
+  selectedTextStyle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: mainColor,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 20,
+    color: mainColor,
+  },
+});
