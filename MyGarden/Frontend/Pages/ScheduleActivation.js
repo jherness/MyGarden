@@ -47,7 +47,7 @@ export default function ScheduleActivation({ navigation }) {
   const handleConfirm = (date) => {
     const formatDatetime = moment(date).format("HH:mm:ss");
     setStartTime(formatDatetime);
-    setTimeBtnTxt(moment(date.toLocaleTimeString(), "hhmm").format("HH:mm"));
+    setTimeBtnTxt(moment(date).format("HH:mm").toString());
     hideDatePicker();
   };
 

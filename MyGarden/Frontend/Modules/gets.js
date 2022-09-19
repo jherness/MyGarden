@@ -35,7 +35,7 @@ export const getScheduleActivation = async (
     setTimeBtnTxt(
       response.data[0].start_hour === "00:00:01"
         ? "Enter Start Time"
-        : response.data[0].start_hour
+        : response.data[0].start_hour.substring(0, 5)
     );
     setDaysToActivate({
       sunday: response.data[0].sunday === 1 || false,
