@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Image } from "react-native";
-import { HStack, Text } from "@react-native-material/core";
+import { StyleSheet, View, Image, ActivityIndicator } from "react-native";
+import { HStack, Spacer, Text } from "@react-native-material/core";
 import * as Location from "expo-location";
+import { mainColor } from "../Style/Colors";
 
 export default function Temprature() {
   const API_KEY = "2e8b8893b8266f8a7b799ad9827b3e4e";
@@ -9,6 +10,7 @@ export default function Temprature() {
   const [icon, setIcon] = useState();
   const [temp, seTtemp] = useState();
   const celLogo = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9UgTzAH7U-owDcPTcgSRrgPHrOpHHForAcYuhYAdwbJM_20BWsyTMPlH0LmNEoDKvuE&usqp=CAU`;
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -35,11 +37,22 @@ export default function Temprature() {
             JSON.stringify(data["weather"][0]["icon"]).replace(/['"]+/g, "")
           );
           seTtemp(JSON.stringify(data["main"]["temp"]).slice(0, 2));
+          setIsLoading(false);
         });
     }
   };
 
-  return (
+  return isLoading ? (
+    <View style={styles.container}>
+      <Spacer />
+      <ActivityIndicator
+        color={mainColor}
+        size="large"
+        style={styles.indicator}
+      />
+      <Spacer />
+    </View>
+  ) : (
     <View style={styles.container}>
       <Image
         source={{ uri: `http://openweathermap.org/img/wn/${icon}.png` }}
@@ -47,7 +60,7 @@ export default function Temprature() {
       />
       <HStack center spacing={0}>
         <Text style={styles.text} variant="h6">
-          {temp}{" "}
+          {temp}
         </Text>
         <Image source={{ uri: celLogo }} style={styles.celcius} />
       </HStack>
@@ -56,6 +69,11 @@ export default function Temprature() {
 }
 
 const styles = StyleSheet.create({
+  indicator: {
+    alignItems: "flex-end",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     flex: 1,
     alignItems: "flex-end",
@@ -63,7 +81,7 @@ const styles = StyleSheet.create({
   text: {
     justifyContent: "center",
     alignItems: "center",
-    fontWeight:"bold"
+    fontWeight: "bold",
   },
   image: {
     height: "46%",
