@@ -19,6 +19,7 @@ CREATE TABLE samples(
  key6 FLOAT NOT NULL
 );
 INSERT INTO samples (KEY1, KEY2, KEY3, KEY4, KEY5, KEY6) VALUES (1, 2, 3, 4, 5, 6)
+
 SELECT *
 FROM samples;
 
@@ -161,22 +162,6 @@ FROM currently_active
 ORDER BY id DESC
 LIMIT 1
 INSERT INTO currently_active(fertelize_sys) VALUES(1)
-
-
-/*Insert into samples*/
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:12:34');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:12:50');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:13:07');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:13:12');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:13:24');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:13:34');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:13:38');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:13:46');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:13:51');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:13:58');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:14:07');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:14:16');
-INSERT INTO `mygarden`.`sample history` (`DateTime_Of_Sample`) VALUES ('2022-09-10 00:14:19');
 
 
 
