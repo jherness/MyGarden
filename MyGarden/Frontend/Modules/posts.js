@@ -5,7 +5,7 @@ export const postToDb = async (data, route) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     }).then((response) => {
-      console.log("Status " + response.status +" Posted");
+      console.log("Status " + response.status);
     });
   } catch (error) {
     console.error(error);

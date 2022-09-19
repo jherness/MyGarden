@@ -36,7 +36,15 @@ export default function RemoteActivation({ navigation }) {
   };
 
   const resetButtonClick = () => {
-    postToDb(new RemoteActive(), `remoteActivation`);
+    remote.setFinishingData(1);
+    remote.setStartingData(new Date());
+    remote.setSystemToActivate({
+      water_sys: false,
+      air_sys: false,
+      light_sys: false,
+      fertelize_sys: false
+    });
+    postToDb(remote, `remoteActivation`);
     navigation.navigate("Home");
   };
 

@@ -62,10 +62,11 @@ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`light_sys` TINYINT(1) NOT NULL,
 	`fertelize_sys` TINYINT(1) NOT NULL
 )
-DELETE FROM schedule_activation WHERE id != 0;
+
+
 INSERT INTO schedule_activation (start_hour, time_to_live,sunday,monday,
 tuesday,wednesday,thursday,friday,saturday,air_sys,water_sys,light_sys,fertelize_sys)
- VALUES("05:12:04",
+ VALUES("00:00:01",
  3, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
  
 SELECT *
@@ -74,8 +75,6 @@ ORDER BY start_hour DESC
 LIMIT 1;
 
 DELETE FROM schedule_activation WHERE id != 0
-
-
 
 
 DELETE
@@ -92,9 +91,15 @@ CREATE TABLE `remote_activation` (
 	`light_sys` TINYINT(1) NOT NULL,
 	`fertelize_sys` TINYINT(1) NOT NULL
 )
-INSERT INTO remote_activation(finish_data, air_sys,water_sys,light_sys,fertelize_sys) VALUES (20, 0, 1, 0, 1)
+INSERT INTO remote_activation(finish_data, air_sys,water_sys,light_sys,fertelize_sys) VALUES (1, 0, 0, 0, 0)
+
+
 SELECT *
 FROM remote_activation
+
+DELETE
+FROM remote_activation;
+
 DROP TABLE remote_activation
 CREATE TRIGGER `remote_activation_before_insert` BEFORE
 INSERT ON `remote_activation` FOR EACH ROW BEGIN
