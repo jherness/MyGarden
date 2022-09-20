@@ -13,13 +13,12 @@ import {
 import { VStack } from "@react-native-material/core";
 
 export default function Chart(props) {
-  const xLable = props.xLable;
-  const yLable = props.yLable;
+  const xLabel = props.xLabel;
+  const yLabel = props.yLabel;
   const screenWidth = Dimensions.get("window").width;
-  const strokeLinecap = "round";
 
   return (
-    <VStack center fill >
+    <>
       <VictoryChart
         width={screenWidth}
         theme={VictoryTheme.material}
@@ -38,20 +37,20 @@ export default function Chart(props) {
           }}
         />
         <VictoryAxis
-          label={xLable}
+          label={xLabel}
           tickCount={8}
           tickFormat={(t) => `${Math.round(t)}`}
-          style={styles.xLable}
+          style={styles.xLabel}
         />
         <VictoryAxis
           dependentAxis
           tickCount={11}
           tickFormat={(t) => `${Math.round(t)}Lm`}
-          label={yLable}
-          style={styles.yLable}
+          label={yLabel}
+          style={styles.yLabel}
         />
       </VictoryChart>
-    </VStack>
+    </>
   );
 }
 
@@ -69,18 +68,18 @@ const styles = StyleSheet.create({
       border: `1px solid ${Colors.mainColor}`,
     },
   },
-  xLable: {
+  xLabel: {
     axisLabel: { fontSize: 20, padding: 30 },
     tickLabels: {
       fill: Colors.mainColor,
     },
   },
-  yLable: {
+  yLabel: {
     axisLabel: { fontSize: 20, padding: 30 },
     grid: {
-      stroke: Colors.activeBtn,
       strokeWidth: 1,
       pointerEvents: "painted",
+      stroke: ({ tick }) => (tick > 450 ? "red" : "grey"),
     },
     tickLabels: {
       fill: Colors.mainColor,

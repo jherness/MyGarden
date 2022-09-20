@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Flex, Spacer } from "@react-native-material/core";
 import { HStack, VStack } from "@react-native-material/core";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import { backColor, mainColor } from "../Style/Colors";
 import DropDown from "../Components/DropDown";
 import Chart from "../Components/Chart";
@@ -18,19 +18,17 @@ export default function Analythics() {
   }, [timeTypeText]);
 
   return (
-    <>
-      <VStack fill center spacing={0} style={styles.container}>
+    <ScrollView style={styles.container}>
+      <VStack fill center spacing={10}>
         <HStack fill center>
+          <Chart xLabel={timeTypeText} yLabel={dataTypeText} />
+        </HStack>
+        <HStack fillcenter>
           <DropDown state={timeTypeText} timeTypeToPapa={timeTypeToPapa} />
         </HStack>
       </VStack>
-      <VStack fill center spacing={0} style={styles.container}>
-        <HStack fill center>
-          <Chart xLable={timeTypeText} yLable={dataTypeText} />
-        </HStack>
-      </VStack>
-      <VStack fill center spacing={1} style={styles.container}></VStack>
-    </>
+      <VStack fill center spacing={1} ></VStack>
+    </ScrollView>
   );
 }
 
