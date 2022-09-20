@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { mainColor } from "../Style/Colors";
@@ -56,7 +56,7 @@ export default function DropdownComponent(props) {
 const styles = StyleSheet.create({
   dropdown: {
     minHeight: 60,
-    minWidth: 200,
+    minWidth: Dimensions.get("screen").width * 0.3,
     borderBottomColor: mainColor,
     borderBottomWidth: 2,
   },

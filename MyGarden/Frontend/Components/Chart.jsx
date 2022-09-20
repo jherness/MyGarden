@@ -15,16 +15,17 @@ import { VStack } from "@react-native-material/core";
 export default function Chart(props) {
   const xLabel = props.xLabel;
   const yLabel = props.yLabel;
-  const screenWidth = Dimensions.get("window").width;
-  const datajson = props.data
-
+  const screenWidth = Dimensions.get("screen").width;
+  const datajson = props.data;
+  const dataName = props.dataName
 
   return (
-    <>
+    <View>
       <VictoryChart
         width={screenWidth}
         theme={VictoryTheme.material}
         style={styles.mainChart}
+        
       >
         <VictoryLine
           interpolation="natural"
@@ -38,18 +39,17 @@ export default function Chart(props) {
           }}
         />
         <VictoryAxis
-          label={xLabel}
+          fixLabelOverlap = {true}
           tickFormat={(t) => `${moment(t).format("HH:mm")}`}
           style={styles.xLabel}
         />
         <VictoryAxis
           dependentAxis
           tickFormat={(t) => `${Math.round(t)}Lm`}
-          label={yLabel}
           style={styles.yLabel}
         />
       </VictoryChart>
-    </>
+    </View>
   );
 }
 
@@ -82,6 +82,8 @@ const styles = StyleSheet.create({
     },
     tickLabels: {
       fill: Colors.mainColor,
+      padding:2,
+
     },
   },
 });
