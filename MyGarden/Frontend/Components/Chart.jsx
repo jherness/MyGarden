@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable, Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
 import * as Colors from "../Style/Colors";
-import datajson from "../assets/data.json";
+import moment from "moment/moment";
 
 import {
   VictoryBar,
@@ -16,6 +16,8 @@ export default function Chart(props) {
   const xLabel = props.xLabel;
   const yLabel = props.yLabel;
   const screenWidth = Dimensions.get("window").width;
+  const datajson = props.data
+
 
   return (
     <>
@@ -23,13 +25,12 @@ export default function Chart(props) {
         width={screenWidth}
         theme={VictoryTheme.material}
         style={styles.mainChart}
-        tickCount={24}
       >
         <VictoryLine
           interpolation="natural"
           data={datajson}
-          x="date"
-          y="dataType"
+          x="dt_of_sample"
+          y="key2"
           style={styles.mainLine}
           animate={{
             duration: 2500,
@@ -38,13 +39,11 @@ export default function Chart(props) {
         />
         <VictoryAxis
           label={xLabel}
-          tickCount={8}
-          tickFormat={(t) => `${Math.round(t)}`}
+          tickFormat={(t) => `${moment(t).format("HH:mm")}`}
           style={styles.xLabel}
         />
         <VictoryAxis
           dependentAxis
-          tickCount={11}
           tickFormat={(t) => `${Math.round(t)}Lm`}
           label={yLabel}
           style={styles.yLabel}
