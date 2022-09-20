@@ -35,7 +35,7 @@ export default function Graph() {
         data={data}
         width={screenWidth}
         height={256}
-        verticalLabelRotation={30}
+        verticalLabelRotation={0}
         chartConfig={chartConfig}
         bezier
       />

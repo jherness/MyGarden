@@ -44,7 +44,8 @@
     "react-native-slider": "^0.11.0",
     "react-native-svg": "12.3.0",
     "react-native-weather-api": "^3.0.2",
-    "react-native-web": "0.17.7"
+    "react-native-web": "0.17.7",
+    "victory-native": "^36.6.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
