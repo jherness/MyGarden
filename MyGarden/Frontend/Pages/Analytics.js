@@ -11,7 +11,7 @@ export default function Analythics() {
   const [allSamples, setAllSamples] = useState([]);
   const [samples, setSamples] = useState([]);
   const [startDate, setStartDate] = useState(
-    new Date(moment().subtract(1, timeTypeText.toLowerCase()))
+    moment().subtract(1, timeTypeText.toLowerCase())
   );
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Analythics() {
   }, [allSamples]);
 
   useEffect(() => {
-    setStartDate(new Date(moment().subtract(1, timeTypeText.toLowerCase())));
+    setStartDate(moment().subtract(1, timeTypeText.toLowerCase()));
   }, [timeTypeText]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function Analythics() {
   };
 
   const checkSample = (sample) => {
-    return new Date(moment(sample.dt_of_sample)) >= startDate;
+    return moment(sample.dt_of_sample) >= startDate;
   };
 
   const timeTypeToPapa = (data) => {
