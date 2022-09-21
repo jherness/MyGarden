@@ -18,11 +18,12 @@ CREATE TABLE samples(
  key5 FLOAT NOT NULL,
  key6 FLOAT NOT NULL
 );
-INSERT INTO samples (KEY1, KEY2, KEY3, KEY4, KEY5, KEY6) VALUES (1, 1050, 3, 4, 5, 6)
+INSERT INTO samples (KEY1, KEY2, KEY3, KEY4, KEY5, KEY6) VALUES (2, 30, 30, 4, 5, 6)
 
 SELECT *
 FROM samples;
 
+SELECT * from samples WHERE  dt_of_sample > DATE_SUB(NOW(),INTERVAL 1 YEAR)   order by dt_of_sample DESC 
 
 /*histroy_and_reasons Table*/
 CREATE TABLE `activation_history` (

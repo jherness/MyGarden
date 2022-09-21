@@ -83,7 +83,7 @@ export const getSysModIsAuto = async (setIsAuto) => {
 export const getSamples = async (setSamples) => {
   try {
     const response = await axios(`http://192.168.1.192:3000/samples`);
-    setSamples(response.data.reverse());
+    setSamples(response.data);
   } catch (err) {
     console.log(error);
   }
