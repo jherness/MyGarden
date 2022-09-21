@@ -20,11 +20,38 @@ export default function Chart(props) {
   const timeName = props.timeName;
   const dataKey = props.dataKey;
 
+  const hazardZone = ({ tick }, dataName) => {
+    let res;
+    switch (dataName) {
+      case "Light":
+        res = tick >= 450 ? Colors.activeBtn : Colors.mainColor;
+        break;
+      case "Humidity":
+        res = tick >= 80 ? Colors.activeBtn : Colors.mainColor;
+        break;
+      case "Temperature":
+        res = tick >= 30 ? Colors.activeBtn : Colors.mainColor;
+        break;
+      case "Air Pressure":
+        res = tick >= 1025 ? Colors.activeBtn : Colors.mainColor;
+        break;
+    }
+    return res;
+  };
 
   return (
-    <VStack fill center spacing={-20} borderBottom={`2px solid ${Colors.mainColor}`}>
-      <HStack fill center >
-        <Text variant="h5" color={Colors.mainColor} style={{fontWeight:"bold", paddingTop:30}} >
+    <VStack
+      fill
+      center
+      spacing={-20}
+      borderBottom={`2px solid ${Colors.mainColor}`}
+    >
+      <HStack fill center>
+        <Text
+          variant="h5"
+          color={Colors.mainColor}
+          style={{ fontWeight: "bold", paddingTop: 30 }}
+        >
           Last {timeName} {dataName} Data
         </Text>
       </HStack>
@@ -34,6 +61,7 @@ export default function Chart(props) {
           theme={VictoryTheme.material}
           style={styles.mainChart}
           domainPadding={{ y: 50 }}
+          padding={{top: 80, bottom: 60, left: 60, right: 40}}
         >
           <VictoryLine
             interpolation="catmullRom"
@@ -53,8 +81,14 @@ export default function Chart(props) {
           />
           <VictoryAxis
             dependentAxis
+            fixLabelOverlap={true}
             tickFormat={(t) => `${Math.round(t)}${measurementUnit(dataName)}`}
-            style={styles.yLabel}
+            style={{
+              ...styles.yLabel,
+              grid: {
+                stroke: ({ tick }) => hazardZone({ tick }, dataName),
+              },
+            }}
           />
         </VictoryChart>
       </HStack>
@@ -85,9 +119,11 @@ const styles = StyleSheet.create({
   yLabel: {
     axisLabel: { fontSize: 20, padding: 30 },
     grid: {
-      strokeWidth: 1,
+      strokeWidth : 5,
       pointerEvents: "painted",
-      stroke: ({ tick }) => (tick > 450 ? "red" : "grey"),
+    },
+    ticks:{
+      
     },
     tickLabels: {
       fill: Colors.mainColor,
@@ -95,3 +131,5 @@ const styles = StyleSheet.create({
     },
   },
 });
+
+// stroke: ({ tick }) => (tick > 450 ? "red" : "grey"),
