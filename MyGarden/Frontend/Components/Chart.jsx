@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, Pressable, Dimensions } from "react-native";
+import { View, StyleSheet, Pressable, Dimensions } from "react-native";
+import { Flex, HStack, Spacer, Text } from "@react-native-material/core";
 import React, { useState, useEffect } from "react";
 import * as Colors from "../Style/Colors";
 import moment from "moment/moment";
@@ -13,43 +14,50 @@ import {
 import { VStack } from "@react-native-material/core";
 
 export default function Chart(props) {
-  const xLabel = props.xLabel;
-  const yLabel = props.yLabel;
   const screenWidth = Dimensions.get("screen").width;
-  const datajson = props.data;
-  const dataName = props.dataName
+  const datajson = props.samples;
+  const dataName = props.dataName;
+  const timeName = props.timeName;
+  const dataKey = props.dataKey;
 
   return (
-    <View>
-      <VictoryChart
-        width={screenWidth}
-        theme={VictoryTheme.material}
-        style={styles.mainChart}
-        
-      >
-        <VictoryLine
-          interpolation="natural"
-          data={datajson}
-          x="dt_of_sample"
-          y="key2"
-          style={styles.mainLine}
-          animate={{
-            duration: 2500,
-            onLoad: { duration: 1500 },
-          }}
-        />
-        <VictoryAxis
-          fixLabelOverlap = {true}
-          tickFormat={(t) => `${moment(t).format("HH:mm")}`}
-          style={styles.xLabel}
-        />
-        <VictoryAxis
-          dependentAxis
-          tickFormat={(t) => `${Math.round(t)}Lm`}
-          style={styles.yLabel}
-        />
-      </VictoryChart>
-    </View>
+    <VStack fill center>
+      <HStack fill center>
+        <Text variant="h5">
+          {dataName} Data from last {timeName}
+        </Text>
+      </HStack>
+      <HStack fill center>
+        <VictoryChart
+          width={screenWidth}
+          theme={VictoryTheme.material}
+          style={styles.mainChart}
+          domainPadding={{ y: 50 }}
+        >
+          <VictoryLine
+            interpolation="catmullRom"
+            data={datajson}
+            x="dt_of_sample"
+            y={dataKey}
+            style={styles.mainLine}
+            animate={{
+              duration: 2500,
+              onLoad: { duration: 1500 },
+            }}
+          />
+          <VictoryAxis
+            fixLabelOverlap={true}
+            tickFormat={(t) => `${moment(t).format("HH:mm")}`}
+            style={styles.xLabel}
+          />
+          <VictoryAxis
+            dependentAxis
+            tickFormat={(t) => `${Math.round(t)}Lm`}
+            style={styles.yLabel}
+          />
+        </VictoryChart>
+      </HStack>
+    </VStack>
   );
 }
 
@@ -82,8 +90,7 @@ const styles = StyleSheet.create({
     },
     tickLabels: {
       fill: Colors.mainColor,
-      padding:2,
-
+      padding: 2,
     },
   },
 });
