@@ -2,7 +2,6 @@ import { View, StyleSheet, Pressable, Dimensions } from "react-native";
 import { Flex, HStack, Spacer, Text } from "@react-native-material/core";
 import React, { useState, useEffect } from "react";
 import * as Colors from "../Style/Colors";
-import moment from "moment/moment";
 
 import {
   VictoryBar,
@@ -12,19 +11,21 @@ import {
   VictoryAxis,
 } from "victory-native";
 import { VStack } from "@react-native-material/core";
+import { measurementUnit, xTicksFormat } from "../Modules/AnalyticsModules";
 
 export default function Chart(props) {
-  const screenWidth = Dimensions.get("screen").width;
+  const screenWidth = Dimensions.get("screen").width * 0.97;
   const datajson = props.samples;
   const dataName = props.dataName;
   const timeName = props.timeName;
   const dataKey = props.dataKey;
 
+
   return (
     <VStack fill center>
       <HStack fill center>
         <Text variant="h5">
-          {dataName} Data from last {timeName}
+          Last {timeName} {dataName} Data
         </Text>
       </HStack>
       <HStack fill center>
@@ -47,12 +48,12 @@ export default function Chart(props) {
           />
           <VictoryAxis
             fixLabelOverlap={true}
-            tickFormat={(t) => `${moment(t).format("HH:mm")}`}
+            tickFormat={xTicksFormat(timeName)}
             style={styles.xLabel}
           />
           <VictoryAxis
             dependentAxis
-            tickFormat={(t) => `${Math.round(t)}Lm`}
+            tickFormat={(t) => `${Math.round(t)}${measurementUnit(dataName)}`}
             style={styles.yLabel}
           />
         </VictoryChart>
