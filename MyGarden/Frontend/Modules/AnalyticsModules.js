@@ -2,6 +2,8 @@ import moment from "moment/moment";
 import { HStack } from "@react-native-material/core";
 import Chart from "../Components/Chart";
 import DropDown from "../Components/DropDown";
+import { StyleSheet } from "react-native";
+
 
 export const flatlistData = (timeTypeText, samples) => [
   {
@@ -39,7 +41,7 @@ export const xTicksFormat = (timeName) => {
       break;
     case "Week":
     case "Month":
-      res = (t) => `${moment(t).format("DD/mm")}`;
+      res = (t) => `${moment(t).format("DD/MM")}`;
       break;
     case "Year":
       res = (t) => `${moment(t).format("MM/YY")}`;
@@ -87,8 +89,14 @@ export const renderItem = ({ item }) => (
 
 export const header = (timeTypeText, timeTypeToPapa) => {
     return (
-      <HStack fill center>
+      <HStack fill center style={styles.header}>
         <DropDown state={timeTypeText} timeTypeToPapa={timeTypeToPapa} />
       </HStack>
     );
   };
+
+  const styles = StyleSheet.create({
+    header:{
+        paddingBottom:30
+    }
+  })

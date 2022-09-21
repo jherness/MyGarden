@@ -22,9 +22,9 @@ export default function Chart(props) {
 
 
   return (
-    <VStack fill center>
-      <HStack fill center>
-        <Text variant="h5">
+    <VStack fill center spacing={-20} borderBottom={`2px solid ${Colors.mainColor}`}>
+      <HStack fill center >
+        <Text variant="h5" color={Colors.mainColor} style={{fontWeight:"bold", paddingTop:30}} >
           Last {timeName} {dataName} Data
         </Text>
       </HStack>

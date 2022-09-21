@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { mainColor } from "../Style/Colors";
@@ -17,46 +17,48 @@ export default function DropdownComponent(props) {
   const timeTypeToPapa = props.timeTypeToPapa;
 
   return (
-    <Dropdown
-      style={styles.dropdown}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
-      data={data}
-      search={false}
-      maxHeight={300}
-      labelField="label"
-      valueField="value"
-      placeholder="Select Time "
-      searchPlaceholder="Search..."
-      value={value}
-      onChange={(item) => {
-        setValue(item.value);
-        timeTypeToPapa(item.value);
-      }}
-      renderLeftIcon={() => (
-        <AntDesign
-          style={styles.leftIcon}
-          color={mainColor}
-          name="calendar"
-          size={30}
-        />
-      )}
-      renderRightIcon={() => (
-        <AntDesign
-          style={styles.rightIcon}
-          color={mainColor}
-          name="caretdown"
-          size={20}
-        />
-      )}
-    />
+    <View>
+      <Dropdown
+        style={styles.dropdown}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        data={data}
+        search={false}
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder="Select Time "
+        searchPlaceholder="Search..."
+        value={value}
+        onChange={(item) => {
+          setValue(item.value);
+          timeTypeToPapa(item.value);
+        }}
+        renderLeftIcon={() => (
+          <AntDesign
+            style={styles.leftIcon}
+            color={mainColor}
+            name="calendar"
+            size={30}
+          />
+        )}
+        renderRightIcon={() => (
+          <AntDesign
+            style={styles.rightIcon}
+            color={mainColor}
+            name="caretdown"
+            size={20}
+          />
+        )}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   dropdown: {
     minHeight: 60,
-    minWidth: Dimensions.get("screen").width * 0.3,
+    minWidth: Dimensions.get("screen").width,
     borderBottomColor: mainColor,
     borderBottomWidth: 2,
   },
@@ -68,11 +70,10 @@ const styles = StyleSheet.create({
     color: mainColor,
   },
   selectedTextStyle: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "bold",
     color: mainColor,
-    alignItems: "center",
-    justifyContent: "center",
+    alignContent:"center"
   },
   inputSearchStyle: {
     height: 40,
