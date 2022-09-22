@@ -146,7 +146,11 @@ INSERT INTO activation (activation_code, activation_reason) VALUES
 SELECT *
 FROM activation
 
-
+SELECT activation_code, COUNT(*) AS AHCounter 
+FROM activation_history 
+GROUP BY activation_code 
+ORDER BY AHCounter DESC
+LIMIT 1
 /*currently_active*/
 CREATE TABLE `currently_active` (
 	`id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,

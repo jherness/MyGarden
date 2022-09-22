@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import Greetings from "../Components/Greetings.jsx";
 import { Box, HStack, VStack } from "@react-native-material/core";
 import HomeBtn from "../Components/HomeBtn.jsx";
@@ -9,12 +10,13 @@ export default function Home({ navigation }) {
   console.disableYellowBox = true;
   const [isAuto, setIsAuto] = useState();
 
-  useEffect(() => {
-    const unmount = navigation.addListener("focus", () => {
-      getSysModIsAuto(setIsAuto);
-    });
-    return unmount;
-  }, [navigation]);
+useEffect(() => {
+  const unmount = navigation.addListener("focus", () => {
+    getSysModIsAuto(setIsAuto);
+  });
+  return unmount;
+}, [navigation]);
+
 
   return (
     <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
@@ -55,3 +57,10 @@ export default function Home({ navigation }) {
     </VStack>
   );
 }
+
+// useEffect(() => {
+//   const unmount = navigation.addListener("focus", () => {
+//     getSysModIsAuto(setIsAuto);
+//   });
+//   return unmount;
+// }, [navigation]);

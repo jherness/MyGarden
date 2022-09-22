@@ -14,6 +14,8 @@ export default function Analythics() {
     moment().subtract(1, timeTypeText.toLowerCase())
   );
 
+  console.log();
+
   useEffect(() => {
     getSamples(setAllSamples);
   }, []);
