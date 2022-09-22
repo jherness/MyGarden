@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text } from "@react-native-material/core";
 import { HStack, VStack } from "@react-native-material/core";
 import { FlatList, ScrollView, View } from "react-native";
-import { getSamples } from "../Modules/gets";
+import { getMostCommonActivationReason, getSamples } from "../Modules/gets";
 import { flatlistData, header, renderItem } from "../Modules/AnalyticsModules";
 import moment from "moment/moment";
 
@@ -13,12 +13,16 @@ export default function Analythics() {
   const [startDate, setStartDate] = useState(
     moment().subtract(1, timeTypeText.toLowerCase())
   );
-
-  console.log();
+  const [mostCommon, setMostCommon] = useState([]);
 
   useEffect(() => {
     getSamples(setAllSamples);
+    getMostCommonActivationReason(setMostCommon)
   }, []);
+
+  useEffect(() => {
+    console.log(mostCommon);
+  }, [mostCommon]);
 
   useEffect(() => {
     setSamples(getAppropriateSamples);

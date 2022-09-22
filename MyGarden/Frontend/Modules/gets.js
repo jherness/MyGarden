@@ -20,13 +20,12 @@ const switchDataFormatter = (data) => {
 };
 
 
-export const getMostCommonActivationReason = async (setActivations) => {
+export const getMostCommonActivationReason = async (setMostCommon) => {
   try {
-    const response = await fetch(
+    const response = await axios(
       `http://192.168.1.192:3000/activationHistory/getMostCommonActivationReason`
     );
-    const data = await response.json();
-    setActivations(formatTimeline(data));
+    setMostCommon(response.data[0]);
   } catch (err) {
     console.log(error);
   }

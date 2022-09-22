@@ -19,11 +19,12 @@ CREATE TABLE samples(
  key6 FLOAT NOT NULL
 );
 INSERT INTO samples (KEY1, KEY2, KEY3, KEY4, KEY5, KEY6) VALUES (2, 70, 920, 4, 5, 6)
-
 SELECT *
 FROM samples;
-
-SELECT * from samples WHERE  dt_of_sample > DATE_SUB(NOW(),INTERVAL 1 YEAR)   order by dt_of_sample DESC 
+SELECT *
+FROM samples
+WHERE dt_of_sample > DATE_SUB(NOW(), INTERVAL 1 YEAR)
+ORDER BY dt_of_sample DESC 
 
 /*histroy_and_reasons Table*/
 CREATE TABLE `activation_history` (
@@ -64,27 +65,19 @@ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`light_sys` TINYINT(1) NOT NULL,
 	`fertelize_sys` TINYINT(1) NOT NULL
 )
-
-
 INSERT INTO schedule_activation (start_hour, time_to_live,sunday,monday,
-tuesday,wednesday,thursday,friday,saturday,air_sys,water_sys,light_sys,fertelize_sys)
- VALUES("00:00:01",
+tuesday,wednesday,thursday,friday,saturday,air_sys,water_sys,light_sys,fertelize_sys) VALUES("00:00:01",
  3, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
- 
 SELECT *
 FROM schedule_activation
 ORDER BY start_hour DESC
 LIMIT 1;
-
-DELETE FROM schedule_activation WHERE id != 0
-
-
+DELETE
+FROM schedule_activation
+WHERE id != 0
 DELETE
 FROM schedule_activation;
 DROP TABLE schedule_activation;
-
-
-
 CREATE TABLE `remote_activation` (
 	`start_data` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL PRIMARY KEY,
 	`finish_data` INT NOT NULL,
@@ -94,14 +87,10 @@ CREATE TABLE `remote_activation` (
 	`fertelize_sys` TINYINT(1) NOT NULL
 )
 INSERT INTO remote_activation(finish_data, air_sys,water_sys,light_sys,fertelize_sys) VALUES (1, 0, 0, 0, 0)
-
-
 SELECT *
 FROM remote_activation
-
 DELETE
 FROM remote_activation;
-
 DROP TABLE remote_activation
 CREATE TRIGGER `remote_activation_before_insert` BEFORE
 INSERT ON `remote_activation` FOR EACH ROW BEGIN
@@ -110,20 +99,20 @@ FROM currently_active;
 INSERT INTO currently_active(water_sys, air_sys, light_sys, fertelize_sys) VALUES (NEW.water_sys, NEW.air_sys, NEW.light_sys, NEW.fertelize_sys); END;
 SELECT *
 FROM currently_active
-
 CREATE TABLE `sys_mod` (
-   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+ `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`is_auto` TINYINT(1) DEFAULT(0) NOT NULL,
 	`max_temp` INT DEFAULT(35) NOT NULL,
 	`min_moist` INT DEFAULT(0) NOT NULL
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB
 ;
-
 INSERT INTO sys_mod VALUES ();
-
-SELECT * FROM sys_mod order by id Desc Limit 1
-
-DELETE FROM sys_mod
+SELECT *
+FROM sys_mod
+ORDER BY id DESC
+LIMIT 1
+DELETE
+FROM sys_mod
 /*exception Table*/
 CREATE TABLE `exceptions` (
 	`exception_code` INT(11) NOT NULL,
@@ -146,11 +135,16 @@ INSERT INTO activation (activation_code, activation_reason) VALUES
 SELECT *
 FROM activation
 
-SELECT activation_code, COUNT(*) AS AHCounter 
-FROM activation_history 
-GROUP BY activation_code 
+
+
+
+SELECT COUNT(activation_history.activation_code) AS AHCounter, activation.activation_reason
+FROM activation_history
+INNER JOIN activation ON activation_history.activation_code = activation.activation_code
+GROUP BY activation.activation_code
 ORDER BY AHCounter DESC
 LIMIT 1
+
 /*currently_active*/
 CREATE TABLE `currently_active` (
 	`id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
