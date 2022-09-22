@@ -7,6 +7,7 @@ export default function ActivationHistory({ navigate }) {
   const [activations, setActivations] = useState([]);
 
 
+
   useEffect(() => {
     getActivations(setActivations);
     //get data from DB every 60 seconds

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text } from "@react-native-material/core";
 import { HStack, VStack } from "@react-native-material/core";
-import { FlatList } from "react-native";
+import { FlatList, ScrollView, View } from "react-native";
 import { getSamples } from "../Modules/gets";
 import { flatlistData, header, renderItem } from "../Modules/AnalyticsModules";
 import moment from "moment/moment";
@@ -45,14 +45,14 @@ export default function Analythics() {
   };
 
   return samples ? (
-    <VStack fill>
-      <FlatList
-        keyExtractor={(item) => item.dataKey}
-        ListHeaderComponent={header(timeTypeText, timeTypeToPapa)}
-        data={flatlistData(timeTypeText, samples)}
-        renderItem={renderItem}
-      />
-    </VStack>
+    <>
+        <FlatList
+          keyExtractor={(item) => item.dataKey}
+          ListHeaderComponent={header(timeTypeText, timeTypeToPapa)}
+          data={flatlistData(timeTypeText, samples)}
+          renderItem={renderItem}
+        />
+    </>
   ) : (
     <Text>Loser</Text>
   );

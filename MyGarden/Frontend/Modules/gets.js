@@ -20,6 +20,18 @@ const switchDataFormatter = (data) => {
 };
 
 
+export const getMostCommonActivationReason = async (setActivations) => {
+  try {
+    const response = await fetch(
+      `http://192.168.1.192:3000/activationHistory/getMostCommonActivationReason`
+    );
+    const data = await response.json();
+    setActivations(formatTimeline(data));
+  } catch (err) {
+    console.log(error);
+  }
+};
+
 
 export const getActivations = async (setActivations) => {
   try {
