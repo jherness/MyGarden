@@ -19,6 +19,44 @@ const switchDataFormatter = (data) => {
   };
 };
 
+
+
+export const getActivations = async (setActivations) => {
+  try {
+    const response = await fetch(
+      `http://192.168.1.192:3000/activationHistory`
+    );
+    const data = await response.json();
+    setActivations(formatTimeline(data));
+  } catch (err) {
+    console.log(error);
+  }
+};
+
+
+
+const formatTimeline = (data) => {
+  let newest = data.map((act) => {
+    let timestamp = new Date(act.dateTime_of_activation).valueOf();
+    return {
+      date: timestamp,
+      data: [
+        {
+          title: "Activate",
+          subtitle: act.activation_reason,
+          date: timestamp,
+        },
+        {
+          title: "Ended",
+          subtitle: act.finish_hour,
+          date: timestamp,
+        },
+      ],
+    };
+  });
+  return newest;
+};
+
 export const getScheduleActivation = async (
   setStartTime,
   setTimeToLive,

@@ -1,49 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { HStack, VStack } from "@react-native-material/core";
 import Timeline from "react-native-beautiful-timeline";
+import { getActivations } from "../Modules/gets";
 
 export default function ActivationHistory({ navigate }) {
   const [activations, setActivations] = useState([]);
 
-  const getActivations = async () => {
-    try {
-      const response = await fetch(
-        `http://192.168.1.192:3000/activationHistory`
-      );
-      const data = await response.json();
-      setActivations(formatTimeline(data));
-    } catch (err) {
-      console.log(error);
-    }
-  };
-
-  const formatTimeline = (data) => {
-    let newest = data.map((act) => {
-      let timestamp = new Date(act.dateTime_of_activation).valueOf();
-      return {
-        date: timestamp,
-        data: [
-          {
-            title: "Activate",
-            subtitle: act.activation_reason,
-            date: timestamp,
-          },
-          {
-            title: "Ended",
-            subtitle: act.finish_hour,
-            date: timestamp,
-          },
-        ],
-      };
-    });
-    return newest;
-  };
 
   useEffect(() => {
-    getActivations();
+    getActivations(setActivations);
     //get data from DB every 60 seconds
     const interval = setInterval(() => {
-      getActivations();
+      getActivations(setActivations);
     }, 60000);
 
     return () => {
