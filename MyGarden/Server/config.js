@@ -1,8 +1,8 @@
 const config = {
   db: {
-    host: "localhost",
-    user: "root",
-    password: "admin",
+    host: "192.168.1.157",
+    user: "irruser",
+    password: "irrpass",
     database: "mygarden",
   },
   listPerPage: 10,
