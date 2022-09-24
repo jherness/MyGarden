@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.9.2-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
+-- Host:                         192.168.1.157
+-- Server version:               10.5.15-MariaDB-0+deb11u1 - Raspbian 11
+-- Server OS:                    debian-linux-gnueabihf
 -- HeidiSQL Version:             11.3.0.6295
 -- --------------------------------------------------------
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `currently_active` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table mygarden.currently_active: ~1 rows (approximately)
+-- Dumping data for table mygarden.currently_active: ~0 rows (approximately)
 /*!40000 ALTER TABLE `currently_active` DISABLE KEYS */;
 INSERT INTO `currently_active` (`id`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
 	(34, 0, 0, 0, 0);
@@ -106,44 +106,47 @@ INSERT INTO `remote_activation` (`start_data`, `finish_data`, `air_sys`, `water_
 -- Dumping structure for table mygarden.samples
 CREATE TABLE IF NOT EXISTS `samples` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_of_sample` datetime DEFAULT current_timestamp(),
-  `key1` float NOT NULL,
-  `key2` float NOT NULL,
-  `key3` float NOT NULL,
-  `key4` float NOT NULL,
-  `key5` float NOT NULL,
-  `key6` float NOT NULL,
+  `dt_of_sample` datetime NOT NULL DEFAULT current_timestamp(),
+  `humidity` float NOT NULL DEFAULT 0,
+  `temperature` float NOT NULL DEFAULT 0,
+  `pressure` float NOT NULL DEFAULT 0,
+  `light` float NOT NULL DEFAULT 0,
+  `ground_humidity1` float NOT NULL DEFAULT 0,
+  `ground_humidity2` float NOT NULL DEFAULT 0,
+  `ground_humidity3` float NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table mygarden.samples: ~25 rows (approximately)
+-- Dumping data for table mygarden.samples: ~27 rows (approximately)
 /*!40000 ALTER TABLE `samples` DISABLE KEYS */;
-INSERT INTO `samples` (`id`, `dt_of_sample`, `key1`, `key2`, `key3`, `key4`, `key5`, `key6`) VALUES
-	(1, '2022-09-10 19:08:47', 1, 2, 3, 4, 5, 6),
-	(2, '2022-09-10 19:08:49', 1, 2, 3, 4, 5, 6),
-	(3, '2022-09-10 19:08:51', 1, 2, 3, 4, 5, 6),
-	(4, '2022-09-10 19:08:53', 1, 2, 3, 4, 5, 6),
-	(5, '2022-09-10 19:08:57', 1, 2, 3, 4, 5, 6),
-	(6, '2022-09-10 19:09:00', 1, 2, 3, 4, 5, 6),
-	(7, '2022-09-10 19:09:04', 1, 2, 3, 4, 5, 6),
-	(8, '2022-09-10 19:09:08', 1, 2, 3, 4, 5, 6),
-	(9, '2022-09-10 19:09:11', 1, 2, 3, 4, 5, 6),
-	(10, '2022-09-10 19:09:15', 1, 2, 3, 4, 5, 6),
-	(11, '2022-09-10 19:09:18', 1, 2, 3, 4, 5, 6),
-	(12, '2022-09-10 19:09:22', 1, 2, 3, 4, 5, 6),
-	(13, '2022-09-20 16:13:44', 1, 50, 3, 4, 5, 6),
-	(14, '2022-09-20 16:16:27', 1, 40, 3, 4, 5, 6),
-	(15, '2022-09-20 16:21:04', 1, 100, 3, 4, 5, 6),
-	(16, '2022-09-20 16:25:10', 1, 1050, 3, 4, 5, 6),
-	(17, '2022-09-21 10:24:22', 1, 800, 3, 4, 5, 6),
-	(18, '2022-09-21 18:04:19', 20, 300, 300, 40, 50, 60),
-	(19, '2022-09-21 18:04:46', 2, 30, 30, 4, 5, 6),
-	(20, '2022-09-21 20:06:33', 2, 30, 30, 4, 5, 6),
-	(21, '2022-09-21 20:07:37', 2, 30, 30, 4, 5, 6),
-	(22, '2022-09-21 20:09:49', 2, 60, 90, 4, 5, 6),
-	(23, '2022-09-21 22:11:23', 2, 70, 900, 4, 5, 6),
-	(24, '2022-09-21 22:12:20', 2, 70, 900, 4, 5, 6),
-	(25, '2022-09-21 22:12:58', 2, 70, 920, 4, 5, 6);
+INSERT INTO `samples` (`id`, `dt_of_sample`, `humidity`, `temperature`, `pressure`, `light`, `ground_humidity1`, `ground_humidity2`, `ground_humidity3`) VALUES
+	(1, '2022-09-10 19:08:47', 60, 30, 1009, 1410, 100, 100, 100),
+	(2, '2022-09-10 19:08:49', 0, 0, 0, 0, 0, 0, 10),
+	(3, '2022-09-10 19:08:51', 0, 0, 0, 0, 0, 0, 0),
+	(4, '2022-09-10 19:08:53', 0, 0, 0, 0, 0, 0, 0),
+	(5, '2022-09-10 19:08:57', 0, 0, 0, 0, 0, 0, 0),
+	(6, '2022-09-10 19:09:00', 0, 0, 0, 0, 0, 0, 0),
+	(7, '2022-09-10 19:09:04', 0, 0, 0, 0, 0, 0, 0),
+	(8, '2022-09-10 19:09:08', 0, 0, 0, 0, 0, 0, 0),
+	(9, '2022-09-10 19:09:11', 0, 0, 0, 0, 0, 0, 0),
+	(10, '2022-09-10 19:09:15', 0, 0, 0, 0, 0, 0, 0),
+	(11, '2022-09-10 19:09:18', 0, 0, 0, 0, 0, 0, 0),
+	(12, '2022-09-10 19:09:22', 0, 0, 0, 0, 0, 0, 0),
+	(13, '2022-09-20 16:13:44', 0, 0, 0, 0, 0, 0, 0),
+	(14, '2022-09-20 16:16:27', 0, 0, 0, 0, 0, 0, 0),
+	(15, '2022-09-20 16:21:04', 0, 0, 0, 0, 0, 0, 0),
+	(16, '2022-09-20 16:25:10', 0, 0, 0, 0, 0, 0, 0),
+	(17, '2022-09-21 10:24:22', 0, 0, 0, 0, 0, 0, 0),
+	(18, '2022-09-21 18:04:19', 0, 0, 0, 0, 0, 0, 0),
+	(19, '2022-09-21 18:04:46', 0, 0, 0, 0, 0, 0, 0),
+	(20, '2022-09-21 20:06:33', 0, 0, 0, 0, 0, 0, 0),
+	(21, '2022-09-21 20:07:37', 0, 0, 0, 0, 0, 0, 0),
+	(22, '2022-09-21 20:09:49', 0, 0, 0, 0, 0, 0, 0),
+	(23, '2022-09-21 22:11:23', 0, 0, 0, 0, 0, 0, 0),
+	(24, '2022-09-21 22:12:20', 0, 0, 0, 0, 0, 0, 0),
+	(25, '2022-09-21 22:12:58', 0, 0, 0, 0, 0, 0, 0),
+	(50, '2022-09-10 00:00:00', 0, 0, 0, 0, 0, 0, 0),
+	(51, '2022-09-22 15:00:00', 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `samples` ENABLE KEYS */;
 
 -- Dumping structure for table mygarden.schedule_activation
