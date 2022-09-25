@@ -7,7 +7,7 @@ import { flatlistData, header, renderItem } from "../Modules/AnalyticsModules";
 import moment from "moment/moment";
 
 export default function Analythics() {
-  const [timeTypeText, setTimeTypeText] = useState("Hour");
+  const [timeTypeText, setTimeTypeText] = useState("Hour"); //
   const [allSamples, setAllSamples] = useState([]);
   const [samples, setSamples] = useState([]);
   const [startDate, setStartDate] = useState(
@@ -15,6 +15,7 @@ export default function Analythics() {
   );
   const [mostCommon, setMostCommon] = useState([]);
 
+  /*getting the last year samples*/
   useEffect(() => {
     getSamples(setAllSamples);
     getMostCommonActivationReason(setMostCommon)
@@ -58,6 +59,6 @@ export default function Analythics() {
         />
     </>
   ) : (
-    <Text>Loser</Text>
+    <Text>Loading</Text>
   );
 }

@@ -4,34 +4,36 @@ import Chart from "../Components/Chart";
 import DropDown from "../Components/DropDown";
 import { StyleSheet } from "react-native";
 
-
+/*data to be rendered in flatlist*/
 export const flatlistData = (timeTypeText, samples) => [
   {
-    timeName: timeTypeText,
-    samples: samples,
-    dataKey: "key2",
+    timeName: timeTypeText,// "Hour/day/week..."
+    samples: samples,// the last year samples
+    dataKey: "light",//the name of the col in the db
     dataName: "Light",
   },
   {
     timeName: timeTypeText,
     samples: samples,
-    dataKey: "key3",
+    dataKey: "humidity",
     dataName: "Humidity",
   },
   {
     timeName: timeTypeText,
     samples: samples,
-    dataKey: "key4",
+    dataKey: "temperature",
     dataName: "Temperature",
   },
   {
     timeName: timeTypeText,
     samples: samples,
-    dataKey: "key5",
+    dataKey: "pressure",
     dataName: "Air Pressure",
   },
 ];
 
+
+/*X axis format, each time choosen has a diff format*/
 export const xTicksFormat = (timeName) => {
   let res = "";
   switch (timeName) {
@@ -48,6 +50,8 @@ export const xTicksFormat = (timeName) => {
   }
   return res;
 };
+
+/*text for the appropriate measurement unit*/
 export const measurementUnit = (dataName) => {
   let res = "";
   switch (dataName) {
@@ -67,6 +71,7 @@ export const measurementUnit = (dataName) => {
   return res;
 };
 
+/*JSX element to be rendered for each col in flatlist*/
 export const Item = ({ timeName, samples, dataKey, dataName }) => (
   <HStack fill center>
     <Chart
@@ -78,6 +83,7 @@ export const Item = ({ timeName, samples, dataKey, dataName }) => (
   </HStack>
 );
 
+/*sending data to the element to be rendered*/
 export const renderItem = ({ item }) => (
   <Item
     timeName={item.timeName}
@@ -87,6 +93,7 @@ export const renderItem = ({ item }) => (
   />
 );
 
+/*static header the only renders one time in flatlist*/
 export const header = (timeTypeText, timeTypeToPapa) => {
     return (
       <HStack fill center style={styles.header}>
