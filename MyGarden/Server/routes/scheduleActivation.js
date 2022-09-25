@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const schedule_activation = require("../services/scheduleActivation");
+const schedule_activation = require("../services/scheduleActivation"); //importing all the services
 
 /* GET latese schedule */
+/*first param is route url, and second is the async function that posts.
+the function req is the body (if needed) and the query(if needed)*/
 router.get("/", async function (req, res, next) {
   try {
     res.json(await schedule_activation.getScheduleActivation(req.query));
@@ -12,7 +14,9 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-/*Post new activation*/
+/*Post new schedule*/
+/*first param is route url, and second is the async function that posts.
+the function req is the body (if needed) and the query(if needed)*/
 router.post("/", async function (req, res, next) {
   try {
     res.json(await schedule_activation.create(req.body));

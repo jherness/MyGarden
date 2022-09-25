@@ -10,8 +10,10 @@ async function getScheduleActivation() {
   return data;
 }
 
-/*Create a new schedule*/
+/*Create a new schedule. parameter data is json object which consists of all
+the data nesseccery for schedule_activation table in DB*/
 async function create(data) {
+  /*the query for posting a new schedule*/ 
   const result = await db.query(
      `INSERT INTO schedule_activation (start_hour, time_to_live,sunday,monday,
         tuesday,wednesday,thursday,friday,saturday,air_sys,water_sys,light_sys,fertelize_sys) VALUES ('${data.startTime}', ${data["timeToLive"]},
@@ -22,10 +24,11 @@ async function create(data) {
         ${data["systemsToActivate"]["fertelize_sys"]});`
   );
 
-  let message = "Error in creating a new remote_activation";
+  let message = "Error in creating a new schedule_activation";
 
+  /*if there was no error*/
   if (result.affectedRows) {
-    message = "1 Row Added to remote_activation. Updated currently_active";
+    message = "1 Row Added to schedule_activation.";
   }
 
   return { message };

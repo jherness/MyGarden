@@ -27,13 +27,13 @@ CREATE TABLE IF NOT EXISTS `activation` (
 -- Dumping data for table mygarden.activation: ~16 rows (approximately)
 /*!40000 ALTER TABLE `activation` DISABLE KEYS */;
 INSERT INTO `activation` (`activation_code`, `activation_reason`) VALUES
-	(1, '1a'),
-	(2, '2a'),
-	(3, '3a'),
-	(4, '4a'),
-	(5, '5a'),
-	(6, '6a'),
-	(7, '7a'),
+	(1, 'Low Humidity'),
+	(2, 'High Humidity'),
+	(3, 'Remote Activation'),
+	(4, 'Schedule Activation'),
+	(5, 'High Temp & Low Humidity'),
+	(6, 'Low Temp'),
+	(7, 'High Temp'),
 	(8, '8a'),
 	(9, '9a'),
 	(10, '10a'),
@@ -107,15 +107,28 @@ INSERT INTO `remote_activation` (`start_data`, `finish_data`, `air_sys`, `water_
 CREATE TABLE IF NOT EXISTS `samples` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dt_of_sample` datetime NOT NULL DEFAULT current_timestamp(),
-  `humidity` float NOT NULL DEFAULT 0,
-  `temperature` float NOT NULL DEFAULT 0,
-  `pressure` float NOT NULL DEFAULT 0,
-  `light` float NOT NULL DEFAULT 0,
-  `ground_humidity1` float NOT NULL DEFAULT 0,
-  `ground_humidity2` float NOT NULL DEFAULT 0,
-  `ground_humidity3` float NOT NULL DEFAULT 0,
+  `key1` float NOT NULL,
+  `key2` float NOT NULL,
+  `key3` float NOT NULL, 
+  `key4` float NOT NULL, 
+  `key5` float NOT NULL, 
+  `key6` float NOT NULL, 
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=UTF8MB4;
+
+INSERT INTO `samples` (`id`, `dt_of_sample`,`key1`, `key2`, `key3`, `key4`, `key5`, `key6`) VALUES
+	(1, '2022-09-10 19:08:47', 60, 30, 25, 1009, 100, 100),
+	(2, '2022-09-16 19:08:49', 100, 90, 32, 1012, 300, 0),
+	(3, '2022-09-20 19:08:51', 500, 80, 27, 1007, 900, 0),
+	(4, '2022-09-23 19:08:53', 1020, 60, 15, 1020, 0, 0),
+	(5, '2022-09-24 19:08:57', 660, 70, 22, 1007, 0, 0),
+	(6, '2022-09-25 19:09:00', 450, 90, 27, 1010, 0, 0),
+	(7, '2022-09-28 19:09:04', 1000, 100, 30, 1013, 0, 0),
+	(6, '2022-09-10 19:09:00', 0, 0, 0, 0, 0, 0, 0),
+	(7, '2022-09-10 19:09:04', 0, 0, 0, 0, 0, 0, 0),
+	(8, '2022-09-10 19:09:08', 0, 0, 0, 0, 0, 0, 0),
+	(9, '2022-09-10 19:09:11', 0, 0, 0, 0, 0, 0, 0),
+	(10, '2022-09-10 19:09:15', 0, 0, 0, 0, 0, 0, 0),
 
 -- Dumping data for table mygarden.samples: ~27 rows (approximately)
 /*!40000 ALTER TABLE `samples` DISABLE KEYS */;
