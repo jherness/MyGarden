@@ -45,15 +45,15 @@ def getsensordata():
     print ("Ambient Light luminance : %.2f lux" %luminance)
 
  
-    (raw_adc,raw_vlt)=ads1115.readADS1115(ain=0)
-    print ("Digital Value of Analog Input : %d" %raw_adc)
-    print ("Analog  Value of Analog Input : %.4f Volt" %raw_vlt)
+    #(raw_adc,raw_vlt)=ads1115.readADS1115(ain=0)
+    #print ("Digital Value of Analog Input : %d" %raw_adc)
+    #print ("Analog  Value of Analog Input : %.4f Volt" %raw_vlt)
  
-    msg["Digital-IN0"]=raw_adc
-    msg["Analog-IN0"]=raw_vlt
-    #pcf8574.RealyTestOn(pcf8574.REL1)
-    #pcf8574.RealyTestOff(pcf8574.REL1) 
-    #print ("realay status=",pcf8574.GetRealyStatus())  
+    #msg["Digital-IN0"]=raw_adc
+    #msg["Analog-IN0"]=raw_vlt
+    pcf8574.RealyTestOn(pcf8574.REL1)
+    pcf8574.RealyTestOff(pcf8574.REL1) 
+    print ("realay status=",pcf8574.GetRealyStatus())  
     json_object = json.dumps(msg,indent=4) 
     print(json_object)
 	

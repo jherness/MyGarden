@@ -1,11 +1,11 @@
-from Drivers.Getdata import getdata
 import mysql.connector
+import json
 
 TABLE_NAME = "samples"
-HOST = 'localhost'
+HOST = '192.168.1.157'
 DB_NAME = 'mygarden'
 USER = 'root'
-PASS = 'admin'
+PASS = 'admin1'
 
 
 def get_connection():
@@ -17,20 +17,20 @@ def get_connection():
 
 
 def handle_db_connection_error(error):
-    print("Failed to insert record into MySQL table {}".format(error))
+    print("Failed to insert record into MariaDB table {}".format(error))
 
 
 def finish(cursor, connection):
     cursor.close()
     connection.close()
-    print("MySQL connection is closed")
+    print("MariaDB connection is closed")
 
 
 def update_table(cursor, connection):
-    data = getdata()
-    query = f"INSERT INTO {TABLE_NAME} (key1, key2, key3, key4, key5, key6) VALUES" \
-            f" ({data['key1']}, {data['key2']}, {data['key3']}," \
-            f" {data['key4']}, {data['key5']}, {data['key6']})"
+    data = json.{}
+    query = f"INSERT INTO {TABLE_NAME} (temperature, humidity, pressure, light, ground_humidity1, ground_humidity2, ground_humidity3) VALUES" 
+            f" ({data['temperature']}, {data['humidity']}, {data['pressure']}," \
+            f" {data['light']}, {data['ground_humidity1']}, {data['ground_humidity2']}, {data['ground_humidity3']})"
     cursor.execute(query)
     connection.commit()
     print(cursor.rowcount, "Record inserted successfully into samples table")

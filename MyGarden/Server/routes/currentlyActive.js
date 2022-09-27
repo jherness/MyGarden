@@ -13,4 +13,16 @@ router.get("/", async function (req, res, next) {
 });
 
 
+router.post("/", async function (req, res, next) {
+  try {
+    res.json(await currently_active.create(req.body));
+  } catch (err) {
+    console.error(
+      `Error while creating currently_active new data`,
+      err.message
+    );
+    next(err);
+  }
+});
+
 module.exports = router;

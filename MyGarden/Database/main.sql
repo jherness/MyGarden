@@ -117,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `samples` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=UTF8MB4;
 
+-- Dumping data for table mygarden.samples: ~10 rows (approximately)
 INSERT INTO `samples` (`id`, `dt_of_sample`,`temperature`, `humidity`, `pressure`, `light`,
  `ground_humidity1`, `ground_humidity2`,`ground_humidity3`) VALUES
 	(1, '2022-09-10 19:08:47', 25, 50, 1009, 1399, 70, 50, 60),
@@ -133,36 +134,7 @@ INSERT INTO `samples` (`id`, `dt_of_sample`,`temperature`, `humidity`, `pressure
 	(10, '2022-09-10 19:09:15', 0, 0, 0, 0, 0, 0, 0),
 
 -- Dumping data for table mygarden.samples: ~27 rows (approximately)
-/*!40000 ALTER TABLE `samples` DISABLE KEYS */;
-INSERT INTO `samples` (`id`, `dt_of_sample`, `humidity`, `temperature`, `pressure`, `light`, `ground_humidity1`, `ground_humidity2`, `ground_humidity3`) VALUES
-	(1, '2022-09-10 19:08:47', 60, 30, 1009, 1410, 100, 100, 100),
-	(2, '2022-09-10 19:08:49', 0, 0, 0, 0, 0, 0, 10),
-	(3, '2022-09-10 19:08:51', 0, 0, 0, 0, 0, 0, 0),
-	(4, '2022-09-10 19:08:53', 0, 0, 0, 0, 0, 0, 0),
-	(5, '2022-09-10 19:08:57', 0, 0, 0, 0, 0, 0, 0),
-	(6, '2022-09-10 19:09:00', 0, 0, 0, 0, 0, 0, 0),
-	(7, '2022-09-10 19:09:04', 0, 0, 0, 0, 0, 0, 0),
-	(8, '2022-09-10 19:09:08', 0, 0, 0, 0, 0, 0, 0),
-	(9, '2022-09-10 19:09:11', 0, 0, 0, 0, 0, 0, 0),
-	(10, '2022-09-10 19:09:15', 0, 0, 0, 0, 0, 0, 0),
-	(11, '2022-09-10 19:09:18', 0, 0, 0, 0, 0, 0, 0),
-	(12, '2022-09-10 19:09:22', 0, 0, 0, 0, 0, 0, 0),
-	(13, '2022-09-20 16:13:44', 0, 0, 0, 0, 0, 0, 0),
-	(14, '2022-09-20 16:16:27', 0, 0, 0, 0, 0, 0, 0),
-	(15, '2022-09-20 16:21:04', 0, 0, 0, 0, 0, 0, 0),
-	(16, '2022-09-20 16:25:10', 0, 0, 0, 0, 0, 0, 0),
-	(17, '2022-09-21 10:24:22', 0, 0, 0, 0, 0, 0, 0),
-	(18, '2022-09-21 18:04:19', 0, 0, 0, 0, 0, 0, 0),
-	(19, '2022-09-21 18:04:46', 0, 0, 0, 0, 0, 0, 0),
-	(20, '2022-09-21 20:06:33', 0, 0, 0, 0, 0, 0, 0),
-	(21, '2022-09-21 20:07:37', 0, 0, 0, 0, 0, 0, 0),
-	(22, '2022-09-21 20:09:49', 0, 0, 0, 0, 0, 0, 0),
-	(23, '2022-09-21 22:11:23', 0, 0, 0, 0, 0, 0, 0),
-	(24, '2022-09-21 22:12:20', 0, 0, 0, 0, 0, 0, 0),
-	(25, '2022-09-21 22:12:58', 0, 0, 0, 0, 0, 0, 0),
-	(50, '2022-09-10 00:00:00', 0, 0, 0, 0, 0, 0, 0),
-	(51, '2022-09-22 15:00:00', 0, 0, 0, 0, 0, 0, 0);
-/*!40000 ALTER TABLE `samples` ENABLE KEYS */;
+
 
 -- Dumping structure for table mygarden.schedule_activation
 CREATE TABLE IF NOT EXISTS `schedule_activation` (
