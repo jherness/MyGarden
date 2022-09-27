@@ -1,10 +1,10 @@
-
+#!/usr/bin/python3
 import smbus
 import json
 import sys
 from datetime import datetime
-sys.path.append('/home/pi/irrsys/drivers')
-sys.path.append('/home/pi/irrsys/loaders')
+sys.path.append('./drivers')
+sys.path.append('./loaders')
 import bme280  # Temperature & Humidity & Pressurs sensor driver
 import aht20   # Temperature & Humidity sensor driver
 import tsl2584 # light sensor driver
@@ -19,7 +19,7 @@ def logtofile(mesg):
     timestemp = now.strftime("%d-%m-%Y %H:%M:%S")
     line = timestemp + ',' + mesg
     #print(line)
-    with open("/home/pi/irrsys/logfile.txt", "a", newline='\n') as myfile:
+    with open("logfile.txt", "a", newline='\n') as myfile:
         myfile.write(line + '\n')
         myfile.close()
 

@@ -12,24 +12,25 @@ bus = smbus.SMBus(1)  #/dev/i2c-1
 
 def testbit(num, k):
     if num & (1 << (k - 1)):
-        return 'ON'
+        return 1
     else:
-        return 'OFF'
+        return 0
 
 def ParseStatus(sts):
     STATUS= {
-           'REALY 1' : testbit(sts, 1),
-           'REALY 2' : testbit(sts, 2),
-           'REALY 3' : testbit(sts, 3),
-           'REALY 4' : testbit(sts, 4)
+           'water_sys' : testbit(sts, 1),
+           'air_sys' : testbit(sts, 2),
+           'light_sys' : testbit(sts, 3),
+           'fertelize_sys' : testbit(sts, 4)
     }
-    print(STATUS)
+    return (STATUS)
 
 
 def GetRealyStatus():
     byte = bus.read_byte(device)
     #print('Realy Status=',hex(255-byte))
-    ParseStatus(255-byte)
+    status = ParseStatus(255-byte)
+    return status
 
 def RealyTestOn(rel):
     #print(' in RelayTest on')
