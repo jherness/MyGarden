@@ -13,9 +13,10 @@ async function getAllSamples() {
 async function create(sample) {
   const result = await db.query(
     `INSERT INTO samples 
-      (key1, key2, key3, key4, key5, key6) 
+      (temperature, humidity, pressure, light, ground_humidity1, ground_humidity2, ground_humidity3) 
       VALUES 
-      (${sample.key1}, ${sample.key2}, ${sample.key3}, ${sample.key4}, ${sample.key5}, ${sample.key6})`
+      (${sample.temperature}, ${sample.humidity}, ${sample.pressure}, ${sample.light},
+         ${sample.ground_humidity1}, ${sample.ground_humidity2}, ${sample.ground_humidity3})`
   );
 
   let message = "Error in creating a new sample";
@@ -31,8 +32,9 @@ async function create(sample) {
 async function update(id, sample) {
   const result = await db.query(
     `UPDATE samples
-      SET key1 = ${sample.key1}, key2 = ${sample.key2}, key3 = ${sample.key3}, key4 =${sample.key4},
-       key5 = ${sample.key5}, key6= ${sample.key6}
+      SET temperature = ${sample.key1}, humidity = ${sample.humidity}, pressure = ${sample.pressure},
+      light =${sample.light}, ground_humidity1 = ${sample.ground_humidity1},
+      ground_humidity2= ${sample.ground_humidity2},  ground_humidity3= ${sample.ground_humidity3}
       WHERE id = ${id} `
   );
 
