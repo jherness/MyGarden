@@ -24,7 +24,7 @@ export default function Chart(props) {
     let res;
     switch (dataName) {
       case "Light":
-        res = tick >= 450 ? Colors.activeBtn : Colors.mainColor;
+        res = tick >= 7000 ? Colors.activeBtn : Colors.mainColor;
         break;
       case "Humidity":
         res = tick >= 80 ? Colors.activeBtn : Colors.mainColor;
@@ -33,7 +33,7 @@ export default function Chart(props) {
         res = tick >= 30 ? Colors.activeBtn : Colors.mainColor;
         break;
       case "Air Pressure":
-        res = tick >= 1025 ? Colors.activeBtn : Colors.mainColor;
+        res = tick >= 1025 || tick <= 990 ? Colors.activeBtn : Colors.mainColor;
         break;
     }
     return res;

@@ -30,6 +30,7 @@ export default function Analythics() {
   }, [allSamples]);
 
   useEffect(() => {
+    console.log(samples);
     setStartDate(moment().subtract(1, timeTypeText.toLowerCase()));
   }, [timeTypeText]);
 
