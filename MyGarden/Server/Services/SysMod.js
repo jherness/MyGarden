@@ -10,9 +10,11 @@ async function getSysMod() {
 }
 
 /*Create a SysMod*/
-async function create(data) {
+async function update(data) {
   const result = await db.query(
-     `INSERT INTO sys_mod (is_auto, max_temp, min_moist) values (${data.isActive}, ${data.maxTemp}, ${data.minMoist} )`
+    `UPDATE sys_mod
+    SET is_auto = ${data.isActive}, max_temp = ${data.maxTemp}, min_moist = ${data.minMoist}
+  WHERE id = 1;`
   );
 
   let message = "Error in creating a new sys_mod";
@@ -24,8 +26,6 @@ async function create(data) {
   return { message };
 }
 module.exports = {
-    getSysMod,
-  create,
+  getSysMod,
+  update,
 };
-
-

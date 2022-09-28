@@ -5,7 +5,7 @@ const config = require("../config");
 /*Get latest schedule */
 async function getScheduleActivation() {
   const rows = await db.query(`SELECT * 
-  FROM schedule_activation order by id Desc Limit 1`);
+  FROM schedule_activation `);
   const data = helper.emptyOrRows(rows);
   return data;
 }
@@ -13,16 +13,16 @@ async function getScheduleActivation() {
 /*update a new schedule. parameter data is json object which consists of all
 the data nesseccery for schedule_activation table in DB*/
 async function update(data) {
-  /*the query for posting a new schedule*/
+  /*the query for posting a new schedule*/ 
   const result = await db.query(
     `UPDATE schedule_activation
-    SET start_hour = ${data["startTime"]}, time_to_live = ${data["timeToLive"]},
-    sunday =  ${data["weekSchedule"]["sunday"]}, monday = ${data["weekSchedule"]["monday"]},
-    tuesday = ${data["weekSchedule"]["tuesday"]}, wednesday = ${data["weekSchedule"]["wednesday"]},
-    thursday = ${data["weekSchedule"]["thursday"]}, friday = ${data["weekSchedule"]["friday"]},
-    saturday = ${data["weekSchedule"]["saturday"]}, air_sys =  ${data["systemsToActivate"]["air_sys"]},
-    water_sys =  ${data["systemsToActivate"]["water_sys"]}, light_sys =  ${data["systemsToActivate"]["light_sys"]},
-    fertelize_sys =  ${data["systemsToActivate"]["fertelize_sys"]}
+    SET start_hour = '${data["startTime"]}', time_to_live = ${data["timeToLive"]},
+     sunday =  ${data["weekSchedule"]["sunday"]}, monday = ${data["weekSchedule"]["monday"]},
+      tuesday = ${data["weekSchedule"]["tuesday"]}, wednesday = ${data["weekSchedule"]["wednesday"]},
+       thursday = ${data["weekSchedule"]["thursday"]}, friday = ${data["weekSchedule"]["friday"]},
+        saturday = ${data["weekSchedule"]["saturday"]}, air_sys =  ${data["systemsToActivate"]["air_sys"]},
+         water_sys =  ${data["systemsToActivate"]["water_sys"]}, light_sys =  ${data["systemsToActivate"]["light_sys"]},
+          fertelize_sys =  ${data["systemsToActivate"]["fertelize_sys"]}
     WHERE id = 1;`
   );
 
@@ -39,3 +39,5 @@ module.exports = {
   getScheduleActivation,
   update,
 };
+
+

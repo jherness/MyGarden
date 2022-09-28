@@ -12,10 +12,10 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-/* POST sys_mod */
-router.post("/", async function (req, res, next) {
+/* put sys_mod */
+router.put("/", async function (req, res, next) {
   try {
-    res.json(await sys_mod.create(req.body));
+    res.json(await sys_mod.update(req.body));
   } catch (err) {
     console.error(`Error while creating sample`, err.message);
     next(err);
