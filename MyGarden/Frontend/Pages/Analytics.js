@@ -38,6 +38,8 @@ export default function Analythics() {
   }, [startDate]);
 
   const getAppropriateSamples = () => {
+    if(timeTypeText === "Month")
+      return allSamples
     return allSamples.filter(checkSample).reverse();
   };
 

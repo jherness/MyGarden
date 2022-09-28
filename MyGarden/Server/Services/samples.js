@@ -4,7 +4,7 @@ const config = require("../config");
 
 /*Get all (year back) samples */
 async function getAllSamples() {
-  const rows = await db.query(`SELECT * from samples WHERE  dt_of_sample > DATE_SUB(NOW(),INTERVAL 1 YEAR)   order by dt_of_sample DESC  `);
+  const rows = await db.query(`SELECT * from samples WHERE  dt_of_sample > DATE_SUB(NOW(),INTERVAL 1 MONTH)   order by dt_of_sample DESC  `);
   const data = helper.emptyOrRows(rows);
   return data;
 }

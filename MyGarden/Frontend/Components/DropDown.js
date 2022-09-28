@@ -10,7 +10,7 @@ export default function DropdownComponent(props) {
     { label: "Day", value: "Day" },
     { label: "Week", value: "Week" },
     { label: "Month", value: "Month" },
-    { label: "Year", value: "Year" },
+    // { label: "Year", value: "Year" },
   ];
   const [value, setValue] = useState("Hour");
 

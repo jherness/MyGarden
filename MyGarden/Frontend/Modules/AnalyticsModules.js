@@ -45,8 +45,8 @@ export const xTicksFormat = (timeName) => {
     case "Month":
       res = (t) => `${moment(t).format("DD/MM")}`;
       break;
-    case "Year":
-      res = (t) => `${moment(t).format("MM/YY")}`;
+    // case "Year":
+    //   res = (t) => `${moment(t).format("MM/YY")}`;
   }
   return res;
 };
