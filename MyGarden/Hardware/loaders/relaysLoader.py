@@ -19,7 +19,7 @@ def get_connection():
 
 
 def handle_db_connection_error(error):
-    print("Failed to insert record into MariaDB table {}".format(error))
+    print("Failed to update record in MariaDB table {}".format(error))
 
 
 def finish(cursor, connection):
@@ -29,8 +29,11 @@ def finish(cursor, connection):
 
 
 def update_table(data, cursor, connection):
-    query = f"INSERT INTO currently_active(water_sys, air_sys, light_sys, fertelize_sys) VALUES " \
-            f"({data['water_sys']}, {data['air_sys']}, {data['light_sys']}, {data['fertelize_sys']})"
+    query = f"UPDATE currently_active SET" \
+            f" air_sys = {data['air_sys']}, water_sys = {data['water_sys']},"\
+            f" light_sys = {data['light_sys']}," \
+            f"fertelize_sys = {data['fertelize_sys']}  WHERE id = 1;"
+
     cursor.execute(query)
     connection.commit()
     print(cursor.rowcount, "Record inserted successfully into currently_active table")
