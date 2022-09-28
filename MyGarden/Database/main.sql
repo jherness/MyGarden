@@ -107,7 +107,11 @@ CREATE TABLE IF NOT EXISTS `samples` (
  `ground_humidity2` FLOAT NOT NULL, 
 	`ground_humidity3` FLOAT NOT NULL, PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=UTF8MB4;
-
+CREATE TRIGGER `organize_history` AFTER
+INSERT ON `samples` FOR EACH ROW BEGIN
+DELETE
+FROM activation_history
+WHERE dateTime_of_activation < DATE_SUB(NOW(), INTERVAL 1 MONTH); END
 
 -- Dumping data for table mygarden.samples: ~10 rows (approximately)
 INSERT INTO `samples` (`id`, `dt_of_sample`,`temperature`, `humidity`, `pressure`, `light`,
@@ -159,8 +163,6 @@ CREATE TABLE IF NOT EXISTS `sys_mod` (
 -- Dumping data for table mygarden.sys_mod: ~1 row (approximately)
 INSERT INTO `sys_mod` (`id`, `is_auto`, `max_temp`, `min_moist`) VALUES
 	(1, 0, 35, 35);
-	
-	
 CREATE DEFINER=`irruser`@`%` TRIGGER `remote_activation_after_insert` AFTER
 UPDATE ON `remote_activation` FOR EACH ROW BEGIN
 UPDATE currently_active SET air_sys = NEW.air_sys, water_sys = NEW.water_sys,
