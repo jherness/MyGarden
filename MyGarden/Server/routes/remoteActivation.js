@@ -12,12 +12,12 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-/*Post new activation*/
-router.post("/", async function (req, res, next) {
+/*put new activation*/
+router.put("/", async function (req, res, next) {
   try {
-    res.json(await remote_activation.create(req.body));
+    res.json(await remote_activation.update(req.body));
   } catch (err) {
-    console.error(`Error while creating remote_activation new data`, err.message);
+    console.error(`Error while updating remote_activation`, err.message);
     next(err);
   }
 });

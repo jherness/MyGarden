@@ -20,7 +20,7 @@ USE `mygarden`;
 -- Dumping structure for table mygarden.activation
 CREATE TABLE IF NOT EXISTS `activation` (
   `activation_code` int(11) NOT NULL,
-  `activation_reason` varchar(30) NOT NULL,
+  `activation_reason` varchar(30) NOT NULL,remote_activation_before_insert
   PRIMARY KEY (`activation_code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -83,26 +83,47 @@ DELETE FROM currently_active
 /*!40000 ALTER TABLE `currently_active` DISABLE KEYS */;
 INSERT INTO `currently_active` (`id`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
 	(1, 0, 0, 0, 0);
+	
+SELECT * FROM currently_active
+
+	
+	/*
+	UPDATE currently_active
+	SET air_sys = 1, water_sys =1, light_sys = 1, fertelize_sys = 1
+	WHERE id = 1
+	*/
 /*!40000 ALTER TABLE `currently_active` ENABLE KEYS */;
 
 -- Dumping structure for table mygarden.remote_activation
 CREATE TABLE IF NOT EXISTS `remote_activation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `start_data` datetime NOT NULL DEFAULT current_timestamp(),
   `finish_data` int(11) NOT NULL,
   `air_sys` tinyint(1) NOT NULL,
   `water_sys` tinyint(1) NOT NULL,
   `light_sys` tinyint(1) NOT NULL,
   `fertelize_sys` tinyint(1) NOT NULL,
-  PRIMARY KEY (`start_data`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
 DELETE FROM remote_activation
+
+SELECT * FROM remote_activation
+
 -- Dumping data for table mygarden.remote_activation: ~3 rows (approximately)
 /*!40000 ALTER TABLE `remote_activation` DISABLE KEYS */;
-INSERT INTO `remote_activation` (`start_data`, `finish_data`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
-	(0, 0, 0, 0, 0,0)
+INSERT INTO `remote_activation` (`id`, `finish_data`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
+	(1, 0, 0, 0, 0, 0)
 	/*!40000 ALTER TABLE `remote_activation` ENABLE KEYS */;
+	
+	
+CREATE TRIGGER `remote_activation_after_insert` AFTER UPDATE ON `remote_activation` FOR EACH ROW BEGIN
+UPDATE currently_active
+	SET air_sys = NEW.air_sys, water_sys = NEW.water_sys,
+	 light_sys = NEW.light_sys, fertelize_sys = NEW.fertelize_sys
+	WHERE id = 1;
+END
 
 -- Dumping structure for table mygarden.samples
 CREATE TABLE IF NOT EXISTS `samples` (
@@ -158,24 +179,55 @@ CREATE TABLE IF NOT EXISTS `schedule_activation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
+
+DELETE FROM schedule_activation
+
+SELECT * FROM schedule_activation
+
+
 -- Dumping data for table mygarden.schedule_activation: ~14 rows (approximately)
 /*!40000 ALTER TABLE `schedule_activation` DISABLE KEYS */;
 INSERT INTO `schedule_activation` (`id`, `start_hour`, `time_to_live`, `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
-	(54, '00:00:01', 3, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1),
-	(55, '00:00:01', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(56, '00:00:01', 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0),
-	(57, '00:00:01', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(58, '00:00:01', 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0),
-	(59, '13:44:00', 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0),
-	(60, '00:00:01', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(61, '14:44:00', 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0),
-	(62, '00:00:01', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(63, '12:44:00', 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0),
-	(64, '08:04:00', 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0),
-	(65, '00:02:00', 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0),
-	(66, '00:00:01', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(67, '00:00:01', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-/*!40000 ALTER TABLE `schedule_activation` ENABLE KEYS */;
+	(1, '00:00:01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	
+
+CREATE PROCEDURE `update_schedule_activation`(
+	IN p_id INT,
+	IN new_start_hour TIME,
+	IN new_time_to_live INT,
+	IN new_sunday TINYINT(1),
+	IN new_monday TINYINT(1),
+	IN new_tuesday TINYINT(1),
+	IN new_wednesday TINYINT(1),
+	IN new_thursday TINYINT(1),
+	IN new_friday TINYINT(1),
+	IN new_saturday TINYINT(1),
+	IN new_air_sys TINYINT(1),
+	IN new_water_sys TINYINT(1),
+	IN new_light_sys TINYINT(1),
+	IN new_fertelize_sys TINYINT(1)
+)
+LANGUAGE SQL
+DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+BEGIN
+	UPDATE schedule_activation
+	SET start_hour = new_start_hour, time_to_live = new_time_to_live,
+	 sunday = new_sunday, monday = new_monday, tuesday = new_tuesday, 
+	 wednesday = new_wednesday, thursday = new_thursday, friday = new_friday, 
+	 saturday = new_saturday, air_sys = new_air_sys, water_sys = new_water_sys, 
+	 light_sys = new_light_sys, fertelize_sys = new_fertelize_sys
+	WHERE id = p_id;
+END;
+
+
+	UPDATE schedule_activation
+	SET start_hour = '00:00:00', time_to_live = 1, sunday = 1, monday = 1, tuesday = 1,
+	 wednesday = 1, thursday = 1, friday = 1, saturday = 1,
+	air_sys = 1, water_sys =1, light_sys = 1, fertelize_sys = 1
+	WHERE id = 1;
+
 
 -- Dumping structure for table mygarden.sys_mod
 CREATE TABLE IF NOT EXISTS `sys_mod` (

@@ -5,34 +5,31 @@ const config = require("../config");
 /*Get all activations */
 async function getActiveRelays() {
   const rows = await db.query(`SELECT * 
-  FROM currently_active  
-  ORDER BY id DESC
-  LIMIT 1`);
+  FROM currently_active`);
   const data = helper.emptyOrRows(rows);
   return data;
 }
 
-
-async function create(data) {
-  /*the query for posting a new schedule*/ 
+async function update(data) {
+  /*the query for posting a new schedule*/
   const result = await db.query(
-     `INSERT INTO currently_active(water_sys, air_sys, light_sys, fertelize_sys)
-     VALUES (${data["water_sys"]}, ${data["air_sys"]}, ${data["light_sys"]}, ${data["fertelize_sys"]});`
+    `UPDATE currently_active
+     SET air_sys = ${data["air_sys"]}, water_sys = ${data["water_sys"]}, light_sys = ${data["light_sys"]},
+      fertelize_sys = ${data["fertelize_sys"]}
+     WHERE id = 1;`
   );
 
   let message = "Error in creating a new schedule_activation";
 
   /*if there was no error*/
   if (result.affectedRows) {
-    message = "1 Row Added to currently_active.";
+    message = "1 Row updated to currently_active.";
   }
 
   return { message };
 }
 
-
-
 module.exports = {
-    getActiveRelays,
-    create
+  getActiveRelays,
+  update,
 };
