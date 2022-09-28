@@ -30,13 +30,12 @@ def finish(cursor, connection):
 
 def update_table(data, cursor, connection):
     query = f"UPDATE currently_active SET" \
-            f" air_sys = {data['air_sys']}, water_sys = {data['water_sys']},"\
+	    f" air_sys = {data['air_sys']}, water_sys = {data['water_sys']},"\
             f" light_sys = {data['light_sys']}," \
             f"fertelize_sys = {data['fertelize_sys']}  WHERE id = 1;"
-
     cursor.execute(query)
     connection.commit()
-    print(cursor.rowcount, "Record inserted successfully into currently_active table")
+    print(cursor.rowcount, "Record updated successfully into currently_active table")
 
 
 def load_currently_active(data):
