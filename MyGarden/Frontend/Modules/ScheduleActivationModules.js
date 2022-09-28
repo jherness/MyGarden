@@ -1,5 +1,5 @@
 import { ScheduleActive } from "../Classes/ScheduleActive";
-import { postToDb } from "./posts";
+import { putToDb } from "./puts";
 export const scheduleChecker = (
   setNewSchedule,
   startTime,
@@ -59,5 +59,5 @@ export const handleReset = (newSchedule) => {
     light_sys: false,
     fertelize_sys: false,
   });
-  postToDb(newSchedule, "scheduleActivation");
+  putToDb(newSchedule, "scheduleActivation");
 };

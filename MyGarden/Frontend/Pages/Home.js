@@ -10,13 +10,12 @@ export default function Home({ navigation }) {
   console.disableYellowBox = true;
   const [isAuto, setIsAuto] = useState();
 
-useEffect(() => {
-  const unmount = navigation.addListener("focus", () => {
-    getSysModIsAuto(setIsAuto);
-  });
-  return unmount;
-}, [navigation]);
-
+  useEffect(() => {
+    const unmount = navigation.addListener("focus", () => {
+      getSysModIsAuto(setIsAuto);
+    });
+    return unmount;
+  }, [navigation]);
 
   return (
     <VStack fill center spacing={1} style={{ backgroundColor: backColor }}>
@@ -57,10 +56,3 @@ useEffect(() => {
     </VStack>
   );
 }
-
-// useEffect(() => {
-//   const unmount = navigation.addListener("focus", () => {
-//     getSysModIsAuto(setIsAuto);
-//   });
-//   return unmount;
-// }, [navigation]);

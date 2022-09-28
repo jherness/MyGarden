@@ -14,7 +14,7 @@ import {
   handleReset,
   scheduleChecker,
 } from "../Modules/ScheduleActivationModules";
-import { postToDb } from "../Modules/posts";
+import { putToDb } from "../Modules/puts";
 import { getScheduleActivation } from "../Modules/gets";
 
 export default function ScheduleActivation({ navigation }) {
@@ -60,7 +60,7 @@ export default function ScheduleActivation({ navigation }) {
       sysToActivate
     );
     if (JSON.stringify(newSchedule) !== "{}") {
-      postToDb(newSchedule, "scheduleActivation");
+      putToDb(newSchedule, "scheduleActivation");
       navigation.navigate("Home");
     }
   };

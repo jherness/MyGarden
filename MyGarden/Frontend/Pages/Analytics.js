@@ -18,7 +18,7 @@ export default function Analythics() {
   /*getting the last year samples*/
   useEffect(() => {
     getSamples(setAllSamples);
-    getMostCommonActivationReason(setMostCommon)
+    getMostCommonActivationReason(setMostCommon);
   }, []);
 
   useEffect(() => {
@@ -38,8 +38,7 @@ export default function Analythics() {
   }, [startDate]);
 
   const getAppropriateSamples = () => {
-    if(timeTypeText === "Month")
-      return allSamples
+    if (timeTypeText === "Month") return allSamples;
     return allSamples.filter(checkSample).reverse();
   };
 
@@ -53,12 +52,12 @@ export default function Analythics() {
 
   return samples ? (
     <>
-        <FlatList
-          keyExtractor={(item) => item.dataKey}
-          ListHeaderComponent={header(timeTypeText, timeTypeToPapa)}
-          data={flatlistData(timeTypeText, samples)}
-          renderItem={renderItem}
-        />
+      <FlatList
+        keyExtractor={(item) => item.dataKey}
+        ListHeaderComponent={header(timeTypeText, timeTypeToPapa)}
+        data={flatlistData(timeTypeText, samples)}
+        renderItem={renderItem}
+      />
     </>
   ) : (
     <Text>Loading</Text>

@@ -1,4 +1,4 @@
-export const postToDb = async (data, route) => {
+export const putToDb = async (data, route) => {
   try {
     await fetch(`http://192.168.1.192:3000/${route}`, {
       method: "PUT",

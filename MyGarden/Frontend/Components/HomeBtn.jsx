@@ -8,8 +8,7 @@ export default function HomeBtn(props) {
   const onPress = props.onPress;
   const width = props.width || "43%";
   const height = props.height || "60%";
-  const isDisabled = props.disabled || false;
-  const backgroundColor = props.resetBtn || Colors.mainColor
+  const backgroundColor = props.resetBtn || Colors.mainColor;
 
   const styles = StyleSheet.create({
     button: {
@@ -41,8 +40,8 @@ export default function HomeBtn(props) {
 
   return (
     <Pressable
-      disabled={isDisabled}
-      style={isDisabled ? styles.buttonDisabled : styles.button}
+      disabled={props.disabled}
+      style={props.disabled ? styles.buttonDisabled : styles.button}
       onPress={onPress}
     >
       <Text style={styles.text}>{title}</Text>

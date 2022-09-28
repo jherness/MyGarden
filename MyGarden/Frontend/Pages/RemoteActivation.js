@@ -8,7 +8,7 @@ import SysSwitches from "../Components/SysSwitches";
 import { getCurrentlyActiveRelays } from "../Modules/gets";
 import HomeBtn from "../Components/HomeBtn";
 import Slider from "react-native-slider";
-import { postToDb } from "../Modules/posts";
+import { putToDb } from "../Modules/puts";
 import { remoteChecker } from "../Modules/RemoteActivationModules";
 
 export default function RemoteActivation({ navigation }) {
@@ -30,7 +30,7 @@ export default function RemoteActivation({ navigation }) {
   const handleSubmit = () => {
     remoteChecker(setRemote, new Date(), finishingData, sysToActivate);
     if (JSON.stringify(remote) !== "{}") {
-      postToDb(remote, `remoteActivation`);
+      putToDb(remote, `remoteActivation`);
       navigation.navigate("Home");
     }
   };
@@ -42,9 +42,9 @@ export default function RemoteActivation({ navigation }) {
       water_sys: false,
       air_sys: false,
       light_sys: false,
-      fertelize_sys: false
+      fertelize_sys: false,
     });
-    postToDb(remote, `remoteActivation`);
+    putToDb(remote, `remoteActivation`);
     navigation.navigate("Home");
   };
 

@@ -7,9 +7,9 @@ import { StyleSheet } from "react-native";
 /*data to be rendered in flatlist*/
 export const flatlistData = (timeTypeText, samples) => [
   {
-    timeName: timeTypeText,// "Hour/day/week..."
-    samples: samples,// the last year samples
-    dataKey: "light",//the name of the col in the db
+    timeName: timeTypeText, // "Hour/day/week..."
+    samples: samples, // the last year samples
+    dataKey: "light", //the name of the col in the db
     dataName: "Light",
   },
   {
@@ -31,7 +31,6 @@ export const flatlistData = (timeTypeText, samples) => [
     dataName: "Air Pressure",
   },
 ];
-
 
 /*X axis format, each time choosen has a diff format*/
 export const xTicksFormat = (timeName) => {
@@ -95,15 +94,15 @@ export const renderItem = ({ item }) => (
 
 /*static header the only renders one time in flatlist*/
 export const header = (timeTypeText, timeTypeToPapa) => {
-    return (
-      <HStack fill center style={styles.header}>
-        <DropDown state={timeTypeText} timeTypeToPapa={timeTypeToPapa} />
-      </HStack>
-    );
-  };
+  return (
+    <HStack fill center style={styles.header}>
+      <DropDown state={timeTypeText} timeTypeToPapa={timeTypeToPapa} />
+    </HStack>
+  );
+};
 
-  const styles = StyleSheet.create({
-    header:{
-        paddingBottom:30
-    }
-  })
+const styles = StyleSheet.create({
+  header: {
+    paddingBottom: 30,
+  },
+});
