@@ -78,10 +78,11 @@ CREATE TABLE IF NOT EXISTS `currently_active` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM currently_active
 -- Dumping data for table mygarden.currently_active: ~0 rows (approximately)
 /*!40000 ALTER TABLE `currently_active` DISABLE KEYS */;
 INSERT INTO `currently_active` (`id`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
-	(34, 0, 0, 0, 0);
+	(1, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `currently_active` ENABLE KEYS */;
 
 -- Dumping structure for table mygarden.remote_activation
@@ -93,15 +94,15 @@ CREATE TABLE IF NOT EXISTS `remote_activation` (
   `light_sys` tinyint(1) NOT NULL,
   `fertelize_sys` tinyint(1) NOT NULL,
   PRIMARY KEY (`start_data`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
+
+DELETE FROM remote_activation
 -- Dumping data for table mygarden.remote_activation: ~3 rows (approximately)
 /*!40000 ALTER TABLE `remote_activation` DISABLE KEYS */;
 INSERT INTO `remote_activation` (`start_data`, `finish_data`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
-	('2022-09-19 13:14:42', 1, 0, 0, 0, 0),
-	('2022-09-19 13:16:46', 1, 0, 0, 0, 0),
-	('2022-09-21 22:24:25', 1, 0, 0, 0, 0);
-/*!40000 ALTER TABLE `remote_activation` ENABLE KEYS */;
+	(0, 0, 0, 0, 0,0)
+	/*!40000 ALTER TABLE `remote_activation` ENABLE KEYS */;
 
 -- Dumping structure for table mygarden.samples
 CREATE TABLE IF NOT EXISTS `samples` (
@@ -116,6 +117,8 @@ CREATE TABLE IF NOT EXISTS `samples` (
 	`ground_humidity3` float NOT NULL, 
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=UTF8MB4;
+
+DELETE FROM samples
 
 -- Dumping data for table mygarden.samples: ~10 rows (approximately)
 INSERT INTO `samples` (`id`, `dt_of_sample`,`temperature`, `humidity`, `pressure`, `light`,
