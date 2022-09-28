@@ -4,7 +4,7 @@ const config = require("../config");
 
 /*Get SysMod */
 async function getSysMod() {
-  const rows = await db.query(`SELECT * FROM sys_mod order by id Desc Limit 1`);
+  const rows = await db.query(`SELECT * FROM sys_mod`);
   const data = helper.emptyOrRows(rows);
   return data;
 }
@@ -13,14 +13,14 @@ async function getSysMod() {
 async function update(data) {
   const result = await db.query(
     `UPDATE sys_mod
-    SET is_auto = ${data.isActive}, max_temp = ${data.maxTemp}, min_moist = ${data.minMoist}
+    SET is_auto = ${data["isActive"]}, max_temp = ${data["maxTemp"]}, min_moist = ${data["minMoist"]}
   WHERE id = 1;`
   );
 
   let message = "Error in creating a new sys_mod";
 
   if (result.affectedRows) {
-    message = "1 Row Added to sys_mod.";
+    message = "1 Row updated in sys_mod.";
   }
 
   return { message };
