@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS `activation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table mygarden.activation: ~16 rows (approximately)
-/*!40000 ALTER TABLE `activation` DISABLE KEYS */;
 INSERT INTO `activation` (`activation_code`, `activation_reason`) VALUES
 	(1, 'Low Humidity'),
 	(2, 'High Humidity'),
@@ -41,7 +40,6 @@ INSERT INTO `activation` (`activation_code`, `activation_reason`) VALUES
 	(14, '14a'),
 	(15, '15a'),
 	(16, '16a');
-/*!40000 ALTER TABLE `activation` ENABLE KEYS */;
 
 -- Dumping structure for table mygarden.activation_history
 CREATE TABLE IF NOT EXISTS `activation_history` (
@@ -53,7 +51,6 @@ UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table mygarden.activation_history: ~8 rows (approximately)
-/*!40000 ALTER TABLE `activation_history` DISABLE KEYS */;
 INSERT INTO `activation_history` (`dateTime_of_activation`, `finish_hour`, `activation_code`) VALUES
 	('2022-09-10 18:32:43', '18:32:43', 1),
 	('2022-09-10 18:32:49', '18:32:49', 2),
@@ -75,7 +72,6 @@ CREATE TABLE IF NOT EXISTS `currently_active` (
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table mygarden.currently_active: ~0 rows (approximately)
-/*!40000 ALTER TABLE `currently_active` DISABLE KEYS */;
 INSERT INTO `currently_active` (`id`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
 	(1, 0, 0, 0, 0);
 
@@ -95,15 +91,9 @@ SELECT *
 FROM remote_activation
 
 -- Dumping data for table mygarden.remote_activation: ~3 rows (approximately)
-/*!40000 ALTER TABLE `remote_activation` DISABLE KEYS */;
 INSERT INTO `remote_activation` (`id`, `finish_data`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
 	(1, 0, 0, 0, 0, 0)
-	/*!40000 ALTER TABLE `remote_activation` ENABLE KEYS */;
-CREATE TRIGGER `remote_activation_after_insert` AFTER
-UPDATE ON `remote_activation` FOR EACH ROW BEGIN
-UPDATE currently_active SET air_sys = NEW.air_sys, water_sys = NEW.water_sys,
-	 light_sys = NEW.light_sys, fertelize_sys = NEW.fertelize_sys
-WHERE id = 1; END
+
 
 -- Dumping structure for table mygarden.samples
 CREATE TABLE IF NOT EXISTS `samples` (
@@ -169,17 +159,13 @@ CREATE TABLE IF NOT EXISTS `sys_mod` (
 -- Dumping data for table mygarden.sys_mod: ~1 row (approximately)
 INSERT INTO `sys_mod` (`id`, `is_auto`, `max_temp`, `min_moist`) VALUES
 	(1, 0, 35, 35);
-
-
--- Dumping structure for trigger mygarden.remote_activation_before_insert
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
-DELIMITER //
-CREATE TRIGGER `remote_activation_before_insert` BEFORE
-INSERT ON `remote_activation` FOR EACH ROW BEGIN
-DELETE
-FROM currently_active;
-INSERT INTO currently_active(water_sys, air_sys, light_sys, fertelize_sys) VALUES (NEW.water_sys, NEW.air_sys, NEW.light_sys, NEW.fertelize_sys); END//
-DELIMITER ; SET SQL_MODE=@OLDTMP_SQL_MODE;
+	
+	
+CREATE DEFINER=`irruser`@`%` TRIGGER `remote_activation_after_insert` AFTER
+UPDATE ON `remote_activation` FOR EACH ROW BEGIN
+UPDATE currently_active SET air_sys = NEW.air_sys, water_sys = NEW.water_sys,
+	 light_sys = NEW.light_sys, fertelize_sys = NEW.fertelize_sys
+WHERE id = 1; END
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
