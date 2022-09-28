@@ -191,36 +191,6 @@ INSERT INTO `schedule_activation` (`id`, `start_hour`, `time_to_live`, `sunday`,
 	(1, '00:00:01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	
 
-CREATE PROCEDURE `update_schedule_activation`(
-	IN p_id INT,
-	IN new_start_hour TIME,
-	IN new_time_to_live INT,
-	IN new_sunday TINYINT(1),
-	IN new_monday TINYINT(1),
-	IN new_tuesday TINYINT(1),
-	IN new_wednesday TINYINT(1),
-	IN new_thursday TINYINT(1),
-	IN new_friday TINYINT(1),
-	IN new_saturday TINYINT(1),
-	IN new_air_sys TINYINT(1),
-	IN new_water_sys TINYINT(1),
-	IN new_light_sys TINYINT(1),
-	IN new_fertelize_sys TINYINT(1)
-)
-LANGUAGE SQL
-DETERMINISTIC
-CONTAINS SQL
-SQL SECURITY DEFINER
-BEGIN
-	UPDATE schedule_activation
-	SET start_hour = new_start_hour, time_to_live = new_time_to_live,
-	 sunday = new_sunday, monday = new_monday, tuesday = new_tuesday, 
-	 wednesday = new_wednesday, thursday = new_thursday, friday = new_friday, 
-	 saturday = new_saturday, air_sys = new_air_sys, water_sys = new_water_sys, 
-	 light_sys = new_light_sys, fertelize_sys = new_fertelize_sys
-	WHERE id = p_id;
-END;
-
 
 	UPDATE schedule_activation
 	SET start_hour = '00:00:00', time_to_live = 1, sunday = 1, monday = 1, tuesday = 1,

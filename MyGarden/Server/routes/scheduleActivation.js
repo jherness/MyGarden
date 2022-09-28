@@ -17,12 +17,12 @@ router.get("/", async function (req, res, next) {
 /*Post new schedule*/
 /*first param is route url, and second is the async function that posts.
 the function req is the body (if needed) and the query(if needed)*/
-router.post("/", async function (req, res, next) {
+router.put("/", async function (req, res, next) {
   try {
-    res.json(await schedule_activation.create(req.body));
+    res.json(await schedule_activation.update(req.body));
   } catch (err) {
     console.error(
-      `Error while creating schedule_activation new data`,
+      `Error while updating schedule_activation`,
       err.message
     );
     next(err);
