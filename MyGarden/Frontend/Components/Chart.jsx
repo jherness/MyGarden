@@ -1,6 +1,7 @@
 import { View, StyleSheet, Pressable, Dimensions } from "react-native";
 import { Flex, HStack, Spacer, Text } from "@react-native-material/core";
 import React, { useState, useEffect } from "react";
+import { FontAwesome5 } from '@expo/vector-icons';
 import * as Colors from "../Style/Colors";
 
 import {
@@ -19,21 +20,26 @@ export default function Chart(props) {
   const dataName = props.dataName;
   const timeName = props.timeName;
   const dataKey = props.dataKey;
+  const [iconName, setIconName] = useState();
 
   const hazardZone = ({ tick }, dataName) => {
     let res;
     switch (dataName) {
       case "Light":
         res = tick >= 7000 ? Colors.activeBtn : Colors.mainColor;
+        setIconName("lightbulb")
         break;
       case "Humidity":
         res = tick >= 80 ? Colors.activeBtn : Colors.mainColor;
+        setIconName("hand-holding-water")
         break;
       case "Temperature":
         res = tick >= 30 ? Colors.activeBtn : Colors.mainColor;
+        setIconName("temperature-low")
         break;
       case "Air Pressure":
         res = tick >= 1025 || tick <= 990 ? Colors.activeBtn : Colors.mainColor;
+        setIconName("wind")
         break;
     }
     return res;
@@ -46,11 +52,12 @@ export default function Chart(props) {
       spacing={-20}
       borderBottom={`2px solid ${Colors.mainColor}`}
     >
-      <HStack fill center>
+      <HStack fill center spacing={10} style = {{paddingTop: 30}}>
+      < FontAwesome5 name={iconName} size={24} color={Colors.mainColor}/>
         <Text
           variant="h5"
           color={Colors.mainColor}
-          style={{ fontWeight: "bold", paddingTop: 30 }}
+          style={{ fontWeight: "bold"}}
         >
           Last {timeName} {dataName} Data
         </Text>

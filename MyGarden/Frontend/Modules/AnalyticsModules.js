@@ -1,8 +1,9 @@
 import moment from "moment/moment";
-import { HStack } from "@react-native-material/core";
+import { HStack, Text } from "@react-native-material/core";
 import Chart from "../Components/Chart";
 import DropDown from "../Components/DropDown";
 import { StyleSheet } from "react-native";
+import { mainColor } from "../Style/Colors";
 
 /*data to be rendered in flatlist*/
 export const flatlistData = (timeTypeText, samples) => [
@@ -31,6 +32,12 @@ export const flatlistData = (timeTypeText, samples) => [
     dataName: "Air Pressure",
   },
 ];
+
+export const getSamplesByTime = (allsamples, timeAgo) => {
+  return allsamples.filter((sample) => {
+    return moment(sample.dt_of_sample) >= timeAgo;
+  });
+};
 
 /*X axis format, each time choosen has a diff format*/
 export const xTicksFormat = (timeName) => {
@@ -101,8 +108,28 @@ export const header = (timeTypeText, timeTypeToPapa) => {
   );
 };
 
+export const footer = (mostCommon) => {
+  return mostCommon ? (
+    <HStack fill center style={styles.footer}>
+      <Text variant="h6" style={styles.textStyle}>
+        The Most Common Activation Reason is "{mostCommon.activation_reason}"
+        Happend {mostCommon.AHCounter} Times{" "}
+      </Text>
+    </HStack>
+  ) : (
+    <Text style={styles.footer}></Text>
+  );
+};
+
 const styles = StyleSheet.create({
   header: {
     paddingBottom: 30,
+  },
+  footer: {
+    paddingTop: 30,
+    paddingBottom: 30,
+  },
+  textStyle: {
+    color: mainColor,
   },
 });

@@ -7,7 +7,7 @@ import { StyleSheet } from "react-native";
 import NumericInput from "react-native-numeric-input";
 import { getSysMod } from "../Modules/gets";
 import { SysMod } from "../Classes/SysMod";
-import { postToDb } from "../Modules/posts";
+import { putToDb } from "../Modules/puts";
 
 export default function Preferences({ navigation }) {
   const [isActive, setIsActive] = useState();
@@ -31,7 +31,7 @@ export default function Preferences({ navigation }) {
 
   useEffect(() => {
     const unmount = navigation.addListener('blur', () => {
-      postToDb(sysMod, "SysMod")
+      putToDb(sysMod, "SysMod")
     });
     return unmount;
   }, [navigation])
