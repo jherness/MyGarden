@@ -1,18 +1,16 @@
 import mysql.connector
+import dbconfig
 
 
 TABLE_NAME = 'samples'
-HOST = '192.168.1.198'
-DB_NAME = 'mygarden'
-USER = 'irruser'
-PASS = 'irrpass'
 
 
 def get_connection():
-    connection = mysql.connector.connect(host=HOST,
-                                         database=DB_NAME,
-                                         user=USER,
-                                         password=PASS)
+    config = dbconfig.get_configuration()
+    connection = mysql.connector.connect(host=config['HOST'],
+                                         database=config['DB_NAME'],
+                                         user=config['USER'],
+                                         password=config['PASS'])
     return connection
 
 
