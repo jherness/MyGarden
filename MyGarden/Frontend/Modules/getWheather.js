@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Image, ActivityIndicator } from "react-native";
-import { HStack, Spacer, Text } from "@react-native-material/core";
+import { HStack, Spacer, Text, VStack } from "@react-native-material/core";
 import * as Location from "expo-location";
 import { mainColor } from "../Style/Colors";
+import { Feather } from "@expo/vector-icons";
 
 export default function Temprature() {
   const API_KEY = "2e8b8893b8266f8a7b799ad9827b3e4e";
   const [data, setData] = useState({});
   const [icon, setIcon] = useState();
   const [temp, setTemp] = useState();
+  const [sunrise, setSunrise] = useState();
+  const [sunset, setSunset] = useState();
   const celLogo = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV9UgTzAH7U-owDcPTcgSRrgPHrOpHHForAcYuhYAdwbJM_20BWsyTMPlH0LmNEoDKvuE&usqp=CAU`;
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,6 +35,21 @@ export default function Temprature() {
       )
         .then((res) => res.json())
         .then((data) => {
+          let sunriseData = new Intl.DateTimeFormat("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }).format(data.sys.sunrise * 1000);
+          let sunSetData = new Intl.DateTimeFormat("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }).format(data.sys.sunset * 1000);
+
+          console.log(data);
+
+          setSunrise(sunriseData);
+          setSunset(sunSetData);
           setData(data);
           setIcon(
             JSON.stringify(data["weather"][0]["icon"]).replace(/['"]+/g, "")
@@ -53,21 +71,30 @@ export default function Temprature() {
       <Spacer />
     </View>
   ) : (
-    <View style={styles.container}>
-      <Image
-        source={{ uri: `http://openweathermap.org/img/wn/${icon}.png` }}
-        style={styles.image}
-      />
-      <HStack center spacing={0}>
-        <Text style={styles.text} variant="h6">
-          {temp}
+    <HStack fill center spacing={20}>
+      <VStack fill center >
+        <Image
+          source={{ uri: `http://openweathermap.org/img/wn/${icon}.png` }}
+          style={styles.image}
+        />
+        <HStack>
+          <Text style={styles.text} variant="h5">
+            {temp}
+          </Text>
+          <Image source={{ uri: celLogo }} style={styles.celcius} />
+        </HStack>
+      </VStack>
+      <VStack fill center>
+        <Text style={styles.textS} variant="h6">
+          <Feather name="sunrise" size={24} color={mainColor} /> {sunrise}
         </Text>
-        <Image source={{ uri: celLogo }} style={styles.celcius} />
-      </HStack>
-    </View>
+        <Text style={styles.textS} variant="h6">
+          <Feather name="sunset" size={24} color={mainColor} /> {sunset}
+        </Text>
+      </VStack>
+    </HStack>
   );
 }
-
 const styles = StyleSheet.create({
   indicator: {
     alignItems: "flex-end",
@@ -84,8 +111,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   image: {
-    height: "46%",
-    width: "15%",
+    height: "30%",
+    width: "25%",
     marginBottom: "1%",
     justifyContent: "center",
     alignItems: "center",
@@ -94,7 +121,7 @@ const styles = StyleSheet.create({
     marginEnd: "1%",
     justifyContent: "center",
     alignItems: "center",
-    height: "70%",
-    width: "5%",
+    height: "50%",
+    width: "10%",
   },
 });
