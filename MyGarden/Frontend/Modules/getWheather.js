@@ -71,8 +71,8 @@ export default function Temprature() {
       <Spacer />
     </View>
   ) : (
-    <HStack fill center spacing={20}>
-      <VStack fill center >
+    <HStack fill center>
+      <VStack fill center spacing={5} >
         <Image
           source={{ uri: `http://openweathermap.org/img/wn/${icon}.png` }}
           style={styles.image}
@@ -84,7 +84,7 @@ export default function Temprature() {
           <Image source={{ uri: celLogo }} style={styles.celcius} />
         </HStack>
       </VStack>
-      <VStack fill center>
+      <VStack fill center spacing={5}>
         <Text style={styles.textS} variant="h6">
           <Feather name="sunrise" size={24} color={mainColor} /> {sunrise}
         </Text>
