@@ -31,7 +31,7 @@ def get_data(cursor, connection):
     query = f'SELECT * FROM {TABLE_NAME}'
     cursor.execute(query)
     records = cursor.fetchall()
-    result = {"start_hour" : datetime.datetime.today() + records[0][1],
+    result = {"start_hour" : datetime.datetime(2022,9,30,0,0,0) + records[0][1],
         "time_to_live" : records[0][2],
         "sunday" : records[0][3] == 1,
         "monday": records[0][4] == 1,
