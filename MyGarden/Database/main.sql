@@ -62,6 +62,15 @@ INSERT INTO `activation_history` (`dateTime_of_activation`, `finish_hour`, `acti
 	('2022-09-22 12:42:55', '12:42:55', 7);
 /*!40000 ALTER TABLE `activation_history` ENABLE KEYS */;
 
+
+f"INSERT INTO {TABLE_NAME} (`dateTime_of_activation`, `finish_hour`, `activation_code`)" \
+            f" VALUES ({data['dateTime_of_activation']}," \
+            
+            f" {data['finish_hour']}, {data['activation_reason']})" 
+
+
+
+
 -- Dumping structure for table mygarden.currently_active
 CREATE TABLE IF NOT EXISTS `currently_active` (
  `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -107,11 +116,9 @@ CREATE TABLE IF NOT EXISTS `samples` (
  `ground_humidity2` FLOAT NOT NULL, 
 	`ground_humidity3` FLOAT NOT NULL, PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=UTF8MB4;
-CREATE TRIGGER `organize_history` AFTER
-INSERT ON `samples` FOR EACH ROW BEGIN
-DELETE
-FROM activation_history
-WHERE dateTime_of_activation < DATE_SUB(NOW(), INTERVAL 1 MONTH); END
+CREATE DEFINER=`irruser`@`%` TRIGGER `organize_history` AFTER DELETE ON `samples` FOR EACH ROW BEGIN
+DELETE FROM activation_history WHERE dateTime_of_activation < DATE_SUB(NOW(),INTERVAL 1 MONTH);
+END
 
 -- Dumping data for table mygarden.samples: ~10 rows (approximately)
 INSERT INTO `samples` (`id`, `dt_of_sample`,`temperature`, `humidity`, `pressure`, `light`,
