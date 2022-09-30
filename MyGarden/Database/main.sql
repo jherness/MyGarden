@@ -99,9 +99,11 @@ FROM remote_activation
 SELECT *
 FROM remote_activation
 
--- Dumping data for table mygarden.remote_activation: ~3 rows (approximately)
-INSERT INTO `remote_activation` (`id`, `finish_data`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
+/*
+REPLACE INTO `remote_activation` (`id`, `finish_data`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
 	(1, 0, 0, 0, 0, 0)
+*/	
+
 
 
 -- Dumping structure for table mygarden.samples
@@ -155,14 +157,13 @@ CREATE TABLE IF NOT EXISTS `schedule_activation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table mygarden.schedule_activation: ~1 row (approximately)
-INSERT INTO `schedule_activation` (`id`, `start_hour`, `time_to_live`, `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
+REPLACE INTO `schedule_activation` (`id`, `start_hour`, `time_to_live`, `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
 	(1, '00:00:01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-	
-UPDATE schedule_activation SET start_hour = '18:32:43', time_to_live = 0, water_sys = 0
+/*	
+UPDATE schedule_activation SET start_hour = '22:42:01', time_to_live = 50, water_sys = 1, air_sys = 1
 WHERE id = 1
+*/
 	
-	
-		('2022-09-10 18:32:43', '18:32:43', 1),
 
 -- Dumping structure for table mygarden.sys_mod
 CREATE TABLE IF NOT EXISTS `sys_mod` (

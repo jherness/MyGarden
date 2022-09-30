@@ -27,7 +27,7 @@ def finish(cursor, connection):
 
 
 def insert_table(data, cursor, connection):
-    query = f"INSERT INTO {TABLE_NAME} (`dateTime_of_activation`, `finish_hour`, `activation_code`)" \
+    query = f"REPLACE INTO {TABLE_NAME} (`dateTime_of_activation`, `finish_hour`, `activation_code`)" \
             f" VALUES ('{data['dateTime_of_activation']}'," \
             f" '{data['finish_hour']}', {data['activation_code']});"  
     cursor.execute(query)
