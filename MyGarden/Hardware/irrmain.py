@@ -60,12 +60,20 @@ def getsensordata():
     #msg["Analog-IN0"]=raw_vlt
     #pcf8574.RealyTestOn(pcf8574.REL1)
     #pcf8574.RealyTestOff(pcf8574.REL1) 
+    return msg;
+
+    
+def get_relays_status():
     relays_status = pcf8574.GetRealyStatus()
     print ("realay status = ",relays_status)
-    json_object = json.dumps(msg,indent=4)
-    print(json_object)
-    samplesLoader.load_new_sample(msg)
-    relaysLoader.load_currently_active(relays_status)
+    return relays_status;
+    
+
+def load():
+    samplesLoader.load_new_sample(getsensordata())
+    relaysLoader.load_currently_active(get_relays_status())
+
+handle_manual_mode
 
 
 def i2cdetect():
