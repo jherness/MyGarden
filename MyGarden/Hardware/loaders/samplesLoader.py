@@ -37,18 +37,18 @@ def update_table(data, cursor, connection):
 
 
 def load_new_sample(data):
-    try:
-        connection = get_connection()
-        if connection.is_connected():
-            cursor = connection.cursor()
-            update_table(data, cursor, connection)
-        else:
-            print("Faild to connect to DB")
-    except mysql.connector.Error as error:
-        handle_db_connection_error(error)
-    finally:
-        if connection.is_connected():
-            finish(cursor, connection)
+     try:
+         connection = get_connection()
+         if connection.is_connected():
+             cursor = connection.cursor()
+             update_table(data, cursor, connection)
+         else:
+             print("Faild to connect to DB")
+     except mysql.connector.Error as error:
+         handle_db_connection_error(error)
+     finally:
+         if connection.is_connected():
+             finish(cursor, connection)
 
 
 def main():

@@ -54,7 +54,7 @@ def get_schedule_activation():
         if connection.is_connected():
             print("MariaDB connection is open")
             cursor = connection.cursor()
-            return get_data(cursor, connection)
+            return(get_data(cursor, connection))
         else:
             print("Faild to connect to DB")
     except mysql.connector.Error as error:

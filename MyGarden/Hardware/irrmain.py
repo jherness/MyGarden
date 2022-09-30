@@ -62,7 +62,7 @@ def getsensordata():
     #pcf8574.RealyTestOff(pcf8574.REL1) 
     return msg;
 
-    
+
 def get_relays_status():
     relays_status = pcf8574.GetRealyStatus()
     print ("realay status = ",relays_status)
@@ -72,9 +72,6 @@ def get_relays_status():
 def load():
     samplesLoader.load_new_sample(getsensordata())
     relaysLoader.load_currently_active(get_relays_status())
-
-handle_manual_mode
-
 
 def i2cdetect():
     global bus,i2cdevices
@@ -118,11 +115,16 @@ def I2cSetup():
 ######################## MAIN ##############################
 ############################################################
 #logtofile("start program")
-I2cSetup()
-i2cdetect()
+def main():
+    I2cSetup()
+    i2cdetect()
+    load()
 
+
+if __name__ == '__main__':
+    main()
 #logtofile("after i2cdetect")
-getsensordata()
+#getsensordata()
 #logtofile("end program")
 #initvar()
 #SpiSetup()

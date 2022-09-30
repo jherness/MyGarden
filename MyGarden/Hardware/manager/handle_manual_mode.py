@@ -14,6 +14,7 @@ import historyLoader
 HISTORY_TABLE_DATA = history.get_activation_history()
 SCHEDULE_TABLE_DATA = schedule.get_schedule_activation()
 #REMOTE_TABLE_DATA = remote.get_remote_activation()
+#SAMPLE = irrmain.getsensordata()
 RELAYS_STATUS = irrmain.get_relays_status()
 
 
@@ -39,13 +40,13 @@ def is_time_between(check_time=None):
     return(check_time.time() >= start_hour.time() and check_time.time() <= end_time.time())
 
 
-def is_time_before(start_hour :datetime, time_to_live : int, check_time=None):
+def is_time_before(check_time=None):
     start_hour = SCHEDULE_TABLE_DATA['start_hour']
     time_to_live = SCHEDULE_TABLE_DATA['time_to_live']
     end_time = start_hour + datetime.timedelta(minutes=time_to_live)
     check_time = check_time or datetime.datetime.now()
     return(check_time.time() <= start_hour.time())
-    
+
 
 
 def finish():
@@ -59,14 +60,14 @@ def handle_time_after():
     is_in_db = [item for item in HISTORY_TABLE_DATA if item[0] == start_hour and item[1] == end_time]
     if len(is_in_db) == 0:
         data = {
-            'dateTime_of_activation' = (datetime.datetime.now().replace(hour=start_hour.hour, minute=start_hour.minute, second=start_hour.second, microsecond=0)),
-            'finish_hour' = (datetime.datetime.now().replace(hour=end_time.hour, minute=end_time.minute, second=end_time.second, microsecond=0)),
-            'activation_code' = 10
+            'dateTime_of_activation' : datetime.datetime.now().replace(hour=start_hour.hour, minute=start_hour.minute,second=start_hour.second,microsecond=0),
+            'finish_hour' : (datetime.datetime.now().replace(hour=end_time.hour, minute=end_time.minute, second=end_time.second, microsecond=0)),
+            'activation_code' : 10
         }
         historyLoader.load_activation_history(data)
+        activate_relays()
     else:
         print("im already in db!")
-
 
 
 def activate_relays(relays = None):
@@ -97,9 +98,8 @@ def handle_manual_mode():
             activate_relays(SCHEDULE_TABLE_DATA)
             return
         else:
-            
-
-    if 
+            handle_time_after()
+            return
 
 
 def main():
@@ -109,4 +109,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

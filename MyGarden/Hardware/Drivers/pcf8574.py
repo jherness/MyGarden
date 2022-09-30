@@ -18,10 +18,10 @@ def testbit(num, k):
 
 def ParseStatus(sts):
     STATUS= {
-           'water_sys' : testbit(sts, 1),
-           'air_sys' : testbit(sts, 2),
-           'light_sys' : testbit(sts, 3),
-           'fertelize_sys' : testbit(sts, 4)
+           'water_sys' : testbit(sts, 1) == 1,
+           'air_sys' : testbit(sts, 2) == 1,
+           'light_sys' : testbit(sts, 3) == 1,
+           'fertelize_sys' : testbit(sts, 4) == 1
     }
     return (STATUS)
 

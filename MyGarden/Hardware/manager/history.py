@@ -1,3 +1,4 @@
+import mysql.connector
 import sys
 import datetime
 sys.path.append('/home/pi/irrsys/admin/')
@@ -33,6 +34,7 @@ def get_data(cursor, connection):
     return(records)
 
 
+
 def get_activation_history():
     try:
         connection = get_connection()
@@ -56,4 +58,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
