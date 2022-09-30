@@ -20,11 +20,11 @@ SAMPLE = irrmain.getsensordata()
 SYS_MOD = sys_mod.get_sys_mod()
 
 
-def is_too_dry(min_humid, current_humid ):
+def is_too_dry(min_humid, current_humid):
     return current_humid < min_humid 
 
 
-def is_too_hot(max_temp, current_temp ):
+def is_too_hot(max_temp, current_temp):
     return current_Temp > max_temp
 
 
@@ -46,14 +46,20 @@ def handle_manual_mode():
 
 
 def is_time_between(start_hour : datetime, end_time : datetime, check_time=None):
-    if start_hour.hour == 0 and start_hour.minute == 0 and start_hour.second == 1:
-        return False
     check_time = check_time or datetime.datetime.now()
     return(check_time.time() >= start_hour.time() and check_time.time() <= end_time.time())
 
 
-def sample_is_ok(max_temp, min_humid):
-    return not (is_too_hot())
+def sample_is_ok(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
+    return not(is_too_hot(max_temp, current_temp) and is_too_dry(min_humid, current_humid)
+        and is_dark(max_light, current_light))
+
+
+#please note that i checked the dictionary and worsest is a legit word.... (superlative form of bad)
+#sorry for wasting your time anita and shay...
+def sample_is_worsest(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
+    return is_too_hot(max_temp, current_temp) and is_too_dry(min_humid, current_humid)
+        and is_dark(max_light, current_light)
 
 
 # Check if Turn On The Light
@@ -77,23 +83,23 @@ def get_sys_mode_params():
 
 
 #def handle_auto_mode():
-def get_appropriate_activiton_code():
-    if checkers[0] == True:
-        return 1 # High Temp & Low Humidity Active water and fan
-    elif checkers[1]==True:
-        return 2 # No Light Active Light
-    elif checkers[2]==True:
-        return 3 # High Temp Active Fan
-    elif checkers[3]== True:
-        return 4 # Low Humidity active water
-    elif checkers[2] == False:
-        return 5  # Low temp active light active light
-    elif checkers[0] == True and checkers[1]==True:
-        return 6  # No Light ,High Temp & Low Humidity  active light water& fan
-    elif checkers[2] == True and checkers[3]==True:
-        return 7  # No Light & Low Humidity  Active light and water
-    elif checkers[1] == True and checkers[2]==True:
-        return 8  # No Light & High Temp' Active light and fan
+def get_appropriate_activiton_code(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
+    if sample_is_ok(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
+        return 1 # all is under control!
+    elif sample_is_worsest(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
+        return 2 # all is burning! 
+    elif is_too_dry(min_humid, current_humid) and is_too_hot(max_temp, current_temp):
+        return 3 # Low Humidity & High Temp, water & fan
+    elif is_dark(max_light, current_light) and is_too_hot(max_temp, current_temp):
+        return 4 # No Light & High Temp, light & fan
+    elif is_dark(max_light, current_light) and is_too_dry(min_humid, current_humid):
+        return 5 # No Light & Low Humidity, light & water
+    elif is_too_dry(min_humid, current_humid):
+        return 6 # Low Humidity, active water
+    elif is_too_hot(max_temp, current_temp):
+        return 7  # High Temp, active fan
+    elif is_dark(max_light, current_light):
+        return 8  # No Light, light
 
 
 def main():
