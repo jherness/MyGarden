@@ -52,58 +52,48 @@ def activate_water():
     byte = bus.read_byte(device)
     tmp=byte & (~REL1)
     bus.write_byte(device,tmp)
-    return GetRealyStatus()
 
 
 def deactivate_water():
     byte = bus.read_byte(device)
     tmp=byte | REL1
     bus.write_byte(device, tmp)
-    return GetRealyStatus()
 
 
 def activate_fan():
     byte = bus.read_byte(device)
     tmp=byte & (~REL2)
     bus.write_byte(device,tmp)
-    return GetRealyStatus()
 
 
 def deactivate_fan():
     byte = bus.read_byte(device)
     tmp=byte | REL2
     bus.write_byte(device, tmp)
-    return GetRealyStatus()
 
 
 def activate_light():
     byte = bus.read_byte(device)
     tmp=byte & (~REL3)
     bus.write_byte(device,tmp)
-    return GetRealyStatus()
 
 
 def deactivate_light():
     byte = bus.read_byte(device)
     tmp=byte | REL3
     bus.write_byte(device, tmp)
-    return GetRealyStatus()
 
 
 def activate_fertelize():
     byte = bus.read_byte(device)
     tmp=byte & (~REL4)
     bus.write_byte(device,tmp)
-    return GetRealyStatus()
 
 
 def deactivate_fertelize():
     byte = bus.read_byte(device)
     tmp=byte | REL4
     bus.write_byte(device, tmp)
-    return GetRealyStatus()
-
-
 def main():
     #RealyTestOn(REL1)
     #RealyTestOn(REL2)

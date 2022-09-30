@@ -1,11 +1,10 @@
 def get_configuration():
     return {
-        HOST : '192.168.1.198',
-        DB_NAME : 'mygarden',
-        USER : 'irruser',
-        PASS : 'irrpass'
+       'HOST' : '192.168.1.198',
+       'DB_NAME' : 'mygarden',
+       'USER' : 'irruser',
+       'PASS' : 'irrpass'
     }
-
 
 
 def main():
@@ -14,5 +13,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-    

@@ -18,7 +18,7 @@ def delete_samples_over_month():
     try:
         connection = get_connection()
         if connection.is_connected():
-                query = "DELETE FROM samples WHERE dt_of_sample < DATE_SUB(NOW(),INTERVAL 1 MONTH)"
+                query = f'DELETE FROM {TABLE_NAME} WHERE dt_of_sample < DATE_SUB(NOW(),INTERVAL 1 MONTH)'
                 mycursor = connection.cursor()
                 mycursor.execute(query)
                 connection.commit()

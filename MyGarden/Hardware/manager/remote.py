@@ -5,7 +5,7 @@ sys.path.append('/home/pi/irrsys/admin/')
 import dbconfig
 
 TABLE_NAME = "remote_activation"
-
+ 
 
 
 def get_connection():
@@ -33,10 +33,10 @@ def get_data(cursor, connection):
     records = cursor.fetchall()
     result = {"start_data" : records[0][1],
         "finish_data" : records[0][2],
-        "air_sys" : records[0][3],
-        "water_sys": records[0][4],
-        "light_sys": records[0][5],
-        "fertelize_sys": records[0][6]
+        "air_sys" : records[0][3] == 1,
+        "water_sys": records[0][4] == 1,
+        "light_sys": records[0][5] == 1,
+        "fertelize_sys": records[0][6] == 1
     }
     return(result)
 
@@ -47,7 +47,7 @@ def get_remote_activation():
         if connection.is_connected():
             print("MariaDB connection is open")
             cursor = connection.cursor()
-            get_data(cursor, connection)
+            return get_data(cursor, connection)
         else:
             print("Faild to connect to DB")
     except mysql.connector.Error as error:
@@ -64,5 +64,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-

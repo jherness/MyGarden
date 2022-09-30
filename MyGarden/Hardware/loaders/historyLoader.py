@@ -27,9 +27,9 @@ def finish(cursor, connection):
 
 
 def insert_table(data, cursor, connection):
-    query = f"INSERT INTO {TABLE_NAME} (`dateTime_of_activation`, `finish_hour`, `activation_co>
+    query = f"INSERT INTO {TABLE_NAME} (`dateTime_of_activation`, `finish_hour`, `activation_code`)" \
             f" VALUES ('{data['dateTime_of_activation']}'," \
-            f" '{data['finish_hour']}', {data['activation_code']});"
+            f" '{data['finish_hour']}', {data['activation_code']});"  
     cursor.execute(query)
     connection.commit()
     print(cursor.rowcount, "Record inserted successfully into activation_history table")
@@ -53,7 +53,7 @@ def load_activation_history(data):
 
 def main():
     data = {
-        "dateTime_of_activation": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        "dateTime_of_activation": datetime.datetime.now(),
         "finish_hour": "12:42:55",
         "activation_code": 7
     }
@@ -64,4 +64,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

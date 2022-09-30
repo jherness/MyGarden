@@ -109,13 +109,13 @@ def I2cSetup():
 ############################################################
 ######################## MAIN ##############################
 ############################################################
-logtofile("start program")
+#logtofile("start program")
 I2cSetup()
 i2cdetect()
 
-logtofile("after i2cdetect")
+#logtofile("after i2cdetect")
 getsensordata()
-logtofile("end program")
+#logtofile("end program")
 #initvar()
 #SpiSetup()
 #GpioSetUp()

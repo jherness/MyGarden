@@ -1,4 +1,3 @@
-
 import mysql.connector
 import sys
 sys.path.append('/home/pi/irrsys/admin/')
@@ -30,7 +29,8 @@ def get_data(cursor, connection):
     query = f'SELECT * FROM {TABLE_NAME}'
     cursor.execute(query)
     records = cursor.fetchall()
-    result = {"is_auto" : records[0][1] == 1, "max_temp" : records[0][2], "min_moist" : records[0][2]}
+    result = {"is_auto" : records[0][1] == 1, "max_temp" : records[0][2], "min_moist" : records[0][3]}
+    print(result)
     return(result)
 
 
@@ -40,7 +40,7 @@ def get_sys_mod():
         if connection.is_connected():
             print("MariaDB connection is open")
             cursor = connection.cursor()
-            get_data(cursor, connection)
+            return get_data(cursor, connection)
         else:
             print("Faild to connect to DB")
     except mysql.connector.Error as error:
@@ -57,5 +57,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-

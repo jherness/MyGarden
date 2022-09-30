@@ -1,4 +1,3 @@
-
 import sys
 sys.path.append('/home/pi/irrsys/manager/')
 sys.path.append('/home/pi/irrsys/loaders/')

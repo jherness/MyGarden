@@ -33,20 +33,19 @@ def get_data(cursor, connection):
     records = cursor.fetchall()
     result = {"start_hour" : datetime.datetime.today() + records[0][1],
         "time_to_live" : records[0][2],
-        "sunday" : records[0][3],
-        "monday": records[0][4],
-        "tuesday": records[0][5],
-        "wednesday": records[0][6],
-        "thursday" : records[0][7],
-        "friday" : records[0][8],
-        "saturday": records[0][9],
-        "air_sys": records[0][10],
-        "water_sys": records[0][11],
-        "light_sys": records[0][12],
-        "fertelize_sys": records[0][13]
+        "sunday" : records[0][3] == 1,
+        "monday": records[0][4] == 1,
+        "tuesday": records[0][5] == 1,
+        "wednesday": records[0][6] == 1,
+        "thursday" : records[0][7] == 1,
+        "friday" : records[0][8] == 1,
+        "saturday": records[0][9] == 1,
+        "air_sys": records[0][10] == 1,
+        "water_sys": records[0][11] == 1,
+        "light_sys": records[0][12] == 1,
+        "fertelize_sys": records[0][13] == 1
     }
     return(result)
-
 
 
 def get_schedule_activation():
@@ -55,7 +54,7 @@ def get_schedule_activation():
         if connection.is_connected():
             print("MariaDB connection is open")
             cursor = connection.cursor()
-            get_data(cursor, connection)
+            return get_data(cursor, connection)
         else:
             print("Faild to connect to DB")
     except mysql.connector.Error as error:
