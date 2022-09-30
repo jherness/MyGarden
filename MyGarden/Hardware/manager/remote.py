@@ -31,23 +31,21 @@ def get_data(cursor, connection):
     query = f'SELECT * FROM {TABLE_NAME}'
     cursor.execute(query)
     records = cursor.fetchall()
-    result = {"start_data" : records[0][1],
-        "finish_data" : records[0][2],
-        "air_sys" : records[0][3] == 1,
-        "water_sys": records[0][4] == 1,
-        "light_sys": records[0][5] == 1,
-        "fertelize_sys": records[0][6] == 1
+    result = {"dateTime_of_activation" : records[0][0],
+        "finish_hour" : records[0][1],
+        "activation_code" : records[0][2],
     }
     return(result)
 
 
-def get_remote_activation():
+
+def get_activation_history():
     try:
         connection = get_connection()
         if connection.is_connected():
             print("MariaDB connection is open")
             cursor = connection.cursor()
-            return get_data(cursor, connection)
+            return( get_data(cursor, connection))
         else:
             print("Faild to connect to DB")
     except mysql.connector.Error as error:
@@ -59,8 +57,9 @@ def get_remote_activation():
 
 
 def main():
-    get_remote_activation()
+    get_activation_history()
 
 
 if __name__ == '__main__':
     main()
+

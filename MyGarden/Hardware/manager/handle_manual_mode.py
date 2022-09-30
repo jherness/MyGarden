@@ -9,8 +9,8 @@ import pcf8574 #relays controller
 
 
 SCHEDULE_TABLE_DATA = schedule.get_schedule_activation()
-REMOTE_TABLE_DATA = remote.get_remote_activation()
-SAMPLE = irrmain.getsensordata()
+#REMOTE_TABLE_DATA = remote.get_remote_activation()
+#SAMPLE = irrmain.getsensordata()
 RELAYS_STATUS = irrmain.get_relays_status()
 
 
@@ -19,14 +19,18 @@ def is_today_scheduled(days_to_activate : dict):
     return(days_to_activate[today])
 
 
-def is_time_between(begin_time, time_to_live, check_time=None):
-    end_time = begin_time + datetime.timedelta(minutes=time_to_live)
-    # If check time is not given, default to current UTC time
+def is_time_between(start_hour, time_to_live, check_time=None):
+    end_time = start_hour + datetime.timedelta(minutes=time_to_live)
+    # If check time is not given, default to current LOCALE time
     check_time = check_time or datetime.datetime.now()
     print("check_time = " , check_time)
-    print("begin_time = " , begin_time)
+    print("start_hour = " , start_hour)
     print("end_time = " , end_time)
-    print(check_time.time() >= begin_time.time() and check_time.time() <= end_time.time())
+    return(check_time.time() >= start_hour.time() and check_time.time() <= end_time.time())
+
+
+def is_schedule_over():
+    
 
 
 def is_schedule_on():
@@ -42,7 +46,6 @@ def is_schedule_on():
         5: SCHEDULE_TABLE_DATA['saturday']
     }
     return(is_today_scheduled(days_to_activate) and is_time_between(start_hour, time_to_live))
-
 
 def activate_relays(relays : dict):
     if relays['air_sys']:
@@ -71,6 +74,8 @@ def handle_manual_mode():
 def main():
     handle_manual_mode()
     print(RELAYS_STATUS)
+
+
 
 
 

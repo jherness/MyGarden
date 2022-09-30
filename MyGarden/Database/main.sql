@@ -158,6 +158,9 @@ CREATE TABLE IF NOT EXISTS `schedule_activation` (
 INSERT INTO `schedule_activation` (`id`, `start_hour`, `time_to_live`, `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `air_sys`, `water_sys`, `light_sys`, `fertelize_sys`) VALUES
 	(1, '00:00:01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	
+UPDATE schedule_activation SET start_hour = '15:00:01', time_to_live = 120, water_sys = 0
+WHERE id = 1
+	
 
 -- Dumping structure for table mygarden.sys_mod
 CREATE TABLE IF NOT EXISTS `sys_mod` (
