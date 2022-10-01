@@ -59,7 +59,7 @@ def getsensordata():
     #msg["Digital-IN0"]=raw_adc
     #msg["Analog-IN0"]=raw_vlt
     #pcf8574.RealyTestOn(pcf8574.REL1)
-    #pcf8574.RealyTestOff(pcf8574.REL1) 
+    #pcf8574.RealyTestOff(pcf8574.REL1)
     return msg;
 
 
@@ -67,7 +67,7 @@ def get_relays_status():
     relays_status = pcf8574.GetRealyStatus()
     print ("realay status = ",relays_status)
     return relays_status;
-    
+
 
 def load():
     samplesLoader.load_new_sample(getsensordata())
@@ -110,15 +110,17 @@ def I2cSetup():
     #if not i2cdetect():
     #    return False
 
-	
+
 ############################################################
 ######################## MAIN ##############################
 ############################################################
 #logtofile("start program")
 def main():
+    logtofile("start program")
     I2cSetup()
     i2cdetect()
     load()
+    logtofile("end program")
 
 
 if __name__ == '__main__':

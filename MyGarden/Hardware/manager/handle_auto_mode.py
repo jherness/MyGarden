@@ -1,24 +1,22 @@
 #TODO 
 # change from humidity To Avg of 3 humidity ground Sensors
 
-
 import sys
-sys.path.append('/home/pi/irrsys/')
 sys.path.append('/home/pi/irrsys/drivers/')
 sys.path.append('/home/pi/irrsys/loaders/')
 import datetime, time
-import irrmain
 import remote
 import sys_mod
 import pcf8574 #relays controller
 import historyLoader
 import remoteLoader
 import currentlyActiveLoader
+import sample
+import currently
 
 
-
-RELAYS_STATUS = irrmain.get_relays_status()
-SAMPLE = irrmain.getsensordata()
+RELAYS_STATUS = currently.get_currently_active()
+SAMPLE = sample.get_sample()
 SYS_MOD = sys_mod.get_sys_mod()
 REMOTE_TABLE_DATA = remote.get_remote_activation()
 

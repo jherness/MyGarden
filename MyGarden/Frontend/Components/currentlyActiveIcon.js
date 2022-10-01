@@ -14,10 +14,6 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 export default function CurrentlyActiveIcon(props) {
   const currentActive = props.currentActive;
 
-  useEffect(() => {
-    console.log(currentActive);
-  }, []);
-
   const ChangeColor = (iconName, currentActive) => {
     switch (iconName) {
       case "watering-can":
@@ -49,17 +45,16 @@ export default function CurrentlyActiveIcon(props) {
   };
 
   return (
-    <VStack style={{ marginTop: 50 }}>
-      <HStack spacing={30}>
-        <Wrap m={2} items="center" spacing={35}>
+    <VStack center spacing={30} >
+      <HStack center spacing={70}>
+        <Wrap m={2} items="center" spacing={10}>
           <Avatar
             size={55}
             color={ChangeColor("watering-can", currentActive)}
             icon={(props) => <Icon name={"watering-can"} {...props} />}
           />
         </Wrap>
-
-        <Wrap m={2} items="center" spacing={35}>
+        <Wrap m={2} items="center" spacing={10}>
           <Avatar
             size={55}
             color={ChangeColor("lightbulb", currentActive)}
@@ -69,21 +64,20 @@ export default function CurrentlyActiveIcon(props) {
           />
         </Wrap>
       </HStack>
-
-      <HStack spacing={30}>
+      <HStack center spacing={70}>
         <Wrap m={2} items="center" spacing={10}>
           <Avatar
-            color={ChangeColor("fan", currentActive)}
             size={55}
+            color={ChangeColor("fan", currentActive)}
             icon={(props) => <Icon name={"fan"} {...props} />}
           />
         </Wrap>
         <Wrap m={2} items="center" spacing={10}>
           <Avatar
-            color={ChangeColor("leaf", currentActive)}
             size={55}
+            color={ChangeColor("leaf", currentActive)}
             icon={(props) => (
-              <Icon name={"leaf"} style={ChangeColor} {...props} />
+              <Icon name={"leaf"} style={Colors.backColor} {...props} />
             )}
           />
         </Wrap>

@@ -173,9 +173,10 @@ CREATE TABLE IF NOT EXISTS `sys_mod` (
  `min_moist` INT(11) NOT NULL DEFAULT 0, PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 
+
 -- Dumping data for table mygarden.sys_mod: ~1 row (approximately)
-INSERT INTO `sys_mod` (`id`, `is_auto`, `max_temp`, `min_moist`) VALUES
-	(1, 0, 35, 35);
+REPLACE INTO `sys_mod` (`id`, `is_auto`, `max_temp`, `min_moist`) VALUES
+	(1, 1, 35, 35);
 CREATE DEFINER=`irruser`@`%` TRIGGER `remote_activation_after_insert` AFTER
 UPDATE ON `remote_activation` FOR EACH ROW BEGIN
 UPDATE currently_active SET air_sys = NEW.air_sys, water_sys = NEW.water_sys,

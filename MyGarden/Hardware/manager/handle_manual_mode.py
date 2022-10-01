@@ -3,20 +3,20 @@ import sys
 sys.path.append('/home/pi/irrsys/')
 sys.path.append('/home/pi/irrsys/drivers/')
 sys.path.append('/home/pi/irrsys/loaders/')
-import irrmain
 import remote
 import schedule
 import history
 import pcf8574 #relays controller
 import historyLoader
 import currentlyActiveLoader
+import currently
 
 SCHEDULE_ACTIVATION_CODE = 10
 REMOTE_ACTIVATION_CODE = 9
 HISTORY_TABLE_DATA = history.get_activation_history()
 SCHEDULE_TABLE_DATA = schedule.get_schedule_activation()
 REMOTE_TABLE_DATA = remote.get_remote_activation()
-RELAYS_STATUS = irrmain.get_relays_status()
+RELAYS_STATUS = currently.get_currently_active()
 
 
 def today_is_scheduled():

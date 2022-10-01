@@ -61,6 +61,8 @@ const styles = StyleSheet.create({
     minWidth: Dimensions.get("screen").width,
     borderBottomColor: mainColor,
     borderBottomWidth: 2,
+    borderTopColor: mainColor,
+    borderTopWidth: 2,
   },
   leftIcon: {
     marginRight: 10,

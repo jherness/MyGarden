@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Text, VStack, HStack } from "@react-native-material/core";
-import { FlatList} from "react-native";
-import { getMostCommonActivationReason, getSamples, getCurrentlyActiveRelays } from "../Modules/gets";
-import { flatlistData, header, footer, renderItem, getSamplesByTime } from "../Modules/AnalyticsModules";
+import { FlatList } from "react-native";
+import {
+  getMostCommonActivationReason,
+  getSamples,
+  getCurrentlyActiveRelays,
+} from "../Modules/gets";
+import {
+  flatlistData,
+  header,
+  footer,
+  renderItem,
+  getSamplesByTime,
+} from "../Modules/AnalyticsModules";
 import moment from "moment/moment";
 
 export default function Analythics() {
@@ -18,18 +28,15 @@ export default function Analythics() {
   const [weekAgo, setWeekAgo] = useState(moment().subtract(1, "week"));
   const [currentlyActiveRelays, setCurrentlyActiveRelays] = useState([]);
 
-
-
-
   /*getting the last month samples*/
   useEffect(() => {
     getSamples(setAllSamples);
     getMostCommonActivationReason(setMostCommon);
-    getCurrentlyActiveRelays(setCurrentlyActiveRelays)
+    getCurrentlyActiveRelays(setCurrentlyActiveRelays);
   }, []);
 
   useEffect(() => {
-    setSamples(getHourSamples)
+    setSamples(getHourSamples);
     setHourSamples(getHourSamples);
     setDaySamples(getDaySamples);
     setWeekSamples(getWeekSamples);
@@ -40,9 +47,8 @@ export default function Analythics() {
   // }, [hourSamples, daySamples, weekSamples]);
 
   useEffect(() => {
-    getAppropriateSamples()
+    getAppropriateSamples();
   }, [timeTypeText]);
-
 
   const getAppropriateSamples = () => {
     if (timeTypeText === "Hour") setSamples(hourSamples);
@@ -52,19 +58,16 @@ export default function Analythics() {
   };
 
   const getHourSamples = () => {
-    return getSamplesByTime(allSamples, hourAgo)
+    return getSamplesByTime(allSamples, hourAgo);
   };
 
   const getDaySamples = () => {
-    return getSamplesByTime(allSamples, dayAgo)
+    return getSamplesByTime(allSamples, dayAgo);
   };
 
   const getWeekSamples = () => {
-    return getSamplesByTime(allSamples, weekAgo)
+    return getSamplesByTime(allSamples, weekAgo);
   };
-
-
-
 
   const timeTypeToPapa = (data) => {
     setTimeTypeText(data);
@@ -74,7 +77,11 @@ export default function Analythics() {
     <>
       <FlatList
         keyExtractor={(item) => item.dataKey}
-        ListHeaderComponent={header(timeTypeText, timeTypeToPapa, currentlyActiveRelays)}
+        ListHeaderComponent={header(
+          timeTypeText,
+          timeTypeToPapa,
+          currentlyActiveRelays
+        )}
         data={flatlistData(timeTypeText, samples)}
         renderItem={renderItem}
         ListFooterComponent={footer(mostCommon)}
