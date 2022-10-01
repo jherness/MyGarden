@@ -6,9 +6,9 @@ from datetime import datetime
 sys.path.append('/home/pi/irrsys/drivers')
 sys.path.append('/home/pi/irrsys/loaders')
 import bme280  # Temperature & Humidity & Pressurs sensor driver
-import aht20   # Temperature & Humidity sensor driver
+#import aht20   # Temperature & Humidity sensor driver
 import tsl2584 # light sensor driver
-import bh1750  # light sensor driver
+#import bh1750  # light sensor driver
 import ads1115 # analog to digtal  driver 
 import pcf8574 # io driver
 import samplesLoader
@@ -32,9 +32,9 @@ def getsensordata():
     msg["temperature"]=temperature
     msg["humidity"]=humidity
     msg["pressure"]= pressure
-    (temperature,humidity) = aht20.readAHT20()
-    print ("AHT20 Temperature : ", temperature, "C")
-    print ("AHT Humidity : ", humidity, "%")
+    #(temperature,humidity) = aht20.readAHT20()
+    #print ("AHT20 Temperature : ", temperature, "C")
+    #print ("AHT Humidity : ", humidity, "%")
 
 
     (ch0,ch1) = tsl2584.readTSL2584()
@@ -48,8 +48,8 @@ def getsensordata():
     msg["ground_humidity2"] = 0
     msg["ground_humidity3"] = 0
 
-    luminance=bh1750.readBH1750();
-    print ("Ambient Light luminance : %.2f lux" %luminance)
+    #luminance=bh1750.readBH1750();
+    #print ("Ambient Light luminance : %.2f lux" %luminance)
 
     #(raw_adc,raw_vlt)=ads1115.readADS1115(ain=0)
     #print ("Digital Value of Analog Input : %d" %raw_adc)
@@ -102,9 +102,9 @@ def I2cSetup():
     bus=smbus.SMBus(1) # /dev/i2c-1
     i2cdevices={
             "0x20" : "PCF8574 io relay",
-            "0x38" : "AHT20 Temperature&Humidity",
+            #"0x38" : "AHT20 Temperature&Humidity",
             "0x39" : "TSL2584 light",
-            "0x48" : "ADS1115 A/D 4 Channel",
+            #"0x48" : "ADS1115 A/D 4 Channel",
             "0x76" : "BME280 Temp&Hum&pressure"
            }
     #if not i2cdetect():

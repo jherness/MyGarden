@@ -1,6 +1,6 @@
 def get_configuration():
     return {
-       'HOST' : '192.168.1.198',
+       'HOST' : '192.168.50.100',
        'DB_NAME' : 'mygarden',
        'USER' : 'irruser',
        'PASS' : 'irrpass'
