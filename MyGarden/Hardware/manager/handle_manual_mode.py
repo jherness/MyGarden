@@ -8,6 +8,7 @@ import remote
 import schedule
 import pcf8574 #relays controller
 import historyLoader
+import currentlyActiveLoader
 
 
 SCHEDULE_ACTIVATION_CODE = 10
@@ -79,6 +80,7 @@ def activate_relays(relays = None):
         pcf8574.activate_fertelize()
     else:
         pcf8574.deactivate_fertelize()
+    currentlyActiveLoader.update_currently_active(relays)
 
 
 def handle_manual_mode():
