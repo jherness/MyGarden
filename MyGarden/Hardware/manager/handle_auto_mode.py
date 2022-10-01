@@ -27,35 +27,41 @@ def handle_auto_mode():
     activation_code = get_appropriate_activiton_code(max_temp, max_light, min_humid, current_temp, current_humid, current_light)
     if activation_code == 1: # if every thing is ok
         activate_relays()
+        print("activation_code == 1")
         return
     start_hour, end_time = get_remote_time_params()
-    if is_time_between(start_hour, end_time): #if its not the first sample in a row that needs to be handeled
-        handle_time_between(start_hour, REMOTE_TABLE_DATA, activation_code)
+    if is_not_the_first_exception(start_hour, end_time): #if its not the first sample in a row that needs to be handeled
+        handle_exception(activation_code, start_hour)
     else: # its the first sample that needs to be handeled, we need to keep the data of the activation time.
-        handle_first_exception(activation_code)
+        handle_exception(activation_code, start_hour)
 
 
-def handle_first_exception(activation_code : int):
-    start_hour = datetime.datetime.now()
-    data = {
-        'dateTime_of_activation' : start_hour.replace(microsecond=0),
-        'finish_hour' : (start_hour + datetime.timedelta(minutes=2)),
-        'activation_code' : activation_code
+def handle_exception(activation_code : int, start_hour = None,):
+    print("handle_not_first_exception")
+    start_hour = start_hour or datetime.datetime.now
+    relays_data = handle_exception_by_code(activation_code)
+    remote_data = {
+        'id' :1,
+        'start_data' : datetime.datetime.now().replace(microsecond=0),
+        'finish_data' : 2,
+        'air_sys' : relays_data['air_sys'],
+        'water_sys' : relays_data['water_sys'],
+        'light_sys' : relays_data['light_sys'],
+        'fertelize_sys' : relays_data['fertelize_sys'] 
     }
-    activate_relays(handle_exception(activation_code))
-    remoteLoader.replace_remote_activation(data)
-
-
-def handle_time_between(start_hour = None : datetime, relays_data : dict, activation_code : int):
-    start_hour = start_hour or datetime.datetime.now()
-    relays_data = 
-    data = {
-        'dateTime_of_activation' : datetime.datetime.now().replace(hour=start_hour.hour, minute=start_hour.minute,second=start_hour.second,microsecond=0),
-        'finish_hour' : (datetime.datetime.now().replace(microsecond=0)),
+    history_data = {
+        'dateTime_of_activation' : start_hour.replace(microsecond=0),
+        'finish_hour' : (start_hour + datetime.timedelta(minutes=2)).replace(microsecond=0),
         'activation_code' : activation_code
     }
     activate_relays(relays_data)
-    historyLoader.load_activation_history(data)
+    remoteLoader.replace_remote_activation(remote_data)
+    historyLoader.load_activation_history(history_data)
+
+
+def is_not_the_first_exception(start_hour : datetime, end_time, check_time=None):
+    check_time = check_time or datetime.datetime.now()
+    return(check_time.time() >= start_hour.time() and check_time.time() <= end_time.time())
 
 
 def get_remote_time_params():
@@ -73,25 +79,15 @@ def is_too_hot(max_temp, current_temp):
     return current_temp > max_temp
 
 
-def is_time_between(start_hour : datetime, end_time = None : datetime, check_time=None):
-    end_time = end_time or start_hour + datetime.timedelta(minutes=2)
-    check_time = check_time or datetime.datetime.now()
-    return(check_time.time() >= start_hour.time() and check_time.time() <= end_time.time())
-
-
-def sample_is_ok(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
-    return not(is_too_hot(max_temp, current_temp) and is_too_dry(min_humid, current_humid) and is_dark(max_light, current_light))
-
-
-#please note that i checked the dictionary and worsest is a legit word.... (superlative form of bad)
-#sorry for wasting your time anita and shay...
-def sample_is_worsest(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
+def sample_is_not_ok(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
     return is_too_hot(max_temp, current_temp) and is_too_dry(min_humid, current_humid) and is_dark(max_light, current_light)
 
+def sample_is_ok(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
+    return not is_too_hot(max_temp, current_temp) and not is_too_dry(min_humid, current_humid) and not is_dark(max_light, current_light)
 
 # Check if Turn On The Light
 def is_dark(max_light, current_light):
-    return current_light < 400
+    return current_light < max_light
     
 
 # geting the current temp, humid, light data
@@ -113,7 +109,7 @@ def get_sys_mode_params():
 def get_appropriate_activiton_code(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
     if sample_is_ok(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
         return 1 # all is under control!
-    elif sample_is_worsest(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
+    elif not sample_is_not_ok(max_temp, max_light, min_humid, current_temp, current_humid, current_light):
         return 2 # all is burning! 
     elif is_too_dry(min_humid, current_humid) and is_too_hot(max_temp, current_temp):
         return 3 # Low Humidity & High Temp, water & fan
@@ -129,7 +125,7 @@ def get_appropriate_activiton_code(max_temp, max_light, min_humid, current_temp,
         return 8  # No Light, light
 
 
-def handle_exception(activation_code):
+def handle_exception_by_code(activation_code):
     command = {'air_sys':False, 'water_sys':False, 'light_sys':False, 'fertelize_sys':False}
     if activation_code == 2:
         command =  {'air_sys':True, 'water_sys':True, 'light_sys':True, 'fertelize_sys':False}
