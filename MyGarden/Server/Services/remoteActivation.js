@@ -14,7 +14,7 @@ async function getRemoteActivation() {
 async function update(data) {
   const result = await db.query(
     `UPDATE remote_activation
-    SET start_data = current_timestamp(), finish_data = ${data["finishingData"]},
+    SET start_data = current_timestamp(), finish_data = '${data["finishingData"]}',
     air_sys = ${data["systemsToActivate"]["air_sys"]}, water_sys = ${data["systemsToActivate"]["water_sys"]}, 
     light_sys = ${data["systemsToActivate"]["light_sys"]}, fertelize_sys = ${data["systemsToActivate"]["fertelize_sys"]}
     WHERE id = 1;`

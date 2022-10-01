@@ -79,12 +79,11 @@ export default function Analythics() {
         keyExtractor={(item) => item.dataKey}
         ListHeaderComponent={header(
           timeTypeText,
-          timeTypeToPapa,
-          currentlyActiveRelays
+          timeTypeToPapa
         )}
         data={flatlistData(timeTypeText, samples)}
         renderItem={renderItem}
-        ListFooterComponent={footer(mostCommon)}
+        ListFooterComponent={footer(mostCommon, currentlyActiveRelays)}
       />
     </>
   ) : (

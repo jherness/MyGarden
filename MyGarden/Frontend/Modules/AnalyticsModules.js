@@ -1,5 +1,5 @@
 import moment from "moment/moment";
-import { VStack, HStack, Text } from "@react-native-material/core";
+import { VStack, HStack, Text, Spacer } from "@react-native-material/core";
 import Chart from "../Components/Chart";
 import DropDown from "../Components/DropDown";
 import { StyleSheet } from "react-native";
@@ -101,30 +101,50 @@ export const renderItem = ({ item }) => (
 );
 
 /*static header the only renders one time in flatlist*/
-export const header = (timeTypeText, timeTypeToPapa, currentlyActiveRelays) => {
+export const header = (timeTypeText, timeTypeToPapa) => {
   return (
-    <VStack fill center style={styles.header}>
-      <DropDown
-        style={{ paddingTop: 50 }}
-        state={timeTypeText}
-        timeTypeToPapa={timeTypeToPapa}
-      />
-      <CurrentlyActiveIcon
-        style={{ paddingTop: 30 }}
-        currentActive={currentlyActiveRelays}
-      />
+    <VStack fill center spacing={25} style={styles.header}>
+      <HStack center fill>
+        <DropDown
+          state={timeTypeText}
+          timeTypeToPapa={timeTypeToPapa}
+        />
+      </HStack>
     </VStack>
   );
 };
 
-export const footer = (mostCommon) => {
+export const footer = (mostCommon, currentlyActiveRelays) => {
   return mostCommon ? (
-    <HStack fill center style={styles.footer}>
-      <Text variant="h6" style={styles.textStyle}>
-        The Most Common Activation Reason is "{mostCommon.activation_reason}"
-        Happend {mostCommon.AHCounter} Times{" "}
-      </Text>
-    </HStack>
+    <VStack>
+      <VStack spacing={20} style={styles.footer}>
+        <HStack center fill>
+          <Text variant="h4" style={styles.subStyle}>
+            Most Common
+          </Text>
+        </HStack>
+        <HStack fill center m={4}>
+          <Text variant="h6" style={styles.textStyle}>
+            The Most Common Activation Reason is "{mostCommon.activation_reason}". 
+            Happend {mostCommon.AHCounter} Times{" "}
+          </Text>
+        </HStack>
+      </VStack>
+      <VStack spacing={30} style={styles.footer}>
+      <HStack center fill>
+          <Text variant="h4" style={styles.subStyle}>
+            Currently Active
+          </Text>
+        </HStack>
+      <HStack center fill>
+          <CurrentlyActiveIcon
+            style={{ paddingTop: 30 }}
+            currentActive={currentlyActiveRelays}
+          />
+        </HStack>
+      </VStack>
+      <Spacer fill center/>
+    </VStack>
   ) : (
     <Text style={styles.footer}></Text>
   );
@@ -140,5 +160,9 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: mainColor,
+  },
+  subStyle: {
+    color: mainColor,
+    fontWeight: "bold"
   },
 });
