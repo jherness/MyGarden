@@ -19,21 +19,21 @@ CREATE DATABASE IF NOT EXISTS `mygarden` /*!40100 DEFAULT CHARACTER SET utf8mb4 
 -- Dumping structure for table mygarden.activation
 CREATE TABLE IF NOT EXISTS `activation` (
  `activation_code` INT(11) NOT NULL,
- `activation_reason` VARCHAR(30) NOT NULL,remote_activation_before_insert PRIMARY KEY (`activation_code`) USING BTREE
+ `activation_reason` VARCHAR(30) NOT NULL, PRIMARY KEY (`activation_code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table mygarden.activation: ~16 rows (approximately)
-INSERT INTO `activation` (`activation_code`, `activation_reason`) VALUES
-	(1, 'Low Humidity'),
-	(2, 'High Humidity'),
-	(3, 'Remote Activation'),
-	(4, 'Schedule Activation'),
-	(5, 'High Temp & Low Humidity'),
-	(6, 'Low Temp'),
+REPLACE INTO `activation` (`activation_code`, `activation_reason`) VALUES
+	(1, 'all is good, dont activate'),
+	(2, 'everything is bad basicly :('),
+	(3, 'Low Humidity & High Temp'),
+	(4, 'No Light & High Temp'),
+	(5, 'No Light & Low Humidity'),
+	(6, 'Low Humidity'),
 	(7, 'High Temp'),
-	(8, '8a'),
-	(9, '9a'),
-	(10, '10a'),
+	(8, 'No Light'),
+	(9, 'Remote Activation'),
+	(10, 'Schedule Activation'),
 	(11, '11a'),
 	(12, '12a'),
 	(13, '13a'),
@@ -45,9 +45,7 @@ INSERT INTO `activation` (`activation_code`, `activation_reason`) VALUES
 CREATE TABLE IF NOT EXISTS `activation_history` (
  `dateTime_of_activation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
  `finish_hour` TIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
- `activation_code` INT(11) NOT NULL DEFAULT 0, PRIMARY KEY (`dateTime_of_activation`) USING BTREE, KEY `activations_key` (`activation_code`) USING BTREE, CONSTRAINT `activation_key` FOREIGN KEY (`activation_code`) REFERENCES `activation` (`activation_code`) ON
-DELETE NO ACTION ON
-UPDATE NO ACTION
+ `activation_code` INT(11) NOT NULL DEFAULT 0, PRIMARY KEY (`dateTime_of_activation`), KEY `activations_key` (`activation_code`), CONSTRAINT `activation_key` FOREIGN KEY (`activation_code`) REFERENCES `activation` (`activation_code`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table mygarden.activation_history: ~8 rows (approximately)
