@@ -30,7 +30,7 @@ def finish(cursor, connection):
 def replace_table(data, cursor, connection):
     query = f"REPLACE INTO {TABLE_NAME} (`id`, `start_data`, `finish_data`, `air_sys`, `water_sys`," \
             f" `light_sys`, `fertelize_sys`) VALUES " \
-            f"({data['id']}, {data['start_data']}, {data['finish_data']},{data['air_sys']}, " \
+            f"({data['id']}, '{data['start_data']}', {data['finish_data']},{data['air_sys']}, " \
             f"{data['water_sys']}, {data['light_sys']}, {data['fertelize_sys']});"
     cursor.execute(query)
     connection.commit()

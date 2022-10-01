@@ -6,15 +6,17 @@ sys.path.append('/home/pi/irrsys/loaders/')
 import irrmain
 import remote
 import schedule
+import history
 import pcf8574 #relays controller
 import historyLoader
 import currentlyActiveLoader
 
-
 SCHEDULE_ACTIVATION_CODE = 10
 REMOTE_ACTIVATION_CODE = 9
+HISTORY_TABLE_DATA = history.get_activation_history()
 SCHEDULE_TABLE_DATA = schedule.get_schedule_activation()
 REMOTE_TABLE_DATA = remote.get_remote_activation()
+RELAYS_STATUS = irrmain.get_relays_status()
 
 
 def today_is_scheduled():
@@ -31,7 +33,7 @@ def today_is_scheduled():
     return(days_to_activate[today])
 
 
-def is_time_between(start_hour : datetime, end_time : datetime, check_time=None):
+def is_time_between(start_hour, end_time, check_time=None):
     if start_hour.hour == 0 and start_hour.minute == 0 and start_hour.second == 1:
         return False
     check_time = check_time or datetime.datetime.now()
