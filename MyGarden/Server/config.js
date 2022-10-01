@@ -1,6 +1,6 @@
 const config = {
   db: {
-    host: "192.168.1.198",
+    host: "192.168.50.100",
     user: "irruser",
     password: "irrpass",
     database: "mygarden",
