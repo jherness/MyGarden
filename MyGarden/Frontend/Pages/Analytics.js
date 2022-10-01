@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "@react-native-material/core";
-import { HStack, VStack } from "@react-native-material/core";
-import { FlatList, ScrollView, View } from "react-native";
-import { getMostCommonActivationReason, getSamples } from "../Modules/gets";
+import { Text, VStack, HStack } from "@react-native-material/core";
+import { FlatList} from "react-native";
+import { getMostCommonActivationReason, getSamples, getCurrentlyActiveRelays } from "../Modules/gets";
 import { flatlistData, header, footer, renderItem, getSamplesByTime } from "../Modules/AnalyticsModules";
 import moment from "moment/moment";
 
@@ -17,6 +16,8 @@ export default function Analythics() {
   const [hourAgo, setHourAgo] = useState(moment().subtract(1, "hour"));
   const [dayAgo, setDayAgo] = useState(moment().subtract(1, "day"));
   const [weekAgo, setWeekAgo] = useState(moment().subtract(1, "week"));
+  const [currentlyActiveRelays, setCurrentlyActiveRelays] = useState([]);
+
 
 
 
@@ -24,6 +25,7 @@ export default function Analythics() {
   useEffect(() => {
     getSamples(setAllSamples);
     getMostCommonActivationReason(setMostCommon);
+    getCurrentlyActiveRelays(setCurrentlyActiveRelays)
   }, []);
 
   useEffect(() => {
@@ -72,7 +74,7 @@ export default function Analythics() {
     <>
       <FlatList
         keyExtractor={(item) => item.dataKey}
-        ListHeaderComponent={header(timeTypeText, timeTypeToPapa)}
+        ListHeaderComponent={header(timeTypeText, timeTypeToPapa, currentlyActiveRelays)}
         data={flatlistData(timeTypeText, samples)}
         renderItem={renderItem}
         ListFooterComponent={footer(mostCommon)}

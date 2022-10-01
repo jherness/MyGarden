@@ -1,9 +1,10 @@
 import moment from "moment/moment";
-import { HStack, Text } from "@react-native-material/core";
+import { VStack, HStack, Text } from "@react-native-material/core";
 import Chart from "../Components/Chart";
 import DropDown from "../Components/DropDown";
 import { StyleSheet } from "react-native";
 import { mainColor } from "../Style/Colors";
+import CurrentlyActiveIcon from "../Components/currentlyActiveIcon";
 
 /*data to be rendered in flatlist*/
 export const flatlistData = (timeTypeText, samples) => [
@@ -100,11 +101,19 @@ export const renderItem = ({ item }) => (
 );
 
 /*static header the only renders one time in flatlist*/
-export const header = (timeTypeText, timeTypeToPapa) => {
+export const header = (timeTypeText, timeTypeToPapa, currentlyActiveRelays) => {
   return (
-    <HStack fill center style={styles.header}>
-      <DropDown state={timeTypeText} timeTypeToPapa={timeTypeToPapa} />
-    </HStack>
+    <VStack fill center style={styles.header}>
+      <DropDown
+        style={{ paddingTop: 50 }}
+        state={timeTypeText}
+        timeTypeToPapa={timeTypeToPapa}
+      />
+      <CurrentlyActiveIcon
+        style={{ paddingTop: 30 }}
+        currentActive={currentlyActiveRelays}
+      />
+    </VStack>
   );
 };
 
