@@ -1,6 +1,7 @@
 const db = require("./db");
 const helper = require("../helper");
 const config = require("../config");
+const notifications = require('../notifications')
 
 /*Get latest remote activation */
 async function getRemoteActivation() {
@@ -24,6 +25,13 @@ async function update(data) {
 
   if (result.affectedRows) {
     message = "1 Row updated to remote_activation. Updated currently_active";
+    if (data["air_sys"] === 0 && data["water_sys"] === 0 &&
+      data["light_sys"] === 0 && data["fertelize_sys"] === 0) {
+      notifications.sendDeactivationNotification()
+    }
+    else {
+      notifications.sendActivationNotification()
+    }
   }
 
   return { message };

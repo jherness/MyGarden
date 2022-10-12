@@ -45,9 +45,6 @@ export default function Temprature() {
             minute: "2-digit",
             second: "2-digit",
           }).format(data.sys.sunset * 1000);
-
-          console.log(data);
-
           setSunrise(sunriseData);
           setSunset(sunSetData);
           setData(data);

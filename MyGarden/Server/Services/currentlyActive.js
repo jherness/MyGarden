@@ -1,7 +1,7 @@
 const db = require("./db");
 const helper = require("../helper");
 const config = require("../config");
-
+const notifications = require('../notifications')
 /*Get all activations */
 async function getActiveRelays() {
   const rows = await db.query(`SELECT * 
@@ -24,6 +24,13 @@ async function update(data) {
   /*if there was no error*/
   if (result.affectedRows) {
     message = "1 Row updated to currently_active.";
+    if (data["air_sys"] === 0 && data["water_sys"] === 0 &&
+      data["light_sys"] === 0 && data["fertelize_sys"] === 0) {
+      notifications.sendDeactivationNotification()
+    }
+    else {
+      notifications.sendActivationNotification()
+    }
   }
 
   return { message };

@@ -37,7 +37,6 @@ export default function App() {
 
   async function registerForPushNotification(){
     const {status} = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-    console.log("ABCDEFG ",Permissions.NOTIFICATIONS);
     if (status != "granted") {
       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
       // finalStatus = status;
