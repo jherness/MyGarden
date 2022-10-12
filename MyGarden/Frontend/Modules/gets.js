@@ -35,7 +35,7 @@ export const getMostCommonActivationReason = async (setMostCommon) => {
 export const getActivations = async (setActivations) => {
   try {
     const response = await fetch(
-      `http://1192.168.1.184:3000/activationHistory`
+      `http://192.168.1.184:3000/activationHistory`
     );
     const data = await response.json();
     setActivations(formatTimeline(data));
