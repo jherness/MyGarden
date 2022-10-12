@@ -3,7 +3,7 @@ import { SysMod } from "../Classes/SysMod";
 
 export const getCurrentlyActiveRelays = async (setState) => {
   try {
-    const response = await axios(`http://10.57.0.195:3000/currentlyActive`);
+    const response = await axios(`http://192.168.1.184:3000/currentlyActive`);
     setState(switchDataFormatter(response.data));
   } catch (err) {
     console.log(error);
@@ -23,7 +23,7 @@ const switchDataFormatter = (data) => {
 export const getMostCommonActivationReason = async (setMostCommon) => {
   try {
     const response = await axios(
-      `http://10.57.0.195:3000/activationHistory/getMostCommonActivationReason`
+      `http://192.168.1.184:3000/activationHistory/getMostCommonActivationReason`
     );
     setMostCommon(response.data[0]);
   } catch (err) {
@@ -35,7 +35,7 @@ export const getMostCommonActivationReason = async (setMostCommon) => {
 export const getActivations = async (setActivations) => {
   try {
     const response = await fetch(
-      `http://10.57.0.195:3000/activationHistory`
+      `http://1192.168.1.184:3000/activationHistory`
     );
     const data = await response.json();
     setActivations(formatTimeline(data));
@@ -77,7 +77,7 @@ export const getScheduleActivation = async (
 ) => {
   try {
     const response = await axios(
-      `http://10.57.0.195:3000/scheduleActivation`
+      `http://192.168.1.184:3000/scheduleActivation`
     );
     setStartTime(response.data[0].start_hour);
     setTimeToLive(response.data[0].time_to_live || 1);
@@ -108,7 +108,7 @@ export const getScheduleActivation = async (
 
 export const getSysMod = async (setIsActive, setMaxTemp, setMinMoist) => {
   try {
-    const response = await axios(`http://10.57.0.195:3000/SysMod`);
+    const response = await axios(`http://192.168.1.184:3000/SysMod`);
     setIsActive(response.data[0].is_auto === 1);
     setMaxTemp(response.data[0].max_temp);
     setMinMoist(response.data[0].min_moist);
@@ -119,7 +119,7 @@ export const getSysMod = async (setIsActive, setMaxTemp, setMinMoist) => {
 
 export const getSysModIsAuto = async (setIsAuto) => {
   try {
-    const response = await axios(`http://10.57.0.195:3000/SysMod`);
+    const response = await axios(`http://192.168.1.184:3000/SysMod`);
     setIsAuto(response.data[0].is_auto === 1);
   } catch (err) {
     console.log(error);
@@ -131,7 +131,7 @@ export const getSysModIsAuto = async (setIsAuto) => {
 
 export const getSamples = async (setSamples) => {
   try {
-    const response = await axios(`http://10.57.0.195:3000/samples`);
+    const response = await axios(`http://192.168.1.184:3000/samples`);
     setSamples(response.data);
   } catch (err) {
     console.log(error);
