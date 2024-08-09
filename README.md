@@ -1,2 +1,2 @@
 # MyGarden
- Amit schwimmer & Yonatan herness final proj.
+Characterization inside files. 
